@@ -16,3 +16,6 @@ Route::get('/',"HomeController@index");
 Route::get('/dasbboard', function () {
     
 });
+Route::resource('/categorias','CategoriaController');
+Route::post('/categorias/buscar',"CategoriaController@buscar");
+

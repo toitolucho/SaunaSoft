@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Created by Reliese Model.
+ * Sauna Soft  .
  */
 
 namespace App\Models;
@@ -33,4 +33,19 @@ class Categoria extends Model
 	{
 		return $this->hasMany(Articulo::class, 'IdCategoria');
 	}
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($telco) {
+            $relationMethods = ['articulos'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
+    }
 }
