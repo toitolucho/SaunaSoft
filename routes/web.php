@@ -17,5 +17,6 @@ Route::get('/dasbboard', function () {
     
 });
 Route::resource('/categorias','CategoriaController');
+Route::resource('/comprasarticulos','CompraArticuloController');
 Route::post('/categorias/buscar',"CategoriaController@buscar");
 

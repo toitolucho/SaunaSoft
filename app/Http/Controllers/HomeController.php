@@ -9,7 +9,7 @@ class HomeController extends Controller
     //
 	
 	public function index(Request $request){
-		dd($request->query('title', 'vaklor default')); 
+		//dd($request->query('title', 'vaklor default'));
 		return view('welcome');
 	}
 }

@@ -71,18 +71,18 @@
 
 
     <h1 class="h3 mb-2 text-gray-800">Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de categorias que dispone para poder clasificar los articulos
+    <p class="mb-4">A continuación se muestra el listado de compras que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Categorias</strong>
+        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de compras</strong>
 
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
             <a href="/categorias/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Agregar Categoria</a></div>
+                Nueva Compra</a></div>
 
 
 
@@ -192,7 +192,7 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($categorias as $categoria)
+                                @foreach($compras as $compra)
                                     <tr role="row">
                                         <td>
 											<span class="custom-checkbox">
@@ -200,16 +200,16 @@
 											<label for="checkbox1"></label>
 											</span>
                                         </td>
-                                        <td>{{$categoria->IdCategoria}}</td>
-                                        <td>{{$categoria->NombreCategoria}}  </td>
+                                        <td>{{$compra->FechaHoraRegistro}}</td>
+                                        <td>{{$compra->Observaciones}}  </td>
 
                                         <td class="sorting_1">
 
-                                            <li data-form="#delete-form-{{$categoria->IdCategoria}}"
+                                            <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
                                                 data-title="Eliminar categoria"
                                                 data-message="Se encuentra seguro de eliminar esta categoria ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/categorias/{{$categoria->IdCategoria}}/edit"
+                                                <a href="/categorias/{{$compra->IdCompraArticulo}}/edit"
                                                    class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                 <a data-toggle="modal" class="formConfirm text-danger" href=""
                                                    data-target="#formConfirm">
@@ -219,8 +219,8 @@
 
                                             </li>
 
-                                            <form id="delete-form-{{$categoria->IdCategoria}}"
-                                                  action="/categorias/{{$categoria->IdCategoria}}" method="post"
+                                            <form id="delete-form-{{$compra->IdCompraArticulo}}"
+                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -242,7 +242,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-7">
-                            {{ $categorias->links() }}
+                            {{ $compras->links() }}
                         </div>
                     </div>
                 </div>
