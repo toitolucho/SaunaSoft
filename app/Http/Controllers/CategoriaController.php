@@ -26,7 +26,7 @@ class CategoriaController extends Controller
 
     public function buscar(Request $request)
     {
-       // dd("holaaa");
+        //dd("holaaa");
        // dd($request->get('NombreCategoria'));
         $textoBusqueda = $request->get('NombreCategoria');
 
