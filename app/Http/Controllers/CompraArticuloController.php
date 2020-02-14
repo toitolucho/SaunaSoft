@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Comprasarticulo;
 use App\Models\Articulo;
+use App\Models\Comprasarticulosdetalle;
+use App\Carbon\Carbon;
 
 
 class CompraArticuloController extends Controller
@@ -103,7 +105,41 @@ class CompraArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'ComprasArticulos'");
+        $nextId = $statement[0]->Auto_increment;
+
+        $compra = Comprasarticulo::create($request->all());      
+
+        $productos = $request->input('productos', []);
+        $cantidades = $request->input('cantidades', []);
+        $precios = $request->input('precios', []);
+        $codigos = $request->input('codigos', []);
+
+        
+        $compra->IdUsuario = 1;
+        $compra->FechaHoraRegistro = \Carbon\Carbon::now();
+        $compra->CodigoEstadoIngreso = "I";
+        $compra->Observaciones = "ahora esta funcionando";
+       // $compra->IdCompraArticulo= $nextId;
+
+        $compra->save();
+        for ($product=0; $product < count($productos); $product++) {
+            if ($productos[$product] != '') {
+                //$order->products()->attach($productos[$product], ['quantity' => $cantidades[$product]]);
+                $detalle = new Comprasarticulosdetalle();
+                $detalle->IdArticulo = $codigos[$product];
+                $detalle->Cantidad = $cantidades[$product];
+                $detalle->Precio = $precios[$product] ;
+               // $detalle->IdCompraArticulo = $nextId;
+                $compra->comprasarticulosdetalles()->save($detalle);
+            }
+        }
+      //  $compra->save();
+        //dd($order->comprasarticulosdetalles());
+
+
+        return redirect()->route('comprasarticulos.index')->with("registrado","Compra registrada correctamente");;
+        //return response()->json($compra::with('comprasarticulosdetalles'));
     }
 
     /**

@@ -152,6 +152,14 @@
 
             @endif
 
+            @if (session('registrado'))
+                <div class="alert alert-success"><i class="fa fa-exclamation-triangle"></i>
+                    {{ session('registrado') }}
+                </div>
+
+
+            @endif
+
 
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">

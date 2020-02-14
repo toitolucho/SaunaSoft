@@ -20,7 +20,7 @@ Route::get('/',"HomeController@index");
 Route::get('/productos', function (Request $request) {
 
     if ($request->has('q')) {
-        $datas = Articulo::select(array('CodigoArticulo', 'NombreArticulo', 'PrecioVigente'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">",0)->get();
+        $datas = Articulo::select(array('IdArticulo', 'NombreArticulo', 'PrecioVigente'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">",0)->get();
     }
     else
         $datas = DB::table('Articulos')->select("NombreArticulo")->where("CantidadExistencia",">",0)->get();

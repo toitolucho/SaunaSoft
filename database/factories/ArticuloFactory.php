@@ -10,7 +10,7 @@ $factory->define(Articulo::class, function (Faker $faker) {
     $categorias = App\Models\Categoria::pluck('IdCategoria')->toArray();
 
     return [
-       'CodigoArticulo'	=> $faker->swiftBicNumber,
+       'CodigoArticulo'	=> substr($faker->swiftBicNumber,0,9) ,
        'NombreArticulo'		=> $faker->name,
        'IdCategoria'		=> $faker->randomElement($categorias),
        'CantidadExistencia'	=> $faker->randomNumber($nbDigits = 3, $strict = false) ,
@@ -18,7 +18,7 @@ $factory->define(Articulo::class, function (Faker $faker) {
        'TotalValorado'		=> $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10000),
        'TipoInventario'		=> $faker->randomElement($array = array ('P','O','U')),
        'Descripcion'		=> $faker->sentence($nbWords = 30, $variableNbWords = true),
-       'FechaVencimiento'	=> $faker->$faker->dateTime($max = 'now', $timezone = null),
+//       'FechaVencimiento'	=> date($format = 'd-m-Y', $max = 'now'),
 
     ];
 });
