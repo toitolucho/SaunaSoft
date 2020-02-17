@@ -74,4 +74,10 @@ class Articulo extends Model
 		return $this->belongsToMany(Ventasservicio::class, 'ventasserviciodetallearticulos', 'IdArticulo', 'IdVentaServicio')
 					->withPivot('Cantidad', 'Costo');
 	}
+
+	public function compras()
+    {
+        return $this->belongsToMany(Comprasarticulo::class, 'ComprasArticulosDetalle', 'IdArticulo', 'IdCompraArticulo')
+            ->withPivot('Cantidad', 'Precio');
+    }
 }

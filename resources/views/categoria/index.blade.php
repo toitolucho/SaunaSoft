@@ -163,11 +163,7 @@
 
                                 <thead>
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="Name: activate to sort column descending" style="width: 88px;">
-                                        Seleccionar
-                                    </th>
+
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Position: activate to sort column ascending" style="width: 147px;">
                                         Identificador
@@ -185,7 +181,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th rowspan="1" colspan="1">Seleccionar</th>
+
                                     <th rowspan="1" colspan="1">Identificador</th>
                                     <th rowspan="1" colspan="1">Nombre Categoria</th>
                                     <th rowspan="1" colspan="1">Acciones</th>
@@ -194,14 +190,14 @@
                                 <tbody>
                                 @foreach($categorias as $categoria)
                                     <tr role="row">
-                                        <td>
-											<span class="custom-checkbox">
-											<input type="checkbox" id="checkbox1" name="options[]" value="1">
-											<label for="checkbox1"></label>
-											</span>
-                                        </td>
-                                        <td>{{$categoria->IdCategoria}}</td>
-                                        <td>{{$categoria->NombreCategoria}}  </td>
+{{--                                        <td>--}}
+{{--											<span class="custom-checkbox">--}}
+{{--											<input type="checkbox" id="checkbox1" name="options[]" value="1">--}}
+{{--											<label for="checkbox1"></label>--}}
+{{--											</span>--}}
+{{--                                        </td>--}}
+                                        <td class="col-md-1"><a href="categorias/{{$categoria->IdCategoria}}"> {{$categoria->IdCategoria}} </a>  </td>
+                                        <td class="col-md-8">{{$categoria->NombreCategoria}}  </td>
 
                                         <td class="sorting_1">
 

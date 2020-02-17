@@ -37,9 +37,10 @@ Route::get('/productos', function (Request $request) {
 });
 Route::resource('/categorias','CategoriaController');
 Route::resource('/comprasarticulos','CompraArticuloController');
+Route::resource('/articulos','ArticuloController');
 Route::post('/categorias/buscar',"CategoriaController@buscar");
 Route::get('/comprasarticulos/autocomplete','CompraArticuloController@autocomplete')->name("comprasarticulos.autocomplete");
 Route::get('/comprasarticulos/autocompletar','CompraArticuloController@autocompletar')->name("comprasarticulos.autocompletar");
-
+Route::post('/comprasarticulos/buscar',"CompraArticuloController@buscar");
 
 
