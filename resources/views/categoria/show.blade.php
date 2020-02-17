@@ -15,6 +15,9 @@
 
 			<div class="row">
 				<div class="col-sm-12">
+					<a href="/categorias/{{$categoria->IdCategoria}}/articulos/create" class="float-right btn btn-primary btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+						Agregar Articulo</a></div>
+
 					<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
 					   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
 

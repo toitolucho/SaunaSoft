@@ -22,7 +22,7 @@ class CompraArticuloController extends Controller
     {
         //dd("Hola");
         //$compras_articulos = DB::table('ComprasArticulos') ->paginate(15);
-        $compras_articulos = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.Articulo', 'usuario') ->orderByDesc('IdCompraArticulo')->paginate(15);
+        $compras_articulos = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario') ->orderByDesc('IdCompraArticulo')->paginate(15);
 
         //dd($compras_articulos);
         return view('compraarticulo.index', ['compras' => $compras_articulos]);
@@ -46,7 +46,7 @@ class CompraArticuloController extends Controller
     {
       //  dd("Hola");
 
-//        $data = Articulo::select("NombreArticulo")
+//        $data = articulo::select("NombreArticulo")
 //            ->where("NombreArticulo","LIKE","%{$request->input('query')}%")->get();
 //        dd($data);
 //
@@ -166,7 +166,7 @@ class CompraArticuloController extends Controller
      */
     public function edit($id)
     {
-        $compra = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.Articulo')->findOrFail($id);
+        $compra = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo')->findOrFail($id);
 //        $suma = $compra_articulo->comprasarticulosdetalles()->sum('Cantidad');
 //        $suma = $compra_articulo->comprasarticulosdetalles()->sum('Precio');
 
@@ -260,7 +260,7 @@ class CompraArticuloController extends Controller
 
        // $compras = DB::table('ComprasArticulos')->where('IdCompraArticulo','=',$textoBusqueda)->paginate(15);
 
-        $compras = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.Articulo', 'usuario')->where('IdCompraArticulo','=', $request->get('IdCompraArticulo'))->get();
+        $compras = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario')->where('IdCompraArticulo','=', $request->get('IdCompraArticulo'))->get();
 
        // dd($compras->Observaciones);
 

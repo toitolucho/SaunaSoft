@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Articulo
+ * Class articulo
  * 
  * @property int $IdArticulo
  * @property string $CodigoArticulo

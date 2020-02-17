@@ -20,13 +20,13 @@ Route::get('/',"HomeController@index");
 Route::get('/productos', function (Request $request) {
 
     if ($request->has('q')) {
-        $datas = Articulo::select(array('IdArticulo', 'NombreArticulo', 'PrecioVigente'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">",0)->get();
+        $datas = Articulo::select(array('IdArticulo', 'NombreArticulo', 'PrecioVigente'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">=",0)->get();
     }
     else
         $datas = DB::table('Articulos')->select("NombreArticulo")->where("CantidadExistencia",">",0)->get();
 
 
-//    $datas = Articulo::select("NombreArticulo")->get();
+//    $datas = articulo::select("NombreArticulo")->get();
     $dataModified = array();
     foreach ($datas as $data)
     {
@@ -38,9 +38,14 @@ Route::get('/productos', function (Request $request) {
 Route::resource('/categorias','CategoriaController');
 Route::resource('/comprasarticulos','CompraArticuloController');
 Route::resource('/articulos','ArticuloController');
+
+Route::post('/articulos/buscar',"ArticuloController@buscar");
 Route::post('/categorias/buscar',"CategoriaController@buscar");
 Route::get('/comprasarticulos/autocomplete','CompraArticuloController@autocomplete')->name("comprasarticulos.autocomplete");
 Route::get('/comprasarticulos/autocompletar','CompraArticuloController@autocompletar')->name("comprasarticulos.autocompletar");
 Route::post('/comprasarticulos/buscar',"CompraArticuloController@buscar");
+
+Route::get ('/categorias/{categoria}/articulos/create','ArticuloController@create')->name("articulos.create1");
+Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->name("articulos.store2");
 
 

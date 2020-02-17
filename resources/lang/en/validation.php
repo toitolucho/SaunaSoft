@@ -45,7 +45,7 @@ return [
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
-        'numeric' => 'The :attribute must be greater than :value.',
+        'numeric' => 'El/la :attribute debe tener un valor mayor a :value.',
         'file' => 'The :attribute must be greater than :value kilobytes.',
         'string' => 'The :attribute must be greater than :value characters.',
         'array' => 'The :attribute must have more than :value items.',
@@ -92,7 +92,7 @@ return [
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => 'El/la :attribute debe ser un valor numérico.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',

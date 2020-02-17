@@ -240,7 +240,7 @@
 
 {{--        <form>--}}
 {{--            <div class="form-group">--}}
-{{--                <label for="exampleFormControlInput1">Articulo a buscar</label>--}}
+{{--                <label for="exampleFormControlInput1">articulo a buscar</label>--}}
 {{--                <input type="search" class="form-control typeahead" placeholder="Articulos" autocomplete="off">--}}
 {{--            </div>--}}
 {{--        </form>--}}
@@ -289,7 +289,7 @@
                     {{--                        <td>--}}
 
 
-                    {{--                            <input type="text" name='product[]' placeholder='Int. Articulo' class="typeahead form-control"/>--}}
+                    {{--                            <input type="text" name='product[]' placeholder='Int. articulo' class="typeahead form-control"/>--}}
 
                     {{--                            <input class="typeahead form-control" type="text" name='articulos[]'>--}}
                     {{--                        </td>--}}

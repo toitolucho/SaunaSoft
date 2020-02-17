@@ -70,7 +70,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Articulos</h1>
+    <h1 class="h3 mb-2 text-gray-800">Categorias</h1>
     <p class="mb-4">A continuación se muestra el listado de categorias que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
