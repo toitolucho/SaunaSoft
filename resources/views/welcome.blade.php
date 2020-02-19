@@ -62,6 +62,8 @@
                             <a class="collapse-item" href="/categorias">Categorias</a>
                             <a class="collapse-item" href="/articulos">Articulos</a>
                             <a class="collapse-item" href="/comprasarticulos">Compras</a>
+                            <a class="collapse-item" href="/clientes">Clientes</a>
+                            <a class="collapse-item" href="/membresia">Membresia</a>
 
                         </div>
                     </div>

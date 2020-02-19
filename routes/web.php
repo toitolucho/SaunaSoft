@@ -38,6 +38,7 @@ Route::get('/productos', function (Request $request) {
 Route::resource('/categorias','CategoriaController');
 Route::resource('/comprasarticulos','CompraArticuloController');
 Route::resource('/articulos','ArticuloController');
+Route::resource('/clientes','ClienteController');
 
 Route::post('/articulos/buscar',"ArticuloController@buscar");
 Route::post('/categorias/buscar',"CategoriaController@buscar");
@@ -47,5 +48,22 @@ Route::post('/comprasarticulos/buscar',"CompraArticuloController@buscar");
 
 Route::get ('/categorias/{categoria}/articulos/create','ArticuloController@create')->name("articulos.create1");
 Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->name("articulos.store2");
+
+
+/*MBRESIA*/
+Route::resource('membresia','MembershipController');
+Route::post('Minsertar',"MembershipController@store");
+// Route::post('Meliminar',"MembershipController@destroy");
+// destroy
+// Route::resource('/comprasarticulos','CompraArticuloController');
+// Route::post('/categorias/buscar',"CategoriaController@buscar");
+
+/*SERVISOS*/
+Route::resource('servicios','SevicioController');
+Route::post('Sinsertar',"SevicioController@store");
+
+/*SERVISOS*/
+Route::resource('promocion','PromotionsController');
+Route::post('Pinsertar',"PromotionsController@store");
 
 
