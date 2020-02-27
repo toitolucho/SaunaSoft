@@ -70,4 +70,9 @@ class Cliente extends Model
 	{
 		return $this->belongsToMany(Ventasservicio::class, 'ventasserviciodetalleclientes', 'IdCliente', 'IdVentaServicio');
 	}
+
+    public function getNombreCompletoAttribute()
+    {
+        return "{$this->Nombres} {$this->Apellidos}";
+    }
 }

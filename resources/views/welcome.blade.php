@@ -64,7 +64,7 @@
                             <a class="collapse-item" href="/comprasarticulos">Compras</a>
                             <a class="collapse-item" href="/clientes">Clientes</a>
                             <a class="collapse-item" href="/membresia">Membresia</a>
-
+                            <a class="collapse-item" href="/ventasservicios">Ventas</a>
                         </div>
                     </div>
                 </li>
