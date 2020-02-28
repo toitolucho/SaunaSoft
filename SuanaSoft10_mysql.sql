@@ -130,10 +130,12 @@ CREATE TABLE VentasServicio
 	CodigoEstadoVenta	CHAR(1),-- 'I'->iniciado, 'A'->anulado, 'F'->Finalizado	
 	IdPromocion			INT,
 	NroPersonas			INT,
+	NroCasillero		INT,
 	Observaciones		VARCHAR(1000),	
 	PRIMARY KEY(IdVentaServicio),
 	FOREIGN KEY(IdUsuario)REFERENCES  Usuarios(IdUsuario),
-	FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente)
+	FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
+	FOREIGN KEY (IdPromocion) REFERENCES Promociones(IdPromocion)
 );
 
 CREATE TABLE VentasServicioDetalle
