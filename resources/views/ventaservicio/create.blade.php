@@ -35,6 +35,11 @@
                 calc_total();
             });
 
+            $('#tabla_articulos tbody').on('keyup change',function(){
+                calc();
+            });
+
+
 
 
             // Set the Options for "Bloodhound" suggestion engine
@@ -85,19 +90,20 @@
                 var codigo = data.NombreArticulo;
                 var precio = data.PrecioVigente;
 
-                dato = existeTupla('', data.IdArticulo);
+
+                dato = existeTupla('tabla_articulos', data.IdArticulo, 7);
                 if(dato == true)
                 {
                     bootbox.alert("El articulo <strong> \"" + name + "\" </strong>ya se encuentra en el detalle");
                     return;
                 }
                 var markup = "<tr id=articulo" +(NroArticulos+1)+">" +
-                    "<td>" +(NroArticulos+1)+" </td>"+
-                    "<td><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
-                    "<td><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1' ></td>" +
-                    "<td><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
-                    "<td><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
-                    "<td data-name='del" +(NroArticulos+1)+"'><button onclick='removeRow("+(NroArticulos+1)+");' name='del" +(NroArticulos+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='col-md-1'>" +(NroArticulos+1)+" </td>"+
+                    "<td class='col-md-5'><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
+                    "<td class='col-md-1'><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1' ></td>" +
+                    "<td class='col-md-2'><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
+                    "<td class='col-md-2'><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
+                    "<td data-name='del" +(NroArticulos+1)+"'><button onclick='removeRowArticulo("+(NroArticulos+1)+");' name='articulo" +(NroArticulos+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos[]' value='"+data.IdArticulo +"'> </td>"+
 
                     "</tr>";
@@ -193,11 +199,19 @@
                 var IdCliente = data.IdCliente;
                 var NroVisitas = data.NroVisitas;
 
+                dato = existeTupla('tabla_clientes', IdCliente, 5);
+                if(dato == true)
+                {
+                    bootbox.alert("El cliente <strong> \"" + nombreCompleto + "\" </strong>ya se encuentra en la lista");
+                    return;
+                }
+
+
                 var markup = "<tr id=cliente" +(NroClientes+1)+">" +
-                    "<td>" +(NroClientes+1)+" </td>"+
-                    "<td>" +nombreCompleto+" </td>"+
-                    "<td>" +NroVisitas+" </td>"+
-                    "<td data-name='del" +(NroClientes+1)+"'><button onclick='removeRow("+(NroClientes+1)+");' name='del" +(NroClientes+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='col-md-1'>" +(NroClientes+1)+" </td>"+
+                    "<td class='col-md-7'>" +nombreCompleto+" </td>"+
+                    "<td class='col-md-1'>" +NroVisitas+" </td>"+
+                    "<td class='col-md-1' data-name='del" +(NroClientes+1)+"'><button onclick='removeRowCliente("+(NroClientes+1)+");' name='delcliente" +(NroClientes+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_clientes[]' value='"+IdCliente +"'> </td>"+
 
                     "</tr>";
@@ -250,13 +264,20 @@
                 var IdServicio = data.IdServicio;
                 var CostoServicio = data.CostoServicio;
 
+                dato = existeTupla('tabla_servicios', IdServicio, 7);
+                if(dato == true)
+                {
+                    bootbox.alert("El servicio <strong> \"" + NombreServicio + "\" </strong>ya se encuentra en el detalle");
+                    return;
+                }
+
                 var markup = "<tr id=servicio" +(NroServicios+1)+">" +
-                    "<td>" +(NroServicios+1)+" </td>"+
-                    "<td><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
-                    "<td><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
-                    "<td><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
-                    "<td><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
-                    "<td data-name='del" +(NroServicios+1)+"'><button onclick='removeRow("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='col-md-1'>" +(NroServicios+1)+" </td>"+
+                    "<td class='col-md-5'><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
+                    "<td class='col-md-1'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
+                    "<td class='col-md-2'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
+                    "<td class='col-md-2'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
+                    "<td data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_servicios[]' value='"+IdServicio +"'> </td>"+
 
                     "</tr>";
@@ -268,26 +289,104 @@
             });
 
 
+            $('#VentaServicios').submit(function(e) {
+
+                respuesta = false;
+                var currentForm = this;
+                e.preventDefault();
+                var rowCountArticulos = $('#tabla_articulos tr').length;
+                var rowCountServicios = $('#tabla_servicios tr').length;
+                if(rowCountServicios < 2)
+                {
+                    bootbox.alert({
+                        title: "Venta sin Servicios?",
+                        message: "No ha registrado níngun servicio",
+                        size: 'small'
+                    });
+                    return;
+                }
+
+                if(rowCountArticulos < 2)
+                {
+
+
+                    bootbox.confirm({
+                        title: "Venta sin Articulos?",
+                        message: "se eencuentra seguro de registrar la venta sin el registro de ningun articulo para la venta",
+                        buttons: {
+                            cancel: {
+                                label: '<i class="fa fa-times"></i> Cancel'
+                            },
+                            confirm: {
+                                label: '<i class="fa fa-check"></i> Confirm'
+                            }
+                        },
+                        callback: function (result) {
+                            //callback(result);
+                            respuesta =  result;
+                            console.log( "Dentro " + respuesta);
+
+                            if(respuesta)
+                                currentForm.submit();
+                        }
+                    });
+
+                }
+                else {
+                    currentForm.submit();
+                }
+
+
+
+
+
+            });
+
 
         });
 
-        function removeRow(removeNum) {
+        function removeRowServicio(removeNum) {
             jQuery('#servicio'+removeNum).remove();
             calc_total();
         }
+
+        function removeRowArticulo(removeNum) {
+            jQuery('#articulo'+removeNum).remove();
+            calc_total();
+        }
+
+        function removeRowCliente(removeNum) {
+            jQuery('#cliente'+removeNum).remove();
+            calc_total();
+        }
+
+
         function calc()
         {
             $('#tabla_servicios tbody tr').each(function(i, element) {
-                var html = $(this).html();
-                if(html!='')
-                {
-                    var qty = $(this).find('.qty').val();
-                    var price = $(this).find('.price').val();
-                    $(this).find('.total').val(qty*price);
+            var html = $(this).html();
+            if(html!='')
+            {
+                var qty = $(this).find('.qty').val();
+                var price = $(this).find('.price').val();
+                $(this).find('.total').val(qty*price);
 
-                    calc_total();
-                }
+                calc_total();
+            }
+
+
+            $('#tabla_articulos tbody tr').each(function(i, element) {
+            var html = $(this).html();
+            if(html!='')
+            {
+                var qty = $(this).find('.qty').val();
+                var price = $(this).find('.price').val();
+                $(this).find('.total').val(qty*price);
+
+                calc_total();
+            }
             });
+        });
         }
 
         function calc_total()
@@ -302,10 +401,13 @@
             $('#total_amount').val((tax_sum+total).toFixed(2));
         }
 
-        function existeTupla(that, id) {
+
+
+
+        function existeTupla(tabla, id, nro_columna) {
 
             console.log("buscando dublicados");
-            var table = document.getElementById("tabla_servicios");
+            var table = document.getElementById(tabla);
 
             /*
             Extract and iterate rows from tbody of table2
@@ -315,7 +417,7 @@
                 /*
                 Extract first and second cell from this row
                 */
-                const td0 = tr.querySelector("td:nth-child(7)");
+                const td0 = tr.querySelector("td:nth-child("+nro_columna+")");
                // const td1 = tr.querySelector("td:nth-child(2)");
                 //console.log(td0.innerHTML  + "  == " + id);
 
@@ -335,34 +437,17 @@
                 }
 
 
-
-
-                /*
-                If this row has missing cells, skip it
-                */
                 if(!td0 ) {
                     continue;
                 }
 
-                /*
-                Check if cells of existing tr row contain same contents
-                as input arguments. Note also the use of == rather than
-                the use of === to allow type coercion when comparing
-                number id with string id.
-                */
+
                 if ((objValue == id) ) {
 
                     console.log(`Match found for ${id} . Insert rejected`);
                     return true;
                 }
             }
-
-            // var row = table.insertRow(1);
-            // var cell1 = row.insertCell(0);
-            // var cell2 = row.insertCell(1);
-            //
-            // cell1.innerHTML = id;
-            // cell2.innerHTML = name;
             return false;
         }
 
@@ -386,7 +471,7 @@
 
 
 
-    <form action="{{ route("comprasarticulos.store") }}" method="POST" id="VentaServicios">
+    <form action="{{ route("comprasarticulos.store") }}" method="POST" id="VentaServicios" >
         @csrf
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
@@ -410,7 +495,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="IdPromocion">Promocion</label>
-                    <select id="IdPromocion" class="form-control">
+                    <select id="IdPromocion" class="form-control" name="IdPromocion">
                         <option selected>Seleccione...</option>
                         @foreach($promociones as $promocion)
                             <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>
@@ -439,8 +524,8 @@
 
 
 
-                    <div class="card card-info border-primary">
-                        <div class="card-header"><h6> Detalle de Servicios </h6></div>
+                    <div class="card card-info border-dark">
+                        <div class="card-header text-white bg-dark"><h6> Detalle de Servicios </h6></div>
                         <div class="card-block">
 
                             <div class="row mt-3 ml-1 mr-1">
@@ -480,8 +565,8 @@
                 <div class="row">
 
                 </div>
-                <div class="card card-info mt-3 border-primary">
-                    <div class="card-header"><h6> Detalle de Consumo en Articulos </h6></div>
+                <div class="card card-info border-dark mt-3">
+                    <div class="card-header text-white bg-dark"><h6> Detalle de Consumo en Articulos </h6></div>
                     <div class="card-block">
 
                         <div class="row mt-3 ml-1 mr-1">

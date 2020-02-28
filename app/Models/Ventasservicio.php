@@ -72,6 +72,12 @@ class Ventasservicio extends Model
 		return $this->hasMany(Ventasserviciodetalle::class, 'IdVentaServicio');
 	}
 
+    public function servicios()
+    {
+        return $this->belongsToMany(Servicio::class, 'VentasServicioDetalle', 'IdVentaServicio', 'IdServicio')
+            ->withPivot( 'Costo');
+    }
+
 	public function articulos()
 	{
 		return $this->belongsToMany(Articulo::class, 'ventasserviciodetallearticulos', 'IdVentaServicio', 'IdArticulo')

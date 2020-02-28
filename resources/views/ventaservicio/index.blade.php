@@ -213,7 +213,7 @@
                                         <td class="col-md-4">
                                             <ul>
                                                 @foreach($venta->articulos as $articulo)
-                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Precio }} Bs)</li>
+                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
                                                 @endforeach
                                             </ul>
 

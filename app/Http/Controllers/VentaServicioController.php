@@ -31,18 +31,7 @@ class VentaServicioController extends Controller
         return view('ventaservicio.index', ['ventas' => $ventas_servicios]);
     }
 
-    public function autocompletar()
-    {
-        $datas = Articulo::select("NombreArticulo")->get();
-        $dataModified = array();
-        foreach ($datas as $data)
-        {
-            $dataModified[] = $data->NombreArticulo;
-        }
-        dd(response()->json($dataModified));
-        return response()->json($dataModified);
 
-    }
 
 
     /**
@@ -66,10 +55,9 @@ class VentaServicioController extends Controller
      */
     public function store(Request $request)
     {
-        $statement = DB::select("SHOW TABLE STATUS LIKE 'ComprasArticulos'");
-        $nextId = $statement[0]->Auto_increment;
 
-        $compra = Comprasarticulo::create($request->all());
+
+        $venta = Ventasservicio::create($request->all());
 
         $productos = $request->input('productos', []);
         $cantidades = $request->input('cantidades', []);
@@ -77,13 +65,27 @@ class VentaServicioController extends Controller
         $codigos = $request->input('codigos', []);
 
 
-        $compra->IdUsuario = 1;
-        $compra->FechaHoraRegistro = \Carbon\Carbon::now();
-        $compra->CodigoEstadoIngreso = "I";
-        $compra->Observaciones = $request->input('Observaciones');;
+
+        $cantidades_servicios = $request->input('cantidades_servicios', []);
+        $precios_servicios = $request->input('precios_servicios', []);
+        $codigos_servicios = $request->input('codigos_servicios', []);
+
+        $codigos_clientes = $request->input('codigos_clientes', []);
+
+
+        $validatedData = $request->validate([
+            'servicios' => 'required|unique:Articulos|max:255',
+
+        ]);
+
+
+        $venta->IdUsuario = 1;
+        $venta->FechaHoraRegistro = \Carbon\Carbon::now();
+        $venta->CodigoEstadoIngreso = "I";
+        $venta->Observaciones = $request->input('Observaciones');;
        // $compra->IdCompraArticulo= $nextId;
 
-        $compra->save();
+        $venta->save();
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
                 //$order->products()->attach($productos[$product], ['quantity' => $cantidades[$product]]);
@@ -92,7 +94,7 @@ class VentaServicioController extends Controller
                 $detalle->Cantidad = $cantidades[$product];
                 $detalle->Precio = $precios[$product] ;
                // $detalle->IdCompraArticulo = $nextId;
-                $compra->comprasarticulosdetalles()->save($detalle);
+                $venta->comprasarticulosdetalles()->save($detalle);
             }
         }
       //  $compra->save();
