@@ -54,6 +54,7 @@ class Ventasservicio extends Model
 		'CodigoEstadoVenta',
 		'IdPromocion',
 		'NroPersonas',
+        'NroCasillero',
 		'Observaciones'
 	];
 

@@ -21,12 +21,34 @@
 
 
 <script type="text/javascript">
+    var formularioValido = true;
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        formularioValido = false;
+                        bootbox.alert("Porfavor revise lo datos a ingresar, le falta llenar algunos campos");
+
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 
         $(document).ready(function(){
             var NroArticulos=0;
             var NroServicios = 0;
             var NroClientes = 0;
 
+            $("#tabs").tabs();
 
             $('#tabla_servicios tbody').on('keyup change',function(){
                 calc();
@@ -133,7 +155,7 @@
 
 
 
-            $("#buscarCliente1").typeahead({
+            $("#validationbuscarCliente1").typeahead({
                 hint: true,
                 highlight: true,
                 limit: 10,
@@ -291,6 +313,11 @@
 
             $('#VentaServicios').submit(function(e) {
 
+                if(!formularioValido)
+                {
+                    return;
+                }
+
                 respuesta = false;
                 var currentForm = this;
                 e.preventDefault();
@@ -303,6 +330,22 @@
                         message: "No ha registrado níngun servicio",
                         size: 'small'
                     });
+                    // var index = $('#tabs a[href="#pills-servicios"]').parent().index();
+                    // console.log(index);
+                    // $('#tabs').tabs('select', index);
+
+
+                    //$('#tabs').tabs('select', '#pills-servicios');
+                    //$("#tabs").tabs("pills-servicios", "active", 2);
+
+                    // var index = $('#tabs a[href="#pills-servicios"]').parent().index();
+                    // $("#tabs").tabs("option", "active", index);
+
+                    $('#pills-servicios-tab')[0].click();
+
+                   
+
+
                     return;
                 }
 
@@ -453,13 +496,13 @@
 
 
     </script>
-<div class="row">
+<div class="row" id="tabs">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-home" aria-selected="true">General</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-servicios-tab" data-toggle="pill" href="#pills-servicios" role="tab" aria-controls="pills-profile" aria-selected="false">Servicios y Articulos</a>
+            <a  href="#pills-servicios" class="nav-link" id="pills-servicios-tab" data-toggle="pill"  role="tab" aria-controls="pills-profile" aria-selected="false">Servicios y Articulos</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-clientes-tab" data-toggle="pill" href="#pills-clientes" role="tab" aria-controls="pills-contact" aria-selected="false">+ Clientes</a>
@@ -469,17 +512,40 @@
 </div>
 
 
+    <div class="card-body">
+        @if (session('validacion'))
+            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
+                {{ session('validacion') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
 
 
-    <form action="{{ route("comprasarticulos.store") }}" method="POST" id="VentaServicios" >
+
+    <form action="{{ route("ventasservicios.store") }}" method="POST" id="VentaServicios"  class="needs-validation" novalidate>
         @csrf
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
 
                 <div class="form-group col-md-6">
-                    <label for="NombreCliente">Seleccione Cliente<span class="text-danger">*</span></label>
-                    <input type="search" name="NombreCliente" class="form-control typeahead" placeholder="Cliente" autocomplete="off" id="buscarCliente1">
-                    <input type="hidden" name="IdCliente" />
+                    <label for="validationbuscarCliente1" >Seleccione Cliente<span class="text-danger" >*</span></label>
+                    <input type="search" name="NombreCliente" class="form-control typeahead" placeholder="Cliente" autocomplete="off" id="validationbuscarCliente1" required value="{{old('NombreCliente')}}">
+                    <div class="invalid-feedback">
+                        Porfavor seleccione un cliente.
+                    </div>
+
+
+                    <input type="hidden" name="IdCliente"   value="{{old('IdCliente')}}" />
                     <small id="IdClienteHelp" class="form-text text-muted">Puede incorporar mas clientes en la pestaña "Clientes".</small>
                 </div>
 
@@ -490,15 +556,31 @@
 
                 <div class="form-group col-md-6">
                     <label for="CodigoEstadoVenta">Estado Venta<span class="text-danger">*</span></label>
-                    <input type="input" name="CodigoEstadoVenta" id="CodigoEstadoVenta" class="form-control"  required  value="INICIADO" readonly>
+{{--                    <input type="input" name="CodigoEstadoVenta" id="CodigoEstadoVenta" class="form-control"  required  value="INICIADO" readonly>--}}
+                    <select id="CodigoEstadoVenta" class="form-control" name="CodigoEstadoVenta" >
+                        <option value="I" selected>INICIADO</option>
+                        <option value="A">ANULADO</option>
+                        <option value="F">FINALIZADO</option>
+
+                    </select>
+
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="IdPromocion">Promocion</label>
-                    <select id="IdPromocion" class="form-control" name="IdPromocion">
+                    <select id="IdPromocion" class="form-control" name="IdPromocion" >
                         <option selected>Seleccione...</option>
                         @foreach($promociones as $promocion)
-                            <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>
+
+
+
+
+
+                            @if (old('IdPromocion') == $promocion->IdPromocion)
+                                <option value="{{$promocion->IdPromocion}} " selected> {{$promocion->NombrePromocion}} </option>
+                            @else
+                                <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>
+                            @endif
                         @endforeach
                     </select>
 
@@ -506,17 +588,23 @@
 
                 <div class="form-group col-md-6">
                     <label for="NroPersonas">Número de Personas</label>
-                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro">
+                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro" name="NroPersonas" required value="{{old('NroPersonas')}}">
+                    <div class="invalid-feedback">
+                        Porfavor Ingrese el numero de Personas.
+                    </div>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="NroCasillero">Número de Casillero<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="NroCasillero" placeholder="Casillero">
+                    <input type="text" class="form-control" id="NroCasillero" placeholder="Casillero" name="NroCasillero" required value="{{old('NroCasillero')}}">
+                    <div class="invalid-feedback">
+                        Porfavor Ingrese el numero de Casillero.
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="Observaciones">Observaciones</label>
-                    <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"></textarea>
+                    <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"> {{old('Observaciones')}} </textarea>
                 </div>
 
             </div>
@@ -532,6 +620,9 @@
                                 <div class="col-lg-2"></div>
                                 <div class="form-group col-lg-8 ">
                                     <input type="search" id="buscarServicio" name="servicio" class="form-control typeahead" placeholder="Servicio" autocomplete="off">
+                                    <div class="invalid-feedback">
+                                        Porfavor seleccione al menos un servicio.
+                                    </div>
                                 </div>
                             </div>
 
@@ -572,7 +663,8 @@
                         <div class="row mt-3 ml-1 mr-1">
                             <div class="col-lg-2"></div>
                             <div class="form-group col-lg-8 ">
-                                <input type="search" id="buscarArticulo" name="articulo" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off">
+                                <input type="search" id="buscarArticulo" name="articulo" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off" >
+
                             </div>
                         </div>
                         <div class="row  mt-3 ml-1">
@@ -637,12 +729,12 @@
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="Observaciones">Observaciones</label>
-                        <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"></textarea>
-                    </div>
-                </div>
+{{--                <div class="row">--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label for="Observaciones">Observaciones</label>--}}
+{{--                        <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"></textarea>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
             </div>
             <div class="tab-pane fade" id="pills-clientes" role="tabpanel" aria-labelledby="pills-clientes-tab">

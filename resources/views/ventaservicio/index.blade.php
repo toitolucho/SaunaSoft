@@ -188,20 +188,11 @@
                                         aria-label="Age: activate to sort column ascending" style="width: 31px;">
                                         Detalle
                                     </th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
+                                    <th rowspan="1" colspan="1">Cliente</th>
                                     <th rowspan="1" colspan="1">Acciones</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Nro</th>
-                                    <th rowspan="1" colspan="1">Fecha</th>
-                                    <th rowspan="1" colspan="1">Observaciones</th>
-                                    <th rowspan="1" colspan="1">Detalle</th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($ventas as $venta)
                                     <tr role="row">
@@ -213,13 +204,19 @@
                                         <td class="col-md-4">
                                             <ul>
                                                 @foreach($venta->articulos as $articulo)
-                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
+                                                    <li class="list-group-item list-group-item-info">{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
+                                                @endforeach
+                                            </ul>
+
+                                            <ul>
+                                                @foreach($venta->servicios as $servicio)
+                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->Costo }}  Bs)</li>
                                                 @endforeach
                                             </ul>
 
                                         </td>
 
-                                        <td class="col-md-2"> @if($venta->usuario)  {{$venta->usuario->NombreCompleto }}
+                                        <td class="col-md-2"> @if($venta->cliente)  {{$venta->cliente->NombreCompleto }}
                                             @endif
                                         </td>
 

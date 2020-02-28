@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Rules\VentaServicioDetalleCantidadRule;
 use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,7 @@ use App\Models\Ventasserviciodetalle;
 use App\Models\Ventasserviciodetallearticulo;
 use App\Models\Ventasserviciodetallecliente;
 use App\Carbon\Carbon;
+use Illuminate\Contracts\Validation\Rule;
 
 
 class VentaServicioController extends Controller
@@ -23,11 +25,7 @@ class VentaServicioController extends Controller
      */
     public function index()
     {
-        //dd("Hola");
-        //$compras_articulos = DB::table('ComprasArticulos') ->paginate(15);
-        $ventas_servicios = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente') ->orderByDesc('IdVentaServicio')->paginate(15);
-
-        //dd($compras_articulos);
+        $ventas_servicios = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios') ->orderByDesc('IdVentaServicio')->paginate(15);
         return view('ventaservicio.index', ['ventas' => $ventas_servicios]);
     }
 
@@ -56,6 +54,25 @@ class VentaServicioController extends Controller
     public function store(Request $request)
     {
 
+//        $validatedData = $request->validate([
+//            'NombreArticulo' => 'required|unique:Articulos|max:255',
+//            'CantidadExistencia' => 'required|numeric|gt:-1',
+//            'PrecioVigente' => 'required|numeric|gt:0',
+//        ]);
+        //dd($request->all());
+
+
+        $validatedData = $request->validate([
+            'IdCliente' => 'required',
+           // 'CodigoEstadoVenta' => 'required|in:I,F,A',
+            'NroPersonas' => 'required|numeric|gt:0',
+            'NroCasillero' => 'required|numeric|gt:0',
+            //'articulos' =>'required',
+            'servicios' =>'required',
+            'articulos*Cantidad' =>'required|numeric|gt:0',
+            'articulos*Costo' =>'required|numeric|gt:0',
+        ]);
+
 
         $venta = Ventasservicio::create($request->all());
 
@@ -63,8 +80,6 @@ class VentaServicioController extends Controller
         $cantidades = $request->input('cantidades', []);
         $precios = $request->input('precios', []);
         $codigos = $request->input('codigos', []);
-
-
 
         $cantidades_servicios = $request->input('cantidades_servicios', []);
         $precios_servicios = $request->input('precios_servicios', []);
@@ -74,35 +89,55 @@ class VentaServicioController extends Controller
 
 
         $validatedData = $request->validate([
-            'servicios' => 'required|unique:Articulos|max:255',
+            'servicios' => [ new VentaServicioDetalleCantidadRule],
 
         ]);
 
 
+
+        if (count($codigos_servicios)<=0) {
+            return redirect('ventasservicios/create')->with("validacion","No ha registrado ningun servicio");
+
+        }
+
+//        if($validatedData->fails())
+//        {
+//            dd("Error");
+//        }
+
         $venta->IdUsuario = 1;
-        $venta->FechaHoraRegistro = \Carbon\Carbon::now();
-        $venta->CodigoEstadoIngreso = "I";
-        $venta->Observaciones = $request->input('Observaciones');;
-       // $compra->IdCompraArticulo= $nextId;
+        $venta->FechaHoraVenta = \Carbon\Carbon::now();
+        $venta->CodigoEstadoVenta = "I";
+        $venta->IdCliente = $request->input('IdCliente');
+        $venta->IdPromocion = $request->input('IdPromocion');
+        $venta->NroPersonas = $request->input('NroPersonas');
+        $venta->NroCasillero = $request->input('NroCasillero');
+        $venta->Observaciones = $request->input('Observaciones');
 
         $venta->save();
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
-                //$order->products()->attach($productos[$product], ['quantity' => $cantidades[$product]]);
-                $detalle = new Comprasarticulosdetalle();
-                $detalle->IdArticulo = $codigos[$product];
-                $detalle->Cantidad = $cantidades[$product];
-                $detalle->Precio = $precios[$product] ;
-               // $detalle->IdCompraArticulo = $nextId;
-                $venta->comprasarticulosdetalles()->save($detalle);
+                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
+
             }
         }
-      //  $compra->save();
-        //dd($order->comprasarticulosdetalles());
 
+        for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
+            if ($codigos_servicios[$i_servicio] != '') {
+                $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio]]);
 
-        return redirect()->route('comprasarticulos.index')->with("registrado","Compra registrada correctamente");;
-        //return response()->json($compra::with('comprasarticulosdetalles'));
+            }
+        }
+
+        for ($i_cliente=0; $i_cliente < count($codigos_clientes); $i_cliente++) {
+            if ($codigos_clientes[$i_cliente] != '') {
+                $venta->clientes()->attach($codigos_clientes[$i_cliente]);
+
+            }
+        }
+
+        return redirect()->route('ventasservicios.index')->with("registrado","Venta registrada correctamente");;
+
     }
 
     /**
@@ -197,7 +232,7 @@ class VentaServicioController extends Controller
         //dd($order->comprasarticulosdetalles());
 
 
-        return redirect()->route('comprasarticulos.index')->with("editado","Compra actualizada correctamente");;
+        return redirect()->route('ventasservicios.index')->with("editado","Venta actualizada correctamente");;
 
 
 //        $categoria->NombreCategoria = $request->get('NombreCategoria');
