@@ -54,6 +54,7 @@ class Ventasservicio extends Model
 		'CodigoEstadoVenta',
 		'IdPromocion',
 		'NroPersonas',
+        'NroCasillero',
 		'Observaciones'
 	];
 
@@ -71,6 +72,12 @@ class Ventasservicio extends Model
 	{
 		return $this->hasMany(Ventasserviciodetalle::class, 'IdVentaServicio');
 	}
+
+    public function servicios()
+    {
+        return $this->belongsToMany(Servicio::class, 'VentasServicioDetalle', 'IdVentaServicio', 'IdServicio')
+            ->withPivot( 'Costo');
+    }
 
 	public function articulos()
 	{

@@ -14,13 +14,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/livequery/1.1.1/jquery.livequery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
-
-
 <script type="text/javascript">
 
         $(document).ready(function(){
-            var i=0;
+           // var i= {{count($compra->comprasarticulosdetalles)}};
+            var i =  {!! count($compra->comprasarticulosdetalles) !!};
             $("#add_row").click(function(){
                 b=i-1;
                 $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
@@ -54,7 +52,7 @@
                 datumTokenizer: Bloodhound.tokenizers.whitespace('NombreArticulo'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace
             });
-          //  console.log(engine);
+            console.log(engine);
 
             $(".typeahead").typeahead({
                 hint: true,
@@ -77,28 +75,21 @@
                         '<div class="list-group search-results-dropdown">'
                     ],
                     suggestion: function (data) {
-                      //  console.log("datos del servidor : ");
-                        //console.log(data);
+                        console.log("datos del servidor : ");
+                        console.log(data);
                         //return '<a href="' + data.NombreArticulo + '" class="list-group-item">' + data.NombreArticulo + ' - @' + data.NombreArticulo + '</a>'
                         return ('<div class="list-group-item" >' + data.NombreArticulo + '</div>');
                         // return  data.NombreArticulo;
                     }
                 }
             }).on('typeahead:selected', function(event, data) {
-                // console.log("seleccionado");
-                // console.log(data.NombreArticulo);
+                console.log("seleccionado");
+                console.log(data.NombreArticulo);
                 //$('.search-inputs').val(data.NombreArticulo);
 
                 var name = data.NombreArticulo;
                 var codigo = data.NombreArticulo;
                 var precio = data.PrecioVigente;
-
-                dato = existeTupla('', data.IdArticulo);
-                if(dato == true)
-                {
-                    bootbox.alert("El articulo <strong> \"" + name + "\" </strong>ya se encuentra en el detalle");
-                    return;
-                }
                 var markup = "<tr id=addr" +(i+1)+">" +
                     "<td>" +(i+1)+" </td>"+
                     "<td><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
@@ -106,7 +97,7 @@
                     "<td><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
                     "<td><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
                     "<td data-name='del" +(i+1)+"'><button onclick='removeRow("+(i+1)+");' name='del" +(i+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
-                    "<td style='display:none'> <input name='codigos[]' value='"+data.IdArticulo +"'> </td>"+
+                    "<td style='display:none'> <input name='codigos[]' value='"+data.IdArticulo +"''> </td>"+
 
                 "</tr>";
                 $('#tab_logic').append(markup);
@@ -155,70 +146,6 @@
             $('#total_amount').val((tax_sum+total).toFixed(2));
         }
 
-        function existeTupla(that, id) {
-
-            console.log("buscando dublicados");
-            var table = document.getElementById("tab_logic");
-
-            /*
-            Extract and iterate rows from tbody of table2
-            */
-            for(const tr of table.querySelectorAll("tbody tr")) {
-
-                /*
-                Extract first and second cell from this row
-                */
-                const td0 = tr.querySelector("td:nth-child(7)");
-               // const td1 = tr.querySelector("td:nth-child(2)");
-                //console.log(td0.innerHTML  + "  == " + id);
-
-
-
-                var innerObj = td0.innerHTML;
-                var index = innerObj.indexOf("value=");
-                var objValue = "";
-                if(index>0){
-                    index+=7;
-                    var tempStr = innerObj.substring(index,innerObj.lenght);
-                    var tempIndex = tempStr.indexOf("\"");
-                    tempIndex+=index;
-                    objValue = innerObj.substring(index,tempIndex).trim();
-                    //alert("value = "+objValue);
-                    console.log(objValue  + "==" + id);
-                }
-
-
-
-
-                /*
-                If this row has missing cells, skip it
-                */
-                if(!td0 ) {
-                    continue;
-                }
-
-                /*
-                Check if cells of existing tr row contain same contents
-                as input arguments. Note also the use of == rather than
-                the use of === to allow type coercion when comparing
-                number id with string id.
-                */
-                if ((objValue == id) ) {
-
-                    console.log(`Match found for ${id} . Insert rejected`);
-                    return true;
-                }
-            }
-
-            // var row = table.insertRow(1);
-            // var cell1 = row.insertCell(0);
-            // var cell2 = row.insertCell(1);
-            //
-            // cell1.innerHTML = id;
-            // cell2.innerHTML = name;
-            return false;
-        }
-
 
     </script>
 
@@ -229,44 +156,19 @@
 
 
 
-{{--        <form class="typeahead" role="search">--}}
+
             <div class="form-group col-sm-10">
                 <input type="search" name="q" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off">
             </div>
-{{--            <div id="scrollable-dropdown-menu" class="my-lg-4">--}}
-{{--                <div class="col-4"> <label> Introduzca el Producto </label></div></div>--}}
-{{--                <div class="col-8"><input type="search" class="form-control typeahead" type="text" placeholder="Articulos" autocomplete="off"></div>--}}
-{{--            </div>--}}
-
-{{--        <form>--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="exampleFormControlInput1">articulo a buscar</label>--}}
-{{--                <input type="search" class="form-control typeahead" placeholder="Articulos" autocomplete="off">--}}
-{{--            </div>--}}
-{{--        </form>--}}
-
-
-
-{{--        <div class="row row-top-buffer form-horizontal">--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="title" class="col-xs-3 control-label row-label">Title</label>--}}
-{{--                <div class="col-xs-9">--}}
-{{--                    <input type="text" class="form-control input-text typeahead" id="title" placeholder="title" />--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
 
     </div>
 
 
 
 
-
-
-
-    <form action="{{ route("comprasarticulos.store") }}" method="POST">
+    <form action="/comprasarticulos/{{$compra->IdCompraArticulo}}" method="POST">
         @csrf
-
+        @method('put')
 
 
         <div class="row clearfix">
@@ -279,29 +181,28 @@
                         <th class="text-center"> Cantidad</th>
                         <th class="text-center"> Precio</th>
                         <th class="text-center"> Total</th>
-                        <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
-                        <th class="text-center" style='display:none'></th>
+                        <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;">
+                        </th>
+                        <th class="text-center" style='display:none'>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{--                    <tr id='addr0'>--}}
-                    {{--                        <td>1</td>--}}
-                    {{--                        <td>--}}
+
+                        @foreach($compra->comprasarticulosdetalles as $detalle)
+                                        <tr id= "addr{{$loop->index+1}}">
+                                            <td>{{$loop->index+1}}</td>
+                                            <td><input type='text' name='productos[]' class='form-control' value ="{{$detalle->articulo->NombreArticulo}}"  readonly/></td>
+                                            <td><input type='number' name='cantidades[]' class='form-control qty' step='1' value ="{{$detalle->Cantidad}}" ></td>
+                                            <td><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value="{{$detalle->Precio}}"> </td>
+                                            <td><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value="{{ $detalle->Cantidad*$detalle->Precio }}" readonly/></td>
+                                            <td data-name='del{{$loop->index+1}}'><button onclick='removeRow({{$loop->index+1}});' name='del{{$loop->index+1}}' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>
+                                            <td style='display:none'> <input name='codigos[]' value="{{$detalle->IdCompraArticulo}}"> </td>
+                                        </tr>
 
 
-                    {{--                            <input type="text" name='product[]' placeholder='Int. articulo' class="typeahead form-control"/>--}}
+                        @endforeach
 
-                    {{--                            <input class="typeahead form-control" type="text" name='articulos[]'>--}}
-                    {{--                        </td>--}}
-                    {{--                        <td><input type="number" name='cantidades[]' placeholder='Int. Cantidad' class="form-control qty" step="0" value ="1"--}}
-                    {{--                                   min="0"/></td>--}}
-                    {{--                        <td><input type="number" name='precios[]' placeholder='Int. Precio Unitario'--}}
-                    {{--                                   class="form-control price" step="0.00" min="0"/></td>--}}
-                    {{--                        <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/>--}}
-                    {{--                        </td>--}}
-                    {{--                    </tr>--}}
-
-                    {{--                    <tr id='addr1'></tr>--}}
                     </tbody>
                 </table>
             </div>
@@ -312,8 +213,8 @@
                     <tbody>
                     <tr>
                         <th class="text-center">Sub Total</th>
-                        <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
-                                                       class="form-control" id="sub_total" readonly/></td>
+                        <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' value ="{{$total}}"
+                                                       class="form-control" id="sub_total"    readonly> </td>
                     </tr>
                     <tr>
                         <th class="text-center">Tax</th>
@@ -331,7 +232,7 @@
                     </tr>
                     <tr>
                         <th class="text-center">Grand Total</th>
-                        <td class="text-center"><input type="number" name='total_amount' id="total_amount"
+                        <td class="text-center"><input type="number" name='total_amount' id="total_amount" value ="{{$total}}"
                                                        placeholder='0.00' class="form-control" readonly/></td>
                     </tr>
                     </tbody>
@@ -341,7 +242,7 @@
         <div class="row">
             <div class="form-group">
                 <label for="Observaciones">Observaciones</label>
-                <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"></textarea>
+                <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100" >{{$compra->Observaciones}}</textarea>
             </div>
         </div>
         <div class="row">

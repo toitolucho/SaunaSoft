@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Rules\VentaServicioDetalleCantidadRule;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Comprasarticulo;
+use App\Models\Ventasservicio;
 use App\Models\Articulo;
-use App\Models\Comprasarticulosdetalle;
+use App\Models\Ventasserviciodetalle;
+use App\Models\Ventasserviciodetallearticulo;
+use App\Models\Ventasserviciodetallecliente;
 use App\Carbon\Carbon;
+use Illuminate\Contracts\Validation\Rule;
 
 
-class CompraArticuloController extends Controller
+class VentaServicioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,74 +25,12 @@ class CompraArticuloController extends Controller
      */
     public function index()
     {
-        //dd("Hola");
-        //$compras_articulos = DB::table('ComprasArticulos') ->paginate(15);
-        $compras_articulos = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario') ->orderByDesc('IdCompraArticulo')->paginate(15);
-
-        //dd($compras_articulos);
-        return view('compraarticulo.index', ['compras' => $compras_articulos]);
+        $ventas_servicios = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios') ->orderByDesc('IdVentaServicio')->paginate(15);
+        return view('ventaservicio.index', ['ventas' => $ventas_servicios]);
     }
 
-    public function autocompletar()
-    {
-        $datas = Articulo::select("NombreArticulo")->get();
-        $dataModified = array();
-        foreach ($datas as $data)
-        {
-            $dataModified[] = $data->NombreArticulo;
-        }
-        dd(response()->json($dataModified));
-        return response()->json($dataModified);
-
-    }
-
-    public function autocomplete(Request $request)
-
-    {
-      //  dd("Hola");
-
-//        $data = articulo::select("NombreArticulo")
-//            ->where("NombreArticulo","LIKE","%{$request->input('query')}%")->get();
-//        dd($data);
-//
-//        $datas = Customers::select("FirstName")->where("FirstName","LIKE","%{$request->input('query')}%")->get();
-//        $dataModified = array();
-//        foreach ($datas as $data)
-//        {
-//            $dataModified[] = $data->NombreArticulo;
-//        }
-//
-//        return response()->json($dataModified);
-
-        //return response()->json($data);
-
-//        $datas = DB::table('Articulos')->select("NombreArticulo")->get();
-//
-//        dd($datas);
-//        $dataModified = array();
-//        foreach ($datas as $data)
-//        {
-//            $dataModified[] = $data->NombreArticulo;
-//        }
-        if ($request->has('q')) {
-            $datas = Articulo::select("NombreArticulo")->where("NombreArticulo","LIKE","{$request->get('q')}")->get();
-        }
-        else
-            $datas = DB::table('Articulos')->select("NombreArticulo")->get();
 
 
-
-       // dd($datas);
-        $dataModified = array();
-        foreach ($datas as $data)
-        {
-            $dataModified[] = $data->NombreArticulo;
-        }
-
-       // return DB::table('Articulos')->select("NombreArticulo")->get();
-        return response()->json($dataModified);
-
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -98,8 +41,8 @@ class CompraArticuloController extends Controller
     {
         //
 
-        $articulos = Articulo::all();
-        return view('compraarticulo.create', compact('articulos'));
+        $promociones = Promocion::all();
+        return view('ventaservicio.create', [ 'promociones' => $promociones]);
     }
 
     /**
@@ -110,41 +53,91 @@ class CompraArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $statement = DB::select("SHOW TABLE STATUS LIKE 'ComprasArticulos'");
-        $nextId = $statement[0]->Auto_increment;
 
-        $compra = Comprasarticulo::create($request->all());
+//        $validatedData = $request->validate([
+//            'NombreArticulo' => 'required|unique:Articulos|max:255',
+//            'CantidadExistencia' => 'required|numeric|gt:-1',
+//            'PrecioVigente' => 'required|numeric|gt:0',
+//        ]);
+        //dd($request->all());
+
+
+        $validatedData = $request->validate([
+            'IdCliente' => 'required',
+           // 'CodigoEstadoVenta' => 'required|in:I,F,A',
+            'NroPersonas' => 'required|numeric|gt:0',
+            'NroCasillero' => 'required|numeric|gt:0',
+            //'articulos' =>'required',
+            'servicios' =>'required',
+            'articulos*Cantidad' =>'required|numeric|gt:0',
+            'articulos*Costo' =>'required|numeric|gt:0',
+        ]);
+
+
+        $venta = Ventasservicio::create($request->all());
 
         $productos = $request->input('productos', []);
         $cantidades = $request->input('cantidades', []);
         $precios = $request->input('precios', []);
         $codigos = $request->input('codigos', []);
 
+        $cantidades_servicios = $request->input('cantidades_servicios', []);
+        $precios_servicios = $request->input('precios_servicios', []);
+        $codigos_servicios = $request->input('codigos_servicios', []);
 
-        $compra->IdUsuario = 1;
-        $compra->FechaHoraRegistro = \Carbon\Carbon::now();
-        $compra->CodigoEstadoIngreso = "I";
-        $compra->Observaciones = $request->input('Observaciones');;
-       // $compra->IdCompraArticulo= $nextId;
+        $codigos_clientes = $request->input('codigos_clientes', []);
 
-        $compra->save();
+
+        $validatedData = $request->validate([
+            'servicios' => [ new VentaServicioDetalleCantidadRule],
+
+        ]);
+
+
+
+        if (count($codigos_servicios)<=0) {
+            return redirect('ventasservicios/create')->with("validacion","No ha registrado ningun servicio");
+
+        }
+
+//        if($validatedData->fails())
+//        {
+//            dd("Error");
+//        }
+
+        $venta->IdUsuario = 1;
+        $venta->FechaHoraVenta = \Carbon\Carbon::now();
+        $venta->CodigoEstadoVenta = "I";
+        $venta->IdCliente = $request->input('IdCliente');
+        $venta->IdPromocion = $request->input('IdPromocion');
+        $venta->NroPersonas = $request->input('NroPersonas');
+        $venta->NroCasillero = $request->input('NroCasillero');
+        $venta->Observaciones = $request->input('Observaciones');
+
+        $venta->save();
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
-                //$order->products()->attach($productos[$product], ['quantity' => $cantidades[$product]]);
-                $detalle = new Comprasarticulosdetalle();
-                $detalle->IdArticulo = $codigos[$product];
-                $detalle->Cantidad = $cantidades[$product];
-                $detalle->Precio = $precios[$product] ;
-               // $detalle->IdCompraArticulo = $nextId;
-                $compra->comprasarticulosdetalles()->save($detalle);
+                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
+
             }
         }
-      //  $compra->save();
-        //dd($order->comprasarticulosdetalles());
 
+        for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
+            if ($codigos_servicios[$i_servicio] != '') {
+                $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio]]);
 
-        return redirect()->route('comprasarticulos.index')->with("registrado","Compra registrada correctamente");;
-        //return response()->json($compra::with('comprasarticulosdetalles'));
+            }
+        }
+
+        for ($i_cliente=0; $i_cliente < count($codigos_clientes); $i_cliente++) {
+            if ($codigos_clientes[$i_cliente] != '') {
+                $venta->clientes()->attach($codigos_clientes[$i_cliente]);
+
+            }
+        }
+
+        return redirect()->route('ventasservicios.index')->with("registrado","Venta registrada correctamente");;
+
     }
 
     /**
@@ -239,7 +232,7 @@ class CompraArticuloController extends Controller
         //dd($order->comprasarticulosdetalles());
 
 
-        return redirect()->route('comprasarticulos.index')->with("editado","Compra actualizada correctamente");;
+        return redirect()->route('ventasservicios.index')->with("editado","Venta actualizada correctamente");;
 
 
 //        $categoria->NombreCategoria = $request->get('NombreCategoria');

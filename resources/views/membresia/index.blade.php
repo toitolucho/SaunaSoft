@@ -38,8 +38,6 @@
 
         });
 
-
-
     </script>
 
     <!-- Modal Dialog -->
@@ -72,34 +70,30 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Compra de Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de compras que dispone para poder clasificar los articulos
+    <h1 class="h3 mb-2 text-gray-800">Membresia</h1>
+    <p class="mb-4">A continuación se muestra el listado de Membresia que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de compras</strong>
+        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Membresia</strong>
 
-            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
-
-
-            <a href="/comprasarticulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Nueva Compra</a></div>
+            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Membresia</h6>--}}
 
 
-
-
+            <a href="/membresia/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                Agregar Membresia</a></div>
 
         <div class="row  my-2">
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/comprasarticulos/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/Membresia/buscar" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Nro Compra..." aria-label="Nro Compra" aria-describedby="basic-addon2" name="IdCompraArticulo">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion del articulo..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -154,14 +148,6 @@
 
             @endif
 
-            @if (session('registrado'))
-                <div class="alert alert-success"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('registrado') }}
-                </div>
-
-
-            @endif
-
 
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -169,69 +155,75 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;" >
+                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
 
                                 <thead>
                                 <tr role="row">
-
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 88px;">
+                                        Seleccionar
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nro C
+                                        Cliente
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Fecha
+                                        Fecha Inicio
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Observaciones
+                                        Fecha Final
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                        Estado
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                        Costo General
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Detalle
+                                        Acciones
                                     </th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
+
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th rowspan="1" colspan="1">Nro de Compra</th>
-                                    <th rowspan="1" colspan="1">Fecha</th>
-                                    <th rowspan="1" colspan="1">Observaciones</th>
-                                    <th rowspan="1" colspan="1">Detalle</th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
+                                    <th rowspan="1" colspan="1">Seleccionar</th>
+                                    <th rowspan="1" colspan="1">Cliente</th>
+                                    <th rowspan="1" colspan="1">Fecha Inicio</th>
+                                    <th rowspan="1" colspan="1">Fecha Final</th>
+                                    <th rowspan="1" colspan="1">Estado</th>
+                                    <th rowspan="1" colspan="1">Costo General</th>
                                     <th rowspan="1" colspan="1">Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($compras as $compra)
+                                @foreach($membresias as $membresia)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$compra->IdCompraArticulo}}</td>
-                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($compra->FechaHoraRegistro))   }}</td>
-                                        <td class="col-md-3">{{$compra->Observaciones}}  </td>
-
-
-                                        <td class="col-md-4">
-                                            <ul>
-                                                @foreach($compra->articulos as $articulo)
-                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Precio }} Bs)</li>
-                                                @endforeach
-                                            </ul>
-
+                                        <td>
+											<span class="custom-checkbox">
+											<input type="checkbox" id="checkbox1" name="options[]" value="1">
+											<label for="checkbox1"></label>
+											</span>
                                         </td>
+                                        <td>{{$membresia->IdCliente}}</td>
+                                        <td>{{$membresia->FechaInicio}}  </td>
+                                        <td>{{$membresia->FechaFin}}</td>
+                                        <td>{{$membresia->CodigoEstado }}  </td>
+                                        <td>{{$membresia->CostoGeneral }}  </td>
 
-                                        <td class="col-md-2"> @if($compra->usuario)  {{$compra->usuario->NombreCompleto }}
-                                            @endif
-                                        </td>
+                                        <td class="sorting_1">
 
-                                        <td class="sorting_1 col-md-1">
-
-                                            <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                            <li data-form="#delete-form-{{$membresia->IdMembresia}}"
+                                                data-title="Eliminar membresia"
+                                                data-message="Se encuentra seguro de eliminar esta membresia ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/comprasarticulos/{{$compra->IdCompraArticulo}}/edit"
+                                                <a href="/membresia/{{$membresia->IdMembresia}}/edit"
                                                    class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                 <a data-toggle="modal" class="formConfirm text-danger" href=""
                                                    data-target="#formConfirm">
@@ -241,8 +233,8 @@
 
                                             </li>
 
-                                            <form id="delete-form-{{$compra->IdCompraArticulo}}"
-                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"
+                                            <form id="delete-form-{{$membresia->IdMembresia}}"
+                                                  action="/membresia/{{$membresia->IdMembresia}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -264,14 +256,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-7">
-
-                            @if($compras instanceof \Illuminate\Pagination\LengthAwarePaginator )
-
-                                {{ $compras->links() }}
-
-                            @endif
-
-
+                            {{ $membresias->links() }}
                         </div>
                     </div>
                 </div>

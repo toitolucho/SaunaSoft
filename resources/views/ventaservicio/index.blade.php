@@ -72,19 +72,17 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Compra de Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de compras que dispone para poder clasificar los articulos
-        del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
-        administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
+    <h1 class="h3 mb-2 text-gray-800">Registro de Ventas de Servicios y productos</h1>
+    <p class="mb-4">En este formulario usted podra registrar la venta de articulos y servicios para un determinado cliente <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de compras</strong>
+        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Ventas</strong>
 
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
-            <a href="/comprasarticulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Nueva Compra</a></div>
+            <a href="/ventasservicios/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                Nueva venta</a></div>
 
 
 
@@ -94,12 +92,12 @@
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/comprasarticulos/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/ventasservicios/buscar" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Nro Compra..." aria-label="Nro Compra" aria-describedby="basic-addon2" name="IdCompraArticulo">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Nro Venta..." aria-label="Nro venta" aria-describedby="basic-addon2" name="IdVentaServicio">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -176,7 +174,7 @@
 
                                     <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nro C
+                                        Nro
                                     </th>
                                     <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Office: activate to sort column ascending" style="width: 64px;">
@@ -190,48 +188,45 @@
                                         aria-label="Age: activate to sort column ascending" style="width: 31px;">
                                         Detalle
                                     </th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
+                                    <th rowspan="1" colspan="1">Cliente</th>
                                     <th rowspan="1" colspan="1">Acciones</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Nro de Compra</th>
-                                    <th rowspan="1" colspan="1">Fecha</th>
-                                    <th rowspan="1" colspan="1">Observaciones</th>
-                                    <th rowspan="1" colspan="1">Detalle</th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
-                                @foreach($compras as $compra)
+                                @foreach($ventas as $venta)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$compra->IdCompraArticulo}}</td>
-                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($compra->FechaHoraRegistro))   }}</td>
-                                        <td class="col-md-3">{{$compra->Observaciones}}  </td>
+                                        <td class="col-md-1"> {{$venta->IdVentaServicio}}</td>
+                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($venta->FechaHoraVenta))   }}</td>
+                                        <td class="col-md-3">{{$venta->Observaciones}}  </td>
 
 
                                         <td class="col-md-4">
                                             <ul>
-                                                @foreach($compra->articulos as $articulo)
-                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Precio }} Bs)</li>
+                                                @foreach($venta->articulos as $articulo)
+                                                    <li class="list-group-item list-group-item-info">{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
+                                                @endforeach
+                                            </ul>
+
+                                            <ul>
+                                                @foreach($venta->servicios as $servicio)
+                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->Costo }}  Bs)</li>
                                                 @endforeach
                                             </ul>
 
                                         </td>
 
-                                        <td class="col-md-2"> @if($compra->usuario)  {{$compra->usuario->NombreCompleto }}
+                                        <td class="col-md-2"> @if($venta->cliente)  {{$venta->cliente->NombreCompleto }}
                                             @endif
                                         </td>
 
                                         <td class="sorting_1 col-md-1">
 
-                                            <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
+                                            <li data-form="#delete-form-{{$venta->IdVentaServicio}}"
                                                 data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                                data-message="Se encuentra seguro de eliminar esta venta ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/comprasarticulos/{{$compra->IdCompraArticulo}}/edit"
+                                                <a href="/ventasservicios/{{$venta->IdVentaServicio}}/edit"
                                                    class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                 <a data-toggle="modal" class="formConfirm text-danger" href=""
                                                    data-target="#formConfirm">
@@ -241,8 +236,8 @@
 
                                             </li>
 
-                                            <form id="delete-form-{{$compra->IdCompraArticulo}}"
-                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"
+                                            <form id="delete-form-{{$venta->IdVentaServicio}}"
+                                                  action="/ventasservicios/{{$venta->IdVentaServicio}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -265,9 +260,9 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-7">
 
-                            @if($compras instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                            @if($ventas instanceof \Illuminate\Pagination\LengthAwarePaginator )
 
-                                {{ $compras->links() }}
+                                {{ $ventas->links() }}
 
                             @endif
 

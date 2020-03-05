@@ -38,8 +38,6 @@
 
         });
 
-
-
     </script>
 
     <!-- Modal Dialog -->
@@ -72,19 +70,19 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Compra de Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de compras que dispone para poder clasificar los articulos
+    <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+    <p class="mb-4">A continuación se muestra el listado de clientes que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de compras</strong>
+        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Clientes</strong>
 
-            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
+            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de clientes</h6>--}}
 
 
-            <a href="/comprasarticulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Nueva Compra</a></div>
+            <a href="/clientes/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                Agregar cliente</a></div>
 
 
 
@@ -94,12 +92,12 @@
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/comprasarticulos/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/clientes/buscar" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Nro Compra..." aria-label="Nro Compra" aria-describedby="basic-addon2" name="IdCompraArticulo">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="nombre o apellido..." aria-label="Search" aria-describedby="basic-addon2" name="Nombrecliente">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -154,14 +152,6 @@
 
             @endif
 
-            @if (session('registrado'))
-                <div class="alert alert-success"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('registrado') }}
-                </div>
-
-
-            @endif
-
 
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -169,69 +159,66 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;" >
+                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
 
                                 <thead>
                                 <tr role="row">
 
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nro C
+                                        Id
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Fecha
+                                        Nombre cliente
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Observaciones
-                                    </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Detalle
+                                        Celular
                                     </th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                        Correo
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                        Fecha Nac.
+                                    </th>
+
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th rowspan="1" colspan="1">Nro de Compra</th>
-                                    <th rowspan="1" colspan="1">Fecha</th>
-                                    <th rowspan="1" colspan="1">Observaciones</th>
-                                    <th rowspan="1" colspan="1">Detalle</th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
+
+                                    <th rowspan="1" colspan="1">Id</th>
+                                    <th rowspan="1" colspan="1">Nombre Cliente</th>
+                                    <th rowspan="1" colspan="1">Celular</th>
+                                    <th rowspan="1" colspan="1">Correo</th>
+                                    <th rowspan="1" colspan="1">Fecha Nac.</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($compras as $compra)
+                                @foreach($clientes as $cliente)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$compra->IdCompraArticulo}}</td>
-                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($compra->FechaHoraRegistro))   }}</td>
-                                        <td class="col-md-3">{{$compra->Observaciones}}  </td>
+{{--                                        <td>--}}
+{{--											<span class="custom-checkbox">--}}
+{{--											<input type="checkbox" id="checkbox1" name="options[]" value="1">--}}
+{{--											<label for="checkbox1"></label>--}}
+{{--											</span>--}}
+{{--                                        </td>--}}
+                                        <td class="col-md-1"><a href="clientes/{{$cliente->IdCliente}}"> {{$cliente->IdCliente}} </a>  </td>
+                                        <td class="col-md-4">{{$cliente->Nombres . " " . $cliente->Apellidos}}  </td>
+                                        <td class="col-md-1">{{$cliente->NroCelular}}  </td>
+                                        <td class="col-md-2">{{$cliente->CorreoElectronico}}  </td>
+                                        <td class="col-md-2">{{ date('d-m-Y', strtotime($cliente->FechaNacimiento)) }}  </td>
 
+                                        <td class="sorting_1">
 
-                                        <td class="col-md-4">
-                                            <ul>
-                                                @foreach($compra->articulos as $articulo)
-                                                    <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Precio }} Bs)</li>
-                                                @endforeach
-                                            </ul>
-
-                                        </td>
-
-                                        <td class="col-md-2"> @if($compra->usuario)  {{$compra->usuario->NombreCompleto }}
-                                            @endif
-                                        </td>
-
-                                        <td class="sorting_1 col-md-1">
-
-                                            <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                            <li data-form="#delete-form-{{$cliente->IdCliente}}"
+                                                data-title="Eliminar cliente"
+                                                data-message="Se encuentra seguro de eliminar este cliente ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/comprasarticulos/{{$compra->IdCompraArticulo}}/edit"
+                                                <a href="/clientes/{{$cliente->IdCliente}}/edit"
                                                    class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                 <a data-toggle="modal" class="formConfirm text-danger" href=""
                                                    data-target="#formConfirm">
@@ -241,8 +228,8 @@
 
                                             </li>
 
-                                            <form id="delete-form-{{$compra->IdCompraArticulo}}"
-                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"
+                                            <form id="delete-form-{{$cliente->IdCliente}}"
+                                                  action="/clientes/{{$cliente->IdCliente}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -264,14 +251,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-7">
-
-                            @if($compras instanceof \Illuminate\Pagination\LengthAwarePaginator )
-
-                                {{ $compras->links() }}
-
-                            @endif
-
-
+                            {{ $clientes->links() }}
                         </div>
                     </div>
                 </div>

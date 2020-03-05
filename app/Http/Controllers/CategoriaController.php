@@ -26,7 +26,7 @@ class CategoriaController extends Controller
 
     public function buscar(Request $request)
     {
-       // dd("holaaa");
+        //dd("holaaa");
        // dd($request->get('NombreCategoria'));
         $textoBusqueda = $request->get('NombreCategoria');
 
@@ -77,7 +77,8 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.show',[ 'categoria' => $categoria]);
     }
 
     /**
