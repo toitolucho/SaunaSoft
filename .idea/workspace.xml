@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7face93-a48c-4e50-ab7d-e7eb40592948" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/storage/Reportes/Inputs/hello_world.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/curso-laravel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/curso-laravel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VentaServicioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VentaServicioController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Ventasservicio.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Ventasservicio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/ventaservicio/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/ventaservicio/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/articulo/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/articulo/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
+            <state relative-caret-position="3757">
               <caret line="221" selection-start-line="221" selection-end-line="221" />
             </state>
           </provider>
@@ -42,7 +44,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/VentaServicioController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
+            <state relative-caret-position="1037">
               <caret line="72" column="28" selection-start-line="72" selection-start-column="28" selection-end-line="72" selection-end-column="28" />
               <folding>
                 <element signature="e#40#65#0#PHP" expanded="true" />
@@ -54,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Ventasservicio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
+            <state relative-caret-position="1309">
               <caret line="81" column="29" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="29" />
               <folding>
                 <element signature="e#56#74#0#PHP" expanded="true" />
@@ -66,7 +68,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/lang/en/validation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
+            <state relative-caret-position="1666">
               <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
             </state>
           </provider>
@@ -75,28 +77,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-442">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5916">
+              <caret line="348" column="27" selection-start-line="348" selection-start-column="27" selection-end-line="348" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="345" column="19" selection-start-line="345" selection-start-column="19" selection-end-line="345" selection-end-column="19" />
+            <state relative-caret-position="-60">
+              <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
               <folding>
-                <element signature="n#style#0;n#td#6;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#6;n#tr#0;n#!!top" expanded="true" />
-                <element signature="e#26187#26292#0#HTML" expanded="true" />
-                <element signature="e#26367#26387#0#HTML" expanded="true" />
-                <element signature="e#28199#28304#0#HTML" expanded="true" />
-                <element signature="e#28375#28395#0#HTML" expanded="true" />
-                <element signature="e#28786#28809#0#HTML" expanded="true" />
-                <element signature="e#32140#32245#0#HTML" expanded="true" />
-                <element signature="e#32308#32328#0#HTML" expanded="true" />
+                <element signature="e#40#64#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,7 +107,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Cliente.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
+            <state relative-caret-position="1139">
               <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
             </state>
           </provider>
@@ -200,7 +202,6 @@
         <option value="$PROJECT_DIR$/resources/views/categoria/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Articulo/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Articulo/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php" />
         <option value="$PROJECT_DIR$/resources/views/articulo/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/compraarticulo/index.blade.php" />
         <option value="$PROJECT_DIR$/database/factories/ClienteFactory.php" />
@@ -225,6 +226,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/VentaServicioController.php" />
         <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php" />
       </list>
     </option>
   </component>
@@ -321,13 +323,14 @@
       <path value="$PROJECT_DIR$/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark-ext-table" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/vendor/geekcom/phpjasper" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="403" />
-    <option name="y" value="67" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -365,122 +368,7 @@
             <path>
               <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
               <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Rules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="factories" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-              <item name="en" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="articulo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="compraarticulo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="promociones" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="ventaservicio" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="Feature" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="curso-laravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="curso-laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="Unit" type="462c0819:PsiDirectoryNode" />
+              <item name="vendor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -492,22 +380,22 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/storage/Reportes/Inputs" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\app\Http\Controllers" />
-      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\database\factories" />
-      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views" />
-      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views\cliente" />
-      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views\Articulo" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\app\Http\Controllers" />
       <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views" />
       <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\app\Http\Controllers\Auth" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\storage\Reportes\Inputs" />
+      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\app\Http\Controllers" />
+      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\database\factories" />
+      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views" />
+      <recent name="D:\Proyectos\SaunaSoft\Software\curso-laravel\resources\views\cliente" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -562,12 +450,15 @@
       <workItem from="1582809214336" duration="10137000" />
       <workItem from="1582832986650" duration="1214000" />
       <workItem from="1582836712419" duration="10323000" />
-      <workItem from="1582887679651" duration="14281000" />
+      <workItem from="1582887679651" duration="14639000" />
+      <workItem from="1584416514836" duration="1335000" />
+      <workItem from="1584420479664" duration="4420000" />
+      <workItem from="1584501063327" duration="4882000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228058000" />
+    <option name="totallyTimeSpent" value="239053000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -580,9 +471,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985119" visible="true" weight="0.20309168" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985119" visible="true" weight="0.1945629" />
       <window_info id="Structure" order="1" sideWeight="0.5014881" side_tool="true" weight="0.31236672" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" visible="true" weight="0.32936078" />
@@ -924,13 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Cliente.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/compraarticulo/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1195">
@@ -955,27 +838,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="221" selection-start-line="221" selection-end-line="221" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Ventasservicio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="81" column="29" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="29" />
-          <folding>
-            <element signature="e#56#74#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -993,33 +859,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="46" column="11" lean-forward="true" selection-start-line="42" selection-start-column="7" selection-end-line="46" selection-end-column="11" />
-          <folding>
-            <element signature="e#40#64#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/en/validation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-442">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="3757">
+          <caret line="221" selection-start-line="221" selection-end-line="221" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/VentaServicioController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
+        <state relative-caret-position="1037">
           <caret line="72" column="28" selection-start-line="72" selection-start-column="28" selection-end-line="72" selection-end-column="28" />
           <folding>
             <element signature="e#40#65#0#PHP" expanded="true" />
@@ -1027,21 +876,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Ventasservicio.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="81" column="29" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="29" />
+          <folding>
+            <element signature="e#56#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/en/validation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/ventaservicio/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="345" column="19" selection-start-line="345" selection-start-column="19" selection-end-line="345" selection-end-column="19" />
+        <state relative-caret-position="5916">
+          <caret line="348" column="27" selection-start-line="348" selection-start-column="27" selection-end-line="348" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Cliente.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ArticuloController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
           <folding>
-            <element signature="n#style#0;n#td#6;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#4;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#6;n#tr#0;n#!!top" expanded="true" />
-            <element signature="e#26187#26292#0#HTML" expanded="true" />
-            <element signature="e#26367#26387#0#HTML" expanded="true" />
-            <element signature="e#28199#28304#0#HTML" expanded="true" />
-            <element signature="e#28375#28395#0#HTML" expanded="true" />
-            <element signature="e#28786#28809#0#HTML" expanded="true" />
-            <element signature="e#32140#32245#0#HTML" expanded="true" />
-            <element signature="e#32308#32328#0#HTML" expanded="true" />
+            <element signature="e#40#64#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

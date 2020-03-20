@@ -70,9 +70,13 @@ Route::resource('/ventasservicios','VentaServicioController');
 
 
 Route::post('/articulos/buscar',"ArticuloController@buscar");
+Route::get('/articulos/reporte/{articulo}','ArticuloController@reporte')->name("articulos.reporte");
+
 Route::post('/categorias/buscar',"CategoriaController@buscar");
 Route::get('/comprasarticulos/autocomplete','CompraArticuloController@autocomplete')->name("comprasarticulos.autocomplete");
 Route::get('/comprasarticulos/autocompletar','CompraArticuloController@autocompletar')->name("comprasarticulos.autocompletar");
+
+
 Route::post('/comprasarticulos/buscar',"CompraArticuloController@buscar");
 Route::post('/ventasservicios/buscar',"VentaServicioController@buscar");
 

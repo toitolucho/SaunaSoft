@@ -81,10 +81,9 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
-{{--            <a href="/comprasarticulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>--}}
-{{--                Nueva Compra</a></div>--}}
 
-
+            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                reportessss</a></div>
 
 
 
