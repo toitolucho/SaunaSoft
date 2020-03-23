@@ -70,10 +70,12 @@ class ArticuloController extends Controller
 
     public function buscar(Request $request)
     {
-        //dd("Hola");
+       // dd("Hola");
         $textoBusqueda = $request->get('NombreArticulo');
 
-        $articulos = DB::table('articulos')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->join('Categorias', 'Categorias.IdCategoria','articulos.IdCategoria')  ->paginate(15);
+        //$articulos = DB::table('articulos')->join('Categorias','articulos.IdCategoria', '=', 'Categorias.IdCategoria')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->get()->paginate(15);
+        $articulos = Articulo::with('categoria')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->paginate(15);
+        //dd($articulos);
         if($articulos->isEmpty())
             return redirect('articulos')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
         else
@@ -96,7 +98,7 @@ class ArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function reporte(Request $request)
+    public function reporte($id)
     {
         //dd(base_path() . '/vendor');
         $input = storage_path('Reportes/Inputs/Articulos.jasper');
@@ -120,11 +122,14 @@ class ArticuloController extends Controller
 //        ];
 
 
+
+       // dd($IdCategoria);
+
         $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
         $options = [
             'format' => ['pdf'],
             'locale' => 'en',
-            'params' => [],
+            'params' => ['IdCategoria' => $id],
             'db_connection' => [
                 'driver' => 'mysql',
                 'host' => '127.0.0.1',
@@ -164,7 +169,8 @@ class ArticuloController extends Controller
      */
     public function edit($id)
     {
-        //
+        $articulo = Categoria::findOrFail($id);
+        return view('articulo.edit',[ 'articulo' => $articulo]);
     }
 
     /**

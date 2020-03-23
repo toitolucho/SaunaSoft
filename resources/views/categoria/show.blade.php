@@ -77,7 +77,7 @@
 									data-title="Eliminar categoria"
 									data-message="Se encuentra seguro de eliminar este Artículo ?"
 									data-target="#formConfirm" class="listado">
-									<a href="/categorias/{{$categoria->IdArticulo}}/edit"
+									<a href="/categorias/{{$articulo->IdArticulo}}/edit"
 									   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
 									<a data-toggle="modal" class="formConfirm text-danger" href=""
 									   data-target="#formConfirm">
@@ -87,8 +87,8 @@
 
 								</li>
 
-								<form id="delete-form-{{$categoria->IdCategoria}}"
-									  action="/categorias/{{$categoria->IdCategoria}}" method="post"
+								<form id="delete-form-{{$articulo->IdArticulo}}"
+									  action="/categorias/{{$articulo->IdArticulo}}" method="post"
 									  style="display: none">
 									<input type="hidden" name="_method" value="delete">
 									{{csrf_field()}}
