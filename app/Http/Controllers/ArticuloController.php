@@ -6,6 +6,8 @@ use App\Models\Articulo;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPJasper\PHPJasper;
+
 
 class ArticuloController extends Controller
 {
@@ -16,12 +18,13 @@ class ArticuloController extends Controller
      */
     public function index()
     {
+
        // dd('viendo index');
         $articulos = Articulo::with('categoria')->paginate(15);
         return view ('articulo.index', [ 'articulos' => $articulos]);
     }
 
-    /**
+    /**z
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -86,30 +89,40 @@ class ArticuloController extends Controller
     public function show($id)
     {
 
+
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function reporte()
+    public function reporte(Request $request)
     {
-//        $input = __DIR__ . '/Reportes/Inputs/hello_world.jasper';
-//        $output = __DIR__ . '/Reportes/Outputs';
-//        $options = ['format' => ['pdf', 'rtf', 'xml'], 'locale' => 'en'];
-//
-//        $this->PHPJasper->process(
-//            $input,
-//            $output,
-//            $options
-//        )->execute();
-        dd('reporte');
-        //return response()->file(
-          //  public_path('Reportes/Outputs/hello_world.pdf')
+        $input = storage_path('Reportes/Inputs/hello_world.jasper');
+        $output = storage_path( 'Reportes/Outputs');
+        $options = ['format' => ['pdf'], 'locale' => 'en'];
+        //dd($input);
+        $this->PHPJasper = new PHPJasper();
 
-       // );
+        $this->PHPJasper->process(
+            $input,
+            $output,
+            $options
+        )->execute();
+       // dd('reporte');
 
-        //return response()->file('Reportes/Outputs/hello_world.pdf');
+
+        //Funciona
+        $file = storage_path('Reportes/Outputs/hello_world.pdf');
+        if (file_exists($file)) {
+
+            $headers = [
+                'Content-Type' => 'application/pdf'
+            ];
+            return response()->download($file, 'Test File', $headers, 'inline');
+        } else {
+            abort(404, 'File not found!');
+        }
     }
 
     /**
