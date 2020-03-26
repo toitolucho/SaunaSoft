@@ -70,10 +70,12 @@ class ArticuloController extends Controller
 
     public function buscar(Request $request)
     {
-        //dd("Hola");
+       // dd("Hola");
         $textoBusqueda = $request->get('NombreArticulo');
 
-        $articulos = DB::table('articulos')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->join('Categorias', 'Categorias.IdCategoria','articulos.IdCategoria')  ->paginate(15);
+        //$articulos = DB::table('articulos')->join('Categorias','articulos.IdCategoria', '=', 'Categorias.IdCategoria')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->get()->paginate(15);
+        $articulos = Articulo::with('categoria')->where('NombreArticulo','like','%'.$textoBusqueda.'%')->paginate(15);
+        //dd($articulos);
         if($articulos->isEmpty())
             return redirect('articulos')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
         else
@@ -96,24 +98,58 @@ class ArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function reporte(Request $request)
+    public function reporte($id)
     {
-        $input = storage_path('Reportes/Inputs/hello_world.jasper');
+        //dd(base_path() . '/vendor');
+        $input = storage_path('Reportes/Inputs/Articulos.jasper');
         $output = storage_path( 'Reportes/Outputs');
-        $options = ['format' => ['pdf'], 'locale' => 'en'];
+       // $options = ['format' => ['pdf'], 'locale' => 'en'];
         //dd($input);
         $this->PHPJasper = new PHPJasper();
+
+//        $options = [
+//            'format' => ['pdf'],
+//            'locale' => 'en',
+//            'params' => [],
+//            'db_connection' => [
+//                'driver' => 'mysql', //mysql, postgres, oracle, generic (jdbc)
+//                'username' => 'root',
+//                'password' => '',
+//                'host' => 'localhost',
+//                'database' => 'saunasoft',
+//                'port' => '3306'
+//            ]
+//        ];
+
+
+
+       // dd($IdCategoria);
+
+        $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
+        $options = [
+            'format' => ['pdf'],
+            'locale' => 'en',
+            'params' => ['IdCategoria' => $id],
+            'db_connection' => [
+                'driver' => 'mysql',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'database' => 'saunasoft',
+                'username' => 'root',
+//                'password' => '',
+                'jdbc_driver' => 'com.mysql.jdbc.Driver',
+                'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+                'jdbc_dir' => $jdbc_dir
+            ]
+        ];
 
         $this->PHPJasper->process(
             $input,
             $output,
             $options
         )->execute();
-       // dd('reporte');
-
-
         //Funciona
-        $file = storage_path('Reportes/Outputs/hello_world.pdf');
+        $file = storage_path('Reportes/Outputs/Articulos.pdf');
         if (file_exists($file)) {
 
             $headers = [
@@ -131,9 +167,11 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categoria, Articulo $articulo)
     {
-        //
+          // dd($articulo);
+//        $articulo = Articulo::findOrFail($id);
+        return view('articulo.edit',[ 'articulo' => $articulo, 'categoria' => $categoria]);
     }
 
     /**
@@ -143,9 +181,23 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idCategoria, $idArticulo)
     {
-        //
+        //dd($idArticulo . " ". $idCategoria);
+
+        //dd($request);
+        $categoria = Categoria::find($idCategoria);
+
+        $articulo = Articulo::find( $idArticulo);
+        $articulo->NombreArticulo = $request->get('NombreArticulo');
+        $articulo->PrecioVigente = $request->get('PrecioVigente');
+        $articulo->Descripcion = $request->get('Descripcion');
+
+        if($articulo->save())
+        {
+            return redirect()->route( 'categorias.show', $categoria)->with("editado","El articulo ha sido actualizado satisfactoriamente");
+        }
+        return redirect()->route('categorias.show', $categoria)->withInput()->with("editado_error","El articulo seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     /**

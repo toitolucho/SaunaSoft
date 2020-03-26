@@ -82,6 +82,9 @@ Route::post('/ventasservicios/buscar',"VentaServicioController@buscar");
 
 Route::get ('/categorias/{categoria}/articulos/create','ArticuloController@create')->name("articulos.create1");
 Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->name("articulos.store2");
+Route::get('/categorias/{categoria}/articulos/{articulo}/edit','ArticuloController@edit')->name("articulos.edit2");
+//Route::get('/categorias/{categoria}/articulos/edit','ArticuloController@edit')->name("articulos.edit22");
+Route::post('/categorias/{categoria}/articulos/{articulo}','ArticuloController@update')->name("articulos.update2");
 
 
 /*MBRESIA*/

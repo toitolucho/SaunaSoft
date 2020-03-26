@@ -73,7 +73,7 @@
 
 
     <h1 class="h3 mb-2 text-gray-800">Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de articulos disponibles de forma general en  su sistema. Para cualquier duda consulte ocn su <a target="_blank" href="https://datatables.net">administrador </a>.</p>
+    <p class="mb-4">A continuación se muestra el listado de articulos disponibles de forma general en  su sistema. Recuerde que puede categorizarlos por <a href="/categorias">categorias</a></p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de articulos</strong>
@@ -241,7 +241,7 @@
                                             </li>
 
                                             <form id="delete-form-{{$articulo->IdArticulo}}"
-                                                  action="/categorias/{{$articulo->IdCompraArticulo}}" method="post"
+                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
