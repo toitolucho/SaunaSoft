@@ -56,7 +56,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
+            <state relative-caret-position="476">
               <caret line="86" column="100" selection-start-line="86" selection-start-column="100" selection-end-line="86" selection-end-column="100" />
               <folding>
                 <element signature="e#7#389#0#PHP" expanded="true" />
@@ -509,12 +509,12 @@
       <workItem from="1584420479664" duration="4420000" />
       <workItem from="1584501063327" duration="4882000" />
       <workItem from="1584696839853" duration="1043000" />
-      <workItem from="1584937171021" duration="7541000" />
+      <workItem from="1584937171021" duration="8140000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="247637000" />
+    <option name="totallyTimeSpent" value="248236000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -527,7 +527,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4985119" visible="true" weight="0.17430703" />
       <window_info id="Structure" order="1" sideWeight="0.5014881" side_tool="true" weight="0.31236672" />
@@ -970,7 +969,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
+        <state relative-caret-position="476">
           <caret line="86" column="100" selection-start-line="86" selection-start-column="100" selection-end-line="86" selection-end-column="100" />
           <folding>
             <element signature="e#7#389#0#PHP" expanded="true" />
