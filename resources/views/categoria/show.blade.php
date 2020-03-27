@@ -3,6 +3,8 @@
 
 
 
+@include('utilidades.deleteConfirm')
+
 <div class="container">
 	<div class="card">
 
@@ -12,6 +14,22 @@
 		</div>
 
 		<div class="card-body">
+
+			@if (session('editado'))
+				<div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
+					{{ session('editado') }}
+				</div>
+
+
+			@endif
+
+			@if (session('editado_error'))
+				<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
+					{{ session('editado_error') }}
+				</div>
+
+
+			@endif
 
 			<div class="row">
 				<div class="col-sm-12">
@@ -74,10 +92,11 @@
 							<td class="sorting_1">
 
 								<li data-form="#delete-form-{{$articulo->IdArticulo}}"
-									data-title="Eliminar categoria"
-									data-message="Se encuentra seguro de eliminar este Artículo ?"
+									data-title="Eliminar Articulo"
+									data-message="¿Se encuentra seguro de eliminar el articulo seleccionado?"
 									data-target="#formConfirm" class="listado">
-									<a href="/categorias/{{$articulo->IdArticulo}}/edit"
+									<a href="{{route('articulos.edit2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}"
+
 									   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
 									<a data-toggle="modal" class="formConfirm text-danger" href=""
 									   data-target="#formConfirm">
@@ -88,7 +107,7 @@
 								</li>
 
 								<form id="delete-form-{{$articulo->IdArticulo}}"
-									  action="/categorias/{{$articulo->IdArticulo}}" method="post"
+									  action="{{route('articulos.destroy2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}" method="post"
 									  style="display: none">
 									<input type="hidden" name="_method" value="delete">
 									{{csrf_field()}}
@@ -106,7 +125,7 @@
 
 				</table>
 				</div>
-			</div>d
+			</div>
 
 		</div>
 

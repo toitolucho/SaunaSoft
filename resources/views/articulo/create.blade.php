@@ -42,7 +42,7 @@
 					<div class="form-group">
 						<label for="Descripcion">Descripcion <span class="text-danger">*</span></label>
 {{--						<input type="text" name="Descripcion" id="Descripcion" class="form-control" placeholder="Ingrese el nombre del articulo" required  value="{{old('NombreCategoria')}}">--}}
-							<textarea class="form-control" id="Descripcion" rows="2" name="Descripcion" cols="100" placeholder="Ingrese una breve descripción del articulo"> {{old('Descripcion')}}"</textarea>
+							<textarea class="form-control" id="Descripcion" rows="2" name="Descripcion" cols="100" placeholder="Ingrese una breve descripción del articulo"> {{old('Descripcion')}}</textarea>
 					</div>
 
 					<div class="form-group">

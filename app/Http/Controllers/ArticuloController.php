@@ -167,10 +167,11 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categoria, Articulo $articulo)
     {
-        $articulo = Categoria::findOrFail($id);
-        return view('articulo.edit',[ 'articulo' => $articulo]);
+          // dd($articulo);
+//        $articulo = Articulo::findOrFail($id);
+        return view('articulo.edit',[ 'articulo' => $articulo, 'categoria' => $categoria]);
     }
 
     /**
@@ -180,9 +181,23 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idCategoria, $idArticulo)
     {
-        //
+        //dd($idArticulo . " ". $idCategoria);
+
+        //dd($request);
+        $categoria = Categoria::find($idCategoria);
+
+        $articulo = Articulo::find( $idArticulo);
+        $articulo->NombreArticulo = $request->get('NombreArticulo');
+        $articulo->PrecioVigente = $request->get('PrecioVigente');
+        $articulo->Descripcion = $request->get('Descripcion');
+
+        if($articulo->save())
+        {
+            return redirect()->route( 'categorias.show', $categoria)->with("editado","El articulo ha sido actualizado satisfactoriamente");
+        }
+        return redirect()->route('categorias.show', $categoria)->withInput()->with("editado_error","El articulo seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     /**
@@ -191,8 +206,22 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idCategoria, $idArticulo)
     {
-        //
+        $articulo = Articulo::find( $idArticulo);
+
+       // dd($articulo->ventasservicios()->exists());
+       // if ( !empty($articulo->ventasservicios()) ||  !empty($articulo->compras())){
+        if($articulo->ventasservicios()->exists() ||  $articulo->compras()->exists() ){
+            return redirect()->back()->withInput()->with("editado_error","El articulo seleccioinada no puede ser eliminado ya que tieen dependencias en compras o ventas");
+            //redirect()->back()->with('courseN',$courseN);
+        }
+        else
+        {
+            $articulo->delete();
+            $categoria = Categoria::find($idCategoria);
+
+            return redirect()->route( 'categorias.show', $categoria)->with("editado","El articulo ha sido eleiminado correctamente");
+        }
     }
 }
