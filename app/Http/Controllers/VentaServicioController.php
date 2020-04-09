@@ -73,7 +73,11 @@ class VentaServicioController extends Controller
             'articulos*Costo' =>'required|numeric|gt:0',
         ]);
 
+        if( $request->input('IdPromocion')  && $request->input('IdPromocion') == "Seleccione...")
+            $request->request->remove('IdPromocion');
 
+
+        //dd($request->input('IdPromocion'));
         $venta = Ventasservicio::create($request->all());
 
         $productos = $request->input('productos', []);
@@ -109,7 +113,8 @@ class VentaServicioController extends Controller
         $venta->FechaHoraVenta = \Carbon\Carbon::now();
         $venta->CodigoEstadoVenta = "I";
         $venta->IdCliente = $request->input('IdCliente');
-        $venta->IdPromocion = $request->input('IdPromocion');
+        if( $request->input('IdPromocion')  && $request->input('IdPromocion') != "Seleccione...")
+            $venta->IdPromocion = $request->input('IdPromocion');
         $venta->NroPersonas = $request->input('NroPersonas');
         $venta->NroCasillero = $request->input('NroCasillero');
         $venta->Observaciones = $request->input('Observaciones');
@@ -159,23 +164,21 @@ class VentaServicioController extends Controller
      */
     public function edit($id)
     {
-        $compra = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo')->findOrFail($id);
-//        $suma = $compra_articulo->comprasarticulosdetalles()->sum('Cantidad');
-//        $suma = $compra_articulo->comprasarticulosdetalles()->sum('Precio');
+        $venta = Ventasservicio::withCount('articulos', 'servicios', 'cliente', 'clientes')->with('articulos', 'servicios') ->findOrFail($id);
+        $promociones = Promocion::all();
 
         $total = 0; //= $compra_articulo->comprasarticulosdetalles()->Cantidad * $compra_articulo->comprasarticulosdetalles()->Precio;
-        foreach ($compra->comprasarticulosdetalles as $detalle)
+        foreach ($venta->articulos as $detalle)
         {
-            $total = $total+$detalle->Cantidad * $detalle->Precio;
+            $total = $total+$detalle->pivot->Cantidad * $detalle->pivot->Costo;
         }
-       // dd($total);
-//        //dd($compras_articulos);
-//        return view('compraarticulo.index', ['compras' => $compras_articulos]);
+        foreach ($venta->servicios as $detalle)
+        {
+            $total = $total+$detalle->pivot->Costo;
+        }
 
-//        $categoria = Categoria::findOrFail($id);
-       // dd($compra_articulo);
-        return view('compraarticulo.edit',[ 'compra' => $compra, 'total'=>$total ]);
-        //return view ('compraarticulo.edit', compact('compra','total'));
+        return view('ventaservicio.edit',[ 'venta' => $venta, 'total'=>$total , 'promociones'=> $promociones]);
+
     }
 
     /**
@@ -188,20 +191,21 @@ class VentaServicioController extends Controller
     public function update(Request $request, $id)
     {
 
-        $deletedRows = Comprasarticulosdetalle::where('IdCompraArticulo', $id)->delete();
+        $venta = Ventasservicio::with('articulos', 'servicios','clientes')->find($id);
 
-        $compra = Comprasarticulo::with('comprasarticulosdetalles')->find($id);
-//        $compra->comprasarticulosdetalles->each(function($detalle) {
-//            $detalle->delete();
-//        });
-//
-        if($compra->comprasarticulosdetalles())
+        if($venta->articulos())
         {
-           // $compra->comprasarticulosdetalles()->detach();
-            $compra->comprasarticulosdetalles()->delete();
+            $venta->articulos()->detach();
+        }
+        if($venta->servicios())
+        {
+            $venta->servicios()->detach();
         }
 
-        //$categoria = Categoria::find( $id);
+        if($venta->clientes())
+        {
+            $venta->clientes()->detach();
+        }
 
 
         $productos = $request->input('productos', []);
@@ -209,40 +213,53 @@ class VentaServicioController extends Controller
         $precios = $request->input('precios', []);
         $codigos = $request->input('codigos', []);
 
+       // $cantidades_servicio = $request->input('cantidades_servicios', []);
+        $precios_servicios = $request->input('precios_servicios', []);
+        $codigos_servicios = $request->input('codigos_servicios', []);
 
-//        $compra->IdUsuario = 1;
-//        $compra->FechaHoraRegistro = \Carbon\Carbon::now();
-//        $compra->CodigoEstadoIngreso = "I";
-        $compra->Observaciones = $request->input('Observaciones');;
-        // $compra->IdCompraArticulo= $nextId;
+        $codigos_clientes = $request->input('codigos_clientes', []);
 
-        $compra->save();
+
+
+        $venta->IdUsuario = 1;
+        $venta->IdCliente = $request->input('IdCliente');
+        if( $request->input('IdPromocion')  && $request->input('IdPromocion') != "Seleccione...")
+            $venta->IdPromocion = $request->input('IdPromocion');
+        $venta->NroPersonas = $request->input('NroPersonas');
+        $venta->NroCasillero = $request->input('NroCasillero');
+        $venta->Observaciones = $request->input('Observaciones');
+
+        $venta->update();
+        $venta= $venta->fresh(['articulos','servicios','clientes']);
+        $venta->setRelations([]);
+
+        //$venta2 = Ventasservicio::with('articulos', 'servicios','clientes')->find($id);
+
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
-                //$order->products()->attach($productos[$product], ['quantity' => $cantidades[$product]]);
-                $detalle = new Comprasarticulosdetalle();
-                $detalle->IdArticulo = $codigos[$product];
-                $detalle->Cantidad = $cantidades[$product];
-                $detalle->Precio = $precios[$product] ;
-                // $detalle->IdCompraArticulo = $nextId;
-                $compra->comprasarticulosdetalles()->save($detalle);
+                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
+
             }
         }
-        //  $compra->save();
-        //dd($order->comprasarticulosdetalles());
 
+        for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
+            if ($codigos_servicios[$i_servicio] != '') {
+                $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio]]);
+
+            }
+        }
+
+        for ($i_cliente=0; $i_cliente < count($codigos_clientes); $i_cliente++) {
+            if ($codigos_clientes[$i_cliente] != '') {
+                $venta->clientes()->attach($codigos_clientes[$i_cliente]);
+
+            }
+        }
+
+        //dd($codigos_articulos);
+       ////$venta->save();
 
         return redirect()->route('ventasservicios.index')->with("editado","Venta actualizada correctamente");;
-
-
-//        $categoria->NombreCategoria = $request->get('NombreCategoria');
-//
-//
-//        if($categoria->save())
-//        {
-//            return redirect('categorias')->with("editado","La Categoria ha sido actualizada correctamente");
-//        }
-//        return redirect('categorias')->withInput()->with("editado_error","La Categoría seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     public function buscar(Request $request)

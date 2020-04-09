@@ -196,8 +196,8 @@
 {{--											<label for="checkbox1"></label>--}}
 {{--											</span>--}}
 {{--                                        </td>--}}
-                                        <td class="col-md-1"><a href="categorias/{{$categoria->IdCategoria}}"> {{$categoria->IdCategoria}} </a>  </td>
-                                        <td class="col-md-8">{{$categoria->NombreCategoria}}  </td>
+                                        <td class="col-md-1"><a href="{{route('categorias.show', $categoria->IdCategoria)}} "> {{$categoria->IdCategoria}} </a>  </td>
+                                        <td class="col-md-8">{{$categoria->NombreCategoria}}   </td>
 
                                         <td class="sorting_1">
 

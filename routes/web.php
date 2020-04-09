@@ -85,6 +85,7 @@ Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->nam
 Route::get('/categorias/{categoria}/articulos/{articulo}/edit','ArticuloController@edit')->name("articulos.edit2");
 //Route::get('/categorias/{categoria}/articulos/edit','ArticuloController@edit')->name("articulos.edit22");
 Route::post('/categorias/{categoria}/articulos/{articulo}','ArticuloController@update')->name("articulos.update2");
+Route::delete('/categorias/{categoria}/rticulos/{articulo}','ArticuloController@destroy')->name("articulos.destroy2");
 
 
 /*MBRESIA*/

@@ -226,8 +226,10 @@
                                                 data-title="Eliminar categoria"
                                                 data-message="Se encuentra seguro de eliminar esta venta ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/ventasservicios/{{$venta->IdVentaServicio}}/edit"
+                                                <a href="{{route('ventasservicios.edit', $venta)}}"
                                                    class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
+
+
                                                 <a data-toggle="modal" class="formConfirm text-danger" href=""
                                                    data-target="#formConfirm">
                                                     <i class="fa fa-fw fa-trash"></i>
@@ -237,7 +239,7 @@
                                             </li>
 
                                             <form id="delete-form-{{$venta->IdVentaServicio}}"
-                                                  action="/ventasservicios/{{$venta->IdVentaServicio}}" method="post"
+                                                  action="{{route('ventasservicios.destroy', $venta)}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -265,7 +267,6 @@
                                 {{ $ventas->links() }}
 
                             @endif
-
 
                         </div>
                     </div>

@@ -82,7 +82,7 @@ class Ventasservicio extends Model
 	public function articulos()
 	{
 		return $this->belongsToMany(Articulo::class, 'ventasserviciodetallearticulos', 'IdVentaServicio', 'IdArticulo')
-					->withPivot('Cantidad', 'Costo');
+        ->withPivot('Cantidad', 'Costo');
 	}
 
 	public function clientes()

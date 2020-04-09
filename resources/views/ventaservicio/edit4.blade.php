@@ -17,8 +17,8 @@
 <script type="text/javascript">
 
         $(document).ready(function(){
-           // var i= {{count($compra->comprasarticulosdetalles)}};
-            var i =  {!! count($compra->comprasarticulosdetalles) !!};
+
+            var i =  {!! $venta->articulos_count !!};
             $("#add_row").click(function(){
                 b=i-1;
                 $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
@@ -166,7 +166,7 @@
 
 
 
-    <form action="/comprasarticulos/{{$compra->IdCompraArticulo}}" method="POST">
+    <form action="{{route('ventasservicios.update',$venta->IdVentaServicio)}}" method="POST">
         @csrf
         @method('put')
 
@@ -189,15 +189,15 @@
                     </thead>
                     <tbody>
 
-                        @foreach($compra->comprasarticulosdetalles as $detalle)
+                        @foreach($venta->articulos as $detalle)
                                         <tr id= "addr{{$loop->index+1}}">
                                             <td>{{$loop->index+1}}</td>
-                                            <td><input type='text' name='productos[]' class='form-control' value ="{{$detalle->articulo->NombreArticulo}}"  readonly/></td>
-                                            <td><input type='number' name='cantidades[]' class='form-control qty' step='1' value ="{{$detalle->Cantidad}}" ></td>
-                                            <td><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value="{{$detalle->Precio}}"> </td>
-                                            <td><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value="{{ $detalle->Cantidad*$detalle->Precio }}" readonly/></td>
+                                            <td><input type='text' name='productos[]' class='form-control' value ="{{$detalle->NombreArticulo}}"  readonly/></td>
+                                            <td><input type='number' name='cantidades[]' class='form-control qty' step='1' value ="{{$detalle->pivot->Cantidad}}" ></td>
+                                            <td><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value="{{$detalle->pivot->Costo}}"> </td>
+                                            <td><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value="{{ $detalle->pivot->Cantidad*$detalle->pivot->Costo }}" readonly/></td>
                                             <td data-name='del{{$loop->index+1}}'><button onclick='removeRow({{$loop->index+1}});' name='del{{$loop->index+1}}' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>
-                                            <td style='display:none'> <input name='codigos[]' value="{{$detalle->articulo->IdArticulo}}"> </td>
+                                            <td style='display:none'> <input name='codigos[]' value="{{$detalle->IdArticulo}}"> </td>
                                         </tr>
 
 
@@ -242,7 +242,7 @@
         <div class="row">
             <div class="form-group">
                 <label for="Observaciones">Observaciones</label>
-                <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100" >{{$compra->Observaciones}}</textarea>
+                <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100" >{{$venta->Observaciones}}</textarea>
             </div>
         </div>
         <div class="row">

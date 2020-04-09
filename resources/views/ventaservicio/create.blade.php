@@ -532,9 +532,9 @@
 
 
 
-    <form action="{{ route("ventasservicios.store") }}" method="POST" id="VentaServicios"  class="needs-validation" novalidate>
-        @csrf
-        <div class="tab-content" id="pills-tabContent">
+<form action="{{ route("ventasservicios.store") }}" method="POST" id="VentaServicios"  class="needs-validation" novalidate>
+    @csrf
+    <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
 
                 <div class="form-group col-md-6">

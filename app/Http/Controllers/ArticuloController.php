@@ -206,8 +206,19 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idCategoria, $idArticulo)
     {
-        //
+        $categoria = Categoria::find($idCategoria);
+
+        $articulo = Articulo::find( $idArticulo);
+        if($articulo->ventasservicios()->exists() || $articulo->compras()->exists()){
+            return redirect()->route('categorias.show', $categoria)->withInput()->with("editado_error","El articulo seleccioinada no puede eliminarse ya que tiene dependencias");
+        }
+
+        else
+        {
+            return redirect()->route( 'categorias.show', $categoria)->with("editado","El articulo ha sido eliminado satisfactoriamente");
+        }
+
     }
 }

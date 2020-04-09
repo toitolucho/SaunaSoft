@@ -192,16 +192,13 @@ class CompraArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update5(Request $request, $id)
     {
 
         $deletedRows = Comprasarticulosdetalle::where('IdCompraArticulo', $id)->delete();
 
         $compra = Comprasarticulo::with('comprasarticulosdetalles')->find($id);
-//        $compra->comprasarticulosdetalles->each(function($detalle) {
-//            $detalle->delete();
-//        });
-//
+
         if($compra->comprasarticulosdetalles())
         {
            // $compra->comprasarticulosdetalles()->detach();
@@ -250,6 +247,47 @@ class CompraArticuloController extends Controller
 //            return redirect('categorias')->with("editado","La Categoria ha sido actualizada correctamente");
 //        }
 //        return redirect('categorias')->withInput()->with("editado_error","La Categoría seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $compra = Comprasarticulo::with('articulos')->find($id);
+
+
+        if($compra->articulos())
+        {
+             $compra->articulos()->detach();
+
+        }
+
+        $productos = $request->input('productos', []);
+        $cantidades = $request->input('cantidades', []);
+        $precios = $request->input('precios', []);
+        $codigos = $request->input('codigos', []);
+
+
+//        $compra->IdUsuario = 1;
+//        $compra->FechaHoraRegistro = \Carbon\Carbon::now();
+//        $compra->CodigoEstadoIngreso = "I";
+        $compra->Observaciones = $request->input('Observaciones');
+        $compra= $compra->fresh(['articulos']);
+        $compra->setRelations([]);
+        $compra->update();
+
+
+
+        for ($product=0; $product < count($productos); $product++) {
+
+            if ($productos[$product] != '') {
+                $compra->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Precio' => $precios[$product]]);
+
+            }
+        }
+
+        return redirect()->route('comprasarticulos.index')->with("editado","Compra actualizada correctamente");;
+
+
     }
 
     public function buscar(Request $request)
