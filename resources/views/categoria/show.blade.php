@@ -98,6 +98,7 @@
                                         <a href="{{route('articulos.edit2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}"
 
                                            class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
+										   
                                         <a data-toggle="modal" class="formConfirm text-danger" href=""
                                            data-target="#formConfirm">
                                             <i class="fa fa-fw fa-trash"></i>

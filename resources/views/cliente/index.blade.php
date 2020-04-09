@@ -1,9 +1,15 @@
 @extends('welcome')
 @section('content')
 
+
+    @include('utilidades.delete_modal')
     <style>
         .listado {
             list-style-type: none !important;
+        }
+
+        .inner{
+            display: inline-block;
         }
     </style>
 
@@ -218,13 +224,31 @@
                                                 data-title="Eliminar cliente"
                                                 data-message="Se encuentra seguro de eliminar este cliente ?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/clientes/{{$cliente->IdCliente}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
-                                                   data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
-                                                </a>
+{{--                                                <a href="/clientes/{{$cliente->IdCliente}}/edit"--}}
+{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+
+
+{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+{{--                                                   data-target="#formConfirm">--}}
+{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
+{{--                                                    Eliminar--}}
+{{--                                                </a>--}}
+
+                                                <div class="inner" >
+                                                    <a class="btn btn-primary " class="formConfirm text-primary"
+                                                       href="{{route("clientes.edit", $cliente->IdCliente )}}"
+                                                    aria-label="Editar">
+                                                        <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+
+
+                                                <div class="inner" >
+                                                    <a class="btn btn-danger" data-toggle="modal" class="formConfirm text-danger" href=""
+                                                       data-target="#formConfirm" aria-label="Delete">
+                                                        <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
 
                                             </li>
 
