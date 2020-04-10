@@ -94,6 +94,7 @@
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
       <path value="$PROJECT_DIR$/vendor/cossou/jasperphp" />
       <path value="$PROJECT_DIR$/vendor/geekcom/phpjasper" />
+      <path value="$PROJECT_DIR$/vendor/league/commonmark-ext-table" />
     </include_path>
   </component>
   <component name="PhpUnit">
