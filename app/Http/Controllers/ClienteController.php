@@ -68,8 +68,8 @@ class ClienteController extends Controller
         $cliente->NroCelular=$request->get('NroCelular');
         $cliente->CorreoElectronico=$request->get('CorreoElectronico');
 
-        //$cliente->FechaNacimiento=$request->get('FechaNacimiento');
-        $cliente->FechaNacimiento=date("Y-m-d", strtotime($request->get("FechaNacimiento")));
+        $cliente->FechaNacimiento=$request->get('FechaNacimiento');
+        //$cliente->FechaNacimiento=date("Y-m-d", strtotime($request->get("FechaNacimiento")));
         //date("Y-m-d", strtotime($request->input("date")))
 
 
@@ -100,6 +100,7 @@ class ClienteController extends Controller
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
+
         return view('cliente.edit',[ 'cliente' => $cliente]);
     }
 

@@ -53,16 +53,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="FechaNacimiento">Fecha de Nacimiento </label>
-                                <input type="text" name="FechaNacimiento" id="FechaNacimiento" class="form-control" placeholder="" required  value="{{$cliente->FechaNacimiento}}">
+                                <label for="FechaNacimiento">Fecha de Nacimiento</label>
+                                <input type="date" name="FechaNacimiento" id="FechaNacimiento" class="form-control" placeholder="Ingrese La Fecha de nacimiento"
+                                        value="{{ \Carbon\Carbon::parse($cliente->FechaNacimiento)->format('Y-m-d')}}">
 
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                                {{--						<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">--}}
-                                {{--							<input class="form-control datepicker" size="16" type="text" name="FechaNacimiento"  value="{{old('FechaNacimiento')}}>--}}
-                                {{--							<span class="add-on"> <i class="icon-calendar"></i> </span>--}}
-                                {{--						</div>--}}
                             </div>
                             <button class="btn btn-primary" type="submit"> <i class="fa fa-fw far fa-save"></i> Guardar</button>
 

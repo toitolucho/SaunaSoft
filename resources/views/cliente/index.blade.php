@@ -165,44 +165,33 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                   role="grid" aria-describedby="dataTable_info">
 
                                 <thead>
                                 <tr role="row">
 
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
+                                    <th class="w-5">
                                         Id
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-35">
                                         Nombre cliente
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                    <th class="w-10">
                                         Celular
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                    <th class="w-30">
                                         Correo
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                    <th class="w-10">
                                         Fecha Nac.
+                                    </th>
+                                    <th class="w-10">
+                                        Acciones
                                     </th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
 
-                                    <th rowspan="1" colspan="1">Id</th>
-                                    <th rowspan="1" colspan="1">Nombre Cliente</th>
-                                    <th rowspan="1" colspan="1">Celular</th>
-                                    <th rowspan="1" colspan="1">Correo</th>
-                                    <th rowspan="1" colspan="1">Fecha Nac.</th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 @foreach($clientes as $cliente)
                                     <tr role="row">
@@ -212,48 +201,38 @@
 {{--											<label for="checkbox1"></label>--}}
 {{--											</span>--}}
 {{--                                        </td>--}}
-                                        <td class="col-md-1"><a href="clientes/{{$cliente->IdCliente}}"> {{$cliente->IdCliente}} </a>  </td>
-                                        <td class="col-md-4">{{$cliente->Nombres . " " . $cliente->Apellidos}}  </td>
-                                        <td class="col-md-1">{{$cliente->NroCelular}}  </td>
-                                        <td class="col-md-2">{{$cliente->CorreoElectronico}}  </td>
-                                        <td class="col-md-2">{{ date('d-m-Y', strtotime($cliente->FechaNacimiento)) }}  </td>
+                                        <td class="w-5"><a href="clientes/{{$cliente->IdCliente}}"> {{$cliente->IdCliente}} </a>  </td>
+                                        <td class="w-35">{{$cliente->Nombres . " " . $cliente->Apellidos}}  </td>
+                                        <td class="w-10">{{$cliente->NroCelular}}  </td>
+                                        <td class="w-30">{{$cliente->CorreoElectronico}}  </td>
+                                        <td class="w-10">{{ date('d-m-Y', strtotime($cliente->FechaNacimiento)) }}  </td>
 
-                                        <td class="sorting_1">
-
+                                        <td class="w-10">
                                             <li data-form="#delete-form-{{$cliente->IdCliente}}"
-                                                data-title="Eliminar cliente"
-                                                data-message="Se encuentra seguro de eliminar este cliente ?"
+                                                data-title="Eliminar Cliente"
+                                                data-message="Se encuentra seguro de eliminar este cliente?"
                                                 data-target="#formConfirm" class="listado">
-{{--                                                <a href="/clientes/{{$cliente->IdCliente}}/edit"--}}
-{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
 
 
-{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
-{{--                                                   data-target="#formConfirm">--}}
-{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
-{{--                                                    Eliminar--}}
-{{--                                                </a>--}}
 
-                                                <div class="inner" >
-                                                    <a class="btn btn-primary " class="formConfirm text-primary"
-                                                       href="{{route("clientes.edit", $cliente->IdCliente )}}"
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"
                                                     aria-label="Editar">
                                                         <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
+                                                </a>
 
 
-                                                <div class="inner" >
-                                                    <a class="btn btn-danger" data-toggle="modal" class="formConfirm text-danger" href=""
-                                                       data-target="#formConfirm" aria-label="Delete">
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
+                                                   data-target="#formConfirm">
                                                         <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
+
+                                                </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$cliente->IdCliente}}"
-                                                  action="/clientes/{{$cliente->IdCliente}}" method="post"
+{{--                                                  action="/clientes/{{$cliente->IdCliente}}" method="post"--}}
+                                                    action = "{{route("clientes.destroy", $cliente->IdCliente )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

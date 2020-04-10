@@ -158,80 +158,62 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
+                                   role="grid" aria-describedby="dataTable_info"  >
                                 <thead>
-                                <tr role="row">
-
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Identificador
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Nombre Categoria
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Acciones
-                                    </th>
+                                <tr class="m-0">
+                                    <th class="w-10 text-center">Id</th>
+                                    <th class="w-75 text-center">Nombre Categoria</th>
+                                    <th class="w-15 text-center">Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
 
-                                    <th rowspan="1" colspan="1">Identificador</th>
-                                    <th rowspan="1" colspan="1">Nombre Categoria</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($categorias as $categoria)
-                                    <tr role="row">
-{{--                                        <td>--}}
-{{--											<span class="custom-checkbox">--}}
-{{--											<input type="checkbox" id="checkbox1" name="options[]" value="1">--}}
-{{--											<label for="checkbox1"></label>--}}
-{{--											</span>--}}
-{{--                                        </td>--}}
-                                        <td class="col-md-1"><a href="{{route('categorias.show', $categoria->IdCategoria)}} "> {{$categoria->IdCategoria}} </a>  </td>
-                                        <td class="col-md-8">{{$categoria->NombreCategoria}}   </td>
-
-                                        <td class="sorting_1">
-
+                                    <tr role="row" class="m-0">
+                                        <td class="w-10"><a href="{{route('categorias.show', $categoria->IdCategoria)}} "> {{$categoria->IdCategoria}} </a>  </td>
+                                        <td class="w-75"><p> {{$categoria->NombreCategoria}}  </p> </td>
+                                        <td class="w-15 text-center">
                                             <li data-form="#delete-form-{{$categoria->IdCategoria}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                                data-title="Eliminar Categoria"
+                                                data-message="Se encuentra seguro de eliminar este categoria?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/categorias/{{$categoria->IdCategoria}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("categorias.edit", $categoria->IdCategoria )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$categoria->IdCategoria}}"
-                                                  action="/categorias/{{$categoria->IdCategoria}}" method="post"
+
+                                                  action = "{{route("clientes.destroy", $categoria->IdCategoria )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
 
                                             </form>
 
+
                                         </td>
 
 
                                     </tr>
                                 @endforeach
-
-
                                 </tbody>
-
                             </table>
 
                         </div>

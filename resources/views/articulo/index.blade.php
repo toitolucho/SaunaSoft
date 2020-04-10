@@ -171,77 +171,94 @@
                                 <thead>
                                 <tr role="row">
 
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
+                                    <th class="w-5 text-center">
                                         Id
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-30 text-center">
                                         Nombre Articulo
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-20 text-center">
                                         Categoria
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-10 text-center">
                                         Existencia
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                    <th class="w-10 text-center">
                                         Valorado
                                     </th>
-                                    <th rowspan="1" colspan="1">Descripcion</th>
+                                    <th class="w-18 text-center">Descripcion</th>
+                                    <th class="w-7 text-center">Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Id</th>
-                                    <th rowspan="1" colspan="1">Articulo</th>
-                                    <th rowspan="1" colspan="1">Categoria</th>
-                                    <th rowspan="1" colspan="1">Existencia</th>
-                                    <th rowspan="1" colspan="1">Valorado</th>
-                                    <th rowspan="1" colspan="1">Descripcion</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($articulos as $articulo)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$articulo->IdArticulo}}</td>
-                                        <td class="col-md-4">   {{  $articulo->NombreArticulo   }}</td>
-                                        <td class="col-md-3">
+                                        <td class="w-5"> {{$articulo->IdArticulo}}</td>
+                                        <td class="w-30">   {{  $articulo->NombreArticulo   }}</td>
+                                        <td class="w-20">
                                             @if($articulo->categoria)
 
                                                 {{$articulo->categoria->NombreCategoria}}
                                             @endif
                                         </td>
-                                        <td class="col-md-1">{{$articulo->CantidadExistencia}}  </td>
-                                        <td class="col-md-1">{{$articulo->TotalValorado}}  </td>
-                                        <td class="col-md-4">{{$articulo->Descripcion}}  </td>
+                                        <td class="w-10 text-right">{{$articulo->CantidadExistencia}}  </td>
+                                        <td class="w-10 text-right">{{$articulo->TotalValorado}}  </td>
+                                        <td class="w-18">{{$articulo->Descripcion}}  </td>
 
 
 
 
 
-                                        <td class="sorting_1 col-md-1">
+                                        <td class="w-7 text-right">
+
+{{--                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"--}}
+{{--                                                data-title="Eliminar categoria"--}}
+{{--                                                data-message="Se encuentra seguro de eliminar esta categoria ?"--}}
+{{--                                                data-target="#formConfirm" class="listado">--}}
+{{--                                                <a href="/comprasarticulos/{{$articulo->IdArticulo}}/edit"--}}
+{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+{{--                                                   data-target="#formConfirm">--}}
+{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
+{{--                                                    Eliminar--}}
+{{--                                                </a>--}}
+
+{{--                                            </li>--}}
+
+{{--                                            <form id="delete-form-{{$articulo->IdArticulo}}"--}}
+{{--                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"--}}
+{{--                                                  style="display: none">--}}
+{{--                                                <input type="hidden" name="_method" value="delete">--}}
+{{--                                                {{csrf_field()}}--}}
+
+{{--                                            </form>--}}
 
                                             <li data-form="#delete-form-{{$articulo->IdArticulo}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                                data-title="Eliminar Articulo"
+                                                data-message="Se encuentra seguro de eliminar este articulo?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/comprasarticulos/{{$articulo->IdArticulo}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("articulos.edit", $articulo->IdArticulo )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$articulo->IdArticulo}}"
-                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"
+                                                  action = "{{route("articulos.destroy", $articulo->IdArticulo )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
@@ -258,6 +275,9 @@
                                 </tbody>
 
                             </table>
+
+
+
 
                         </div>
                     </div>

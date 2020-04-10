@@ -1,5 +1,10 @@
 @extends('welcome')
 @section('content')
+    <style>
+        .listado {
+            list-style-type: none !important;
+        }
+    </style>
 
 
 @include('utilidades.delete_modal');
@@ -42,78 +47,98 @@
                         <thead>
                         <tr role="row">
 
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Position: activate to sort column ascending" style="width: 147px;">
+                            <th class="w-5 text-center">
                                 Id
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                            <th class="w-35 text-center">
                                 Articulo
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                            <th class="w-10 text-center">
                                 Existencia
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                            <th class="w-10 text-center">
                                 Precio
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                            <th class="w-30 text-center">
                                 Descripción
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                            <th class="w-10 text-center">
                                 Acciones
                             </th>
 
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
 
-                            <th rowspan="1" colspan="1">Id</th>
-                            <th rowspan="1" colspan="1">Articulo</th>
-                            <th rowspan="1" colspan="1">Existencia</th>
-                            <th rowspan="1" colspan="1">Precio</th>
-                            <th rowspan="1" colspan="1">Descripción</th>
-                            <th rowspan="1" colspan="1"></th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         @foreach($categoria->articulos as $articulo)
                             <tr role="row">
-                                <td class="col-md-1">{{$articulo->IdArticulo}}</td>
-                                <td class="col-md-5">{{$articulo->NombreArticulo}}  </td>
-                                <td class="col-md-1">{{$articulo->CantidadExistencia}}  </td>
-                                <td class="col-md-1">{{$articulo->PrecioVigente}}  </td>
-                                <td class="col-md-5">{{$articulo->Descripcion}}  </td>
+                                <td class="w-5">{{$articulo->IdArticulo}}</td>
+                                <td class="w-35">{{$articulo->NombreArticulo}}  </td>
+                                <td class="w-10 text-right">{{$articulo->CantidadExistencia}}  </td>
+                                <td class="w-10 text-right">{{$articulo->PrecioVigente}}  </td>
+                                <td class="w-30">{{$articulo->Descripcion}}  </td>
 
-                                <td class="sorting_1">
+{{--                                <td class="w-10">--}}
 
+{{--                                    <li data-form="#delete-form-{{$articulo->IdArticulo}}"--}}
+{{--                                        data-title="Eliminar Articulo"--}}
+{{--                                        data-message="Se encuentra seguro de eliminar este Artículo ?"--}}
+{{--                                        data-target="#formConfirm" class="listado">--}}
+{{--                                        <a href="{{route('articulos.edit2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}"--}}
+
+{{--                                           class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+{{--										   --}}
+{{--                                        <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+{{--                                           data-target="#formConfirm">--}}
+{{--                                            <i class="fa fa-fw fa-trash"></i>--}}
+{{--                                            Eliminar--}}
+{{--                                        </a>--}}
+
+{{--                                    </li>--}}
+
+{{--                                    <form id="delete-form-{{$articulo->IdArticulo}}"--}}
+{{--                                          action="{{route('articulos.destroy2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}" method="post"--}}
+{{--                                          style="display: none">--}}
+{{--                                        <input type="hidden" name="_method" value="delete">--}}
+{{--                                        {{csrf_field()}}--}}
+
+{{--                                    </form>--}}
+
+{{--                                </td>--}}
+
+
+                                <td class="w-10 text-center">
                                     <li data-form="#delete-form-{{$articulo->IdArticulo}}"
                                         data-title="Eliminar Articulo"
-                                        data-message="Se encuentra seguro de eliminar este Artículo ?"
+                                        data-message="Se encuentra seguro de eliminar este Articulo?"
                                         data-target="#formConfirm" class="listado">
-                                        <a href="{{route('articulos.edit2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}"
 
-                                           class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-										   
-                                        <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+                                        <a class="btn btn-primary " class="formConfirm text-primary"
+                                           href="{{route('articulos.edit2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}"
+                                           aria-label="Editar">
+                                            <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                        </a>
+
+
+                                        <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                            data-target="#formConfirm">
-                                            <i class="fa fa-fw fa-trash"></i>
-                                            Eliminar
+                                            <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                         </a>
 
                                     </li>
 
                                     <form id="delete-form-{{$articulo->IdArticulo}}"
+
                                           action="{{route('articulos.destroy2',  ["categoria" => $categoria, "articulo"=> $articulo] )}}" method="post"
                                           style="display: none">
                                         <input type="hidden" name="_method" value="delete">
                                         {{csrf_field()}}
 
                                     </form>
+
 
                                 </td>
 
