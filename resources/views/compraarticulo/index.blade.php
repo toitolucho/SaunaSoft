@@ -174,45 +174,32 @@
                                 <thead>
                                 <tr role="row">
 
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
+                                    <th class="w-5 text-center">
                                         Nro C
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-10 text-center">
                                         Fecha
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
+                                    <th class="w-25 text-center">
                                         Observaciones
                                     </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
+                                    <th class="w-35 text-center">
                                         Detalle
                                     </th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
+                                    <th class="w-18 text-center">Usuario</th>
+                                    <th class="w-7 text-center">Acciones</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Nro de Compra</th>
-                                    <th rowspan="1" colspan="1">Fecha</th>
-                                    <th rowspan="1" colspan="1">Observaciones</th>
-                                    <th rowspan="1" colspan="1">Detalle</th>
-                                    <th rowspan="1" colspan="1">Usuario</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($compras as $compra)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$compra->IdCompraArticulo}}</td>
-                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($compra->FechaHoraRegistro))   }}</td>
-                                        <td class="col-md-3">{{$compra->Observaciones}}  </td>
+                                        <td class="w-5"> {{$compra->IdCompraArticulo}}</td>
+                                        <td class="w-10">   {{   date('d-m-Y', strtotime($compra->FechaHoraRegistro))   }}</td>
+                                        <td class="w-25">{{$compra->Observaciones}}  </td>
 
 
-                                        <td class="col-md-4">
+                                        <td class="w-35">
                                             <ul>
                                                 @foreach($compra->articulos as $articulo)
                                                     <li>{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Precio }} Bs)</li>
@@ -221,28 +208,45 @@
 
                                         </td>
 
-                                        <td class="col-md-2"> @if($compra->usuario)  {{$compra->usuario->NombreCompleto }}
+                                        <td class="w-18"> @if($compra->usuario)  {{$compra->usuario->NombreCompleto }}
                                             @endif
                                         </td>
 
-                                        <td class="sorting_1 col-md-1">
+                                        <td class="w-7 text-center">
 
                                             <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta categoria ?"
+                                                data-title="Eliminar registro de Compra"
+                                                data-message="Se encuentra seguro de eliminar el registro de esta compra?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/comprasarticulos/{{$compra->IdCompraArticulo}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+{{--                                                <a href="/comprasarticulos/{{$compra->IdCompraArticulo}}/edit"--}}
+{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+{{--                                                   data-target="#formConfirm">--}}
+{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
+{{--                                                    Eliminar--}}
+{{--                                                </a>--}}
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("comprasarticulos.edit", $compra->IdCompraArticulo )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$compra->IdCompraArticulo}}"
-                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"
+{{--                                                  action="/categorias/{{$compra->IdCompraArticulo}}" method="post"--}}
+                                                  action = "{{route("comprasarticulos.destroy", $compra->IdCompraArticulo )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

@@ -120,12 +120,12 @@
                     return;
                 }
                 var markup = "<tr id=articulo" +(NroArticulos+1)+">" +
-                    "<td class='col-md-1'>" +(NroArticulos+1)+" </td>"+
-                    "<td class='col-md-5'><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
-                    "<td class='col-md-1'><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1' ></td>" +
-                    "<td class='col-md-2'><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
-                    "<td class='col-md-2'><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
-                    "<td data-name='del" +(NroArticulos+1)+"'><button onclick='removeRowArticulo("+(NroArticulos+1)+");' name='articulo" +(NroArticulos+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='w-5  '>" +(NroArticulos+1)+" </td>"+
+                    "<td class='w-50 '><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
+                    "<td class='w-10 text-right'><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1' ></td>" +
+                    "<td class='w-15 text-right'><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
+                    "<td class='w-15 text-right'><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
+                    "<td class='w-5  text-center' data-name='del" +(NroArticulos+1)+"'><button onclick='removeRowArticulo("+(NroArticulos+1)+");' name='articulo" +(NroArticulos+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos[]' value='"+data.IdArticulo +"'> </td>"+
 
                     "</tr>";
@@ -230,10 +230,10 @@
 
 
                 var markup = "<tr id=cliente" +(NroClientes+1)+">" +
-                    "<td class='col-md-1'>" +(NroClientes+1)+" </td>"+
-                    "<td class='col-md-7'>" +nombreCompleto+" </td>"+
-                    "<td class='col-md-1'>" +NroVisitas+" </td>"+
-                    "<td class='col-md-1' data-name='del" +(NroClientes+1)+"'><button onclick='removeRowCliente("+(NroClientes+1)+");' name='delcliente" +(NroClientes+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='w-5' >" +(NroClientes+1)+" </td>"+
+                    "<td class='w-70'>" +nombreCompleto+" </td>"+
+                    "<td class='w-20 text-right'>" +NroVisitas+" </td>"+
+                    "<td class='w-5 text-center' data-name='del" +(NroClientes+1)+"'><button onclick='removeRowCliente("+(NroClientes+1)+");' name='delcliente" +(NroClientes+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_clientes[]' value='"+IdCliente +"'> </td>"+
 
                     "</tr>";
@@ -294,12 +294,12 @@
                 }
 
                 var markup = "<tr id=servicio" +(NroServicios+1)+">" +
-                    "<td class='col-md-1'>" +(NroServicios+1)+" </td>"+
-                    "<td class='col-md-5'><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
-                    "<td class='col-md-1'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
-                    "<td class='col-md-2'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
-                    "<td class='col-md-2'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
-                    "<td data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='w-5 '>" +(NroServicios+1)+" </td>"+
+                    "<td class='w-50 '><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
+                    "<td class='w-10 text-right'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
+                    "<td class='w-15 text-right'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
+                    "<td class='w-15 text-right'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
+                    "<td class='w-5 text-center' data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_servicios[]' value='"+IdServicio +"'> </td>"+
 
                     "</tr>";
@@ -634,12 +634,12 @@
                                     <table class="table table-bordered table-hover" id="tabla_servicios">
                                         <thead>
                                         <tr>
-                                            <th class="text-center"> Nro</th>
-                                            <th class="text-center"> Servicio</th>
-                                            <th class="text-center"> Cantidad</th>
-                                            <th class="text-center"> Precio</th>
-                                            <th class="text-center"> Total</th>
-                                            <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
+                                            <th class='w-5 text-center'  > Nro</th>
+                                            <th class='w-50 text-center'  > Servicio</th>
+                                            <th class='w-10 text-center'  > Cantidad</th>
+                                            <th class='w-15 text-center'  > Precio</th>
+                                            <th class='w-15 text-center'  > Total</th>
+                                            <th class="w-5 text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
                                             <th class="text-center" style='display:none'></th>
                                         </tr>
                                         </thead>
@@ -672,12 +672,12 @@
                                 <table class="table table-bordered table-hover" id="tabla_articulos">
                                     <thead>
                                     <tr>
-                                        <th class="text-center"> Nro</th>
-                                        <th class="text-center"> Articulo</th>
-                                        <th class="text-center"> Cantidad</th>
-                                        <th class="text-center"> Precio</th>
-                                        <th class="text-center"> Total</th>
-                                        <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
+                                        <th class='w-5 text-center'> Nro</th>
+                                        <th class='w-50 text-center'> Articulo</th>
+                                        <th class='w-10 text-center'> Cantidad</th>
+                                        <th class='w-15 text-center'> Precio</th>
+                                        <th class='w-15 text-center'> Total</th>
+                                        <th class='w-5 text-center' style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
                                         <th class="text-center" style='display:none'></th>
                                     </tr>
                                     </thead>
@@ -753,10 +753,10 @@
                         <table class="table table-bordered table-hover" id="tabla_clientes">
                             <thead>
                             <tr>
-                                <th class="text-center"> Nro</th>
-                                <th class="text-center"> Cliente</th>
-                                <th class="text-center"> Nro Visitas</th>
-                                <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
+                                <th  class='w-5 text-center'  > Nro</th>
+                                <th  class='w-70 text-center' > Cliente</th>
+                                <th  class='w-20 text-center' > Nro Visitas</th>
+                                <th  class='w-5 text-center'   style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
                                 <th class="text-center" style='display:none'></th>
                             </tr>
                             </thead>

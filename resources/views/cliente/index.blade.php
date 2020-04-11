@@ -17,6 +17,8 @@
     <script type="text/javascript">
 
         $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+
             $(".formConfirm").click(function (e) {
                 e.preventDefault();
                 var el = $(this).parent();
@@ -207,7 +209,7 @@
                                         <td class="w-30">{{$cliente->CorreoElectronico}}  </td>
                                         <td class="w-10">{{ date('d-m-Y', strtotime($cliente->FechaNacimiento)) }}  </td>
 
-                                        <td class="w-10">
+                                        <td class="w-10 text-center">
                                             <li data-form="#delete-form-{{$cliente->IdCliente}}"
                                                 data-title="Eliminar Cliente"
                                                 data-message="Se encuentra seguro de eliminar este cliente?"
@@ -217,16 +219,34 @@
 
                                                 <a class="btn btn-primary " class="formConfirm text-primary"
                                                    href="{{route("clientes.edit", $cliente->IdCliente )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Modificar datos"
                                                     aria-label="Editar">
                                                         <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
                                                 </a>
 
 
                                                 <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
+                                                   data-placement="top" title="Eliminar cliente"
                                                    data-target="#formConfirm">
                                                         <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
 
                                                 </a>
+
+                                                <a class="btn btn-info " class="formConfirm text-primary"
+                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Asignar Membresia"
+                                                   aria-label="Membrresia">
+                                                    <i class="fas fa-xs fa-id-card" aria-hidden="true"></i>
+                                                </a>
+
+                                                <a class="btn btn-warning " class="formConfirm text-primary"
+                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Asignar Promociones"
+                                                   aria-label="Promociones">
+                                                    <i class="fas fa-xs fa-tags" aria-hidden="true"></i>
+                                                </a>
+
+
 
                                             </li>
 

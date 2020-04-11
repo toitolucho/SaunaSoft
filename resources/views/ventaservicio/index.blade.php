@@ -172,36 +172,24 @@
                                 <thead>
                                 <tr role="row">
 
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nro
-                                    </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Fecha
-                                    </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Observaciones
-                                    </th>
-                                    <th class="sorting th-lg" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Detalle
-                                    </th>
-                                    <th rowspan="1" colspan="1">Cliente</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
+                                    <th class="w-5 text-center">Nro</th>
+                                    <th class="w-10 text-center">Fecha </th>
+                                    <th class="w-20 text-center"> Observaciones</th>
+                                    <th class="w-40 text-center"> Detalle </th>
+                                    <th class="w-15 text-center">Cliente</th>
+                                    <th class="w-10 text-center">Acciones</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
                                 @foreach($ventas as $venta)
                                     <tr role="row">
-                                        <td class="col-md-1"> {{$venta->IdVentaServicio}}</td>
-                                        <td class="col-md-1">   {{   date('d-m-Y', strtotime($venta->FechaHoraVenta))   }}</td>
-                                        <td class="col-md-3">{{$venta->Observaciones}}  </td>
+                                        <td class="w-5"> {{$venta->IdVentaServicio}}</td>
+                                        <td class="w-10">   {{   date('d-m-Y', strtotime($venta->FechaHoraVenta))   }}</td>
+                                        <td class="w-20">{{$venta->Observaciones}}  </td>
 
 
-                                        <td class="col-md-4">
+                                        <td class="w-40 text-right">
                                             <ul>
                                                 @foreach($venta->articulos as $articulo)
                                                     <li class="list-group-item list-group-item-info">{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
@@ -216,24 +204,43 @@
 
                                         </td>
 
-                                        <td class="col-md-2"> @if($venta->cliente)  {{$venta->cliente->NombreCompleto }}
+                                        <td class="w-15"> @if($venta->cliente)  {{$venta->cliente->NombreCompleto }}
                                             @endif
                                         </td>
 
-                                        <td class="sorting_1 col-md-1">
+                                        <td class="w-10 text-center">
 
-                                            <li data-form="#delete-form-{{$venta->IdVentaServicio}}"
-                                                data-title="Eliminar categoria"
-                                                data-message="Se encuentra seguro de eliminar esta venta ?"
+{{--                                            <li data-form="#delete-form-{{$venta->IdVentaServicio}}"--}}
+{{--                                                data-title="Eliminar categoria"--}}
+{{--                                                data-message="Se encuentra seguro de eliminar esta venta ?"--}}
+{{--                                                data-target="#formConfirm" class="listado">--}}
+{{--                                                <a href="{{route('ventasservicios.edit', $venta)}}"--}}
+{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+
+
+{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+{{--                                                   data-target="#formConfirm">--}}
+{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
+{{--                                                    Eliminar--}}
+{{--                                                </a>--}}
+
+{{--                                            </li>--}}
+                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"
+                                                data-title="Eliminar Venta de Servicios y Articulos"
+                                                data-message="Se encuentra seguro de eliminar esta venta?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="{{route('ventasservicios.edit', $venta)}}"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("ventasservicios.edit",  $venta )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
 
 
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
@@ -245,6 +252,10 @@
                                                 {{csrf_field()}}
 
                                             </form>
+
+
+
+
 
                                         </td>
 
