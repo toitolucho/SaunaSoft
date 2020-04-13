@@ -19,58 +19,49 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
 
-            $(".formConfirm").click(function (e) {
-                e.preventDefault();
-                var el = $(this).parent();
-                var title = el.attr('data-title');
-                var msg = el.attr('data-message');
-                var dataForm = el.attr('data-form');
-
-
-                $('#formConfirm')
-                    .find('#frm_body').html(msg)
-                    .end().find('#frm_title').html(title)
-                    .end().modal('show');
-
-                $('#formConfirm').find('#frm_submit').attr('data-form', dataForm);
-
-            });
-        });
-        $(function () {
-            $("#frm_submit").click(function (e) {
-                //console.log("registro a eliminar")
-                var id = $(this).attr('data-form');
-                console.log("entra confirm" + id);
-                $(id).submit();
-            });
 
         });
+
 
     </script>
 
-    <!-- Modal Dialog -->
-    <div class="modal fade" id="formConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal Add Edit Membresia-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="frm_title">Eliminar registro</h4>
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        <span class="sr-only">Cerrar</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-
                 </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group  col-md-6">
+                            <label for="inputState">Fecha Inicio<span class="text-danger">*</span></label>
+                            <input type="date" name="FechaInicio" id="FechaInicio" class="form-control" placeholder="Ingrese La Fecha Inicio" required  value="{{old('FechaInicio ')}}">
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label for="inputState">Fecha Final<span class="text-danger">*</span></label>
+                            <input type="date" name="FechaFin" id="FechaFin" class="form-control" placeholder="Ingrese La Fecha Final" required  value="{{old('FechaFin')}}">
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label for="inputState">Estado</label>
+                            <select name="CodigoEstado" id="CodigoEstado" class="form-control">
+                                <option selected value="V">VIGENTE</option>
+                                <option value="C">CONCLUIDO</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="CostoGeneral">Costo General  <span class="text-danger">*</span></label>
+                            <input type="text" name="CostoGeneral" id="CostoGeneral" class="form-control" placeholder="Ingrese Costo General" required  value="{{old('CostoGeneral')}}">
+                        </div>
 
-
-                <div class="modal-body" id="frm_body"></div>
+                    </form>
+                </div>
                 <div class="modal-footer">
-                    <button style='margin-left:10px;' type="button" class="btn btn-primary col-sm-2 pull-right"
-                            id="frm_submit">Aceptar
-                    </button>
-                    <button type="button" class="btn btn-danger col-sm-2 pull-right" data-dismiss="modal"
-                            id="frm_cancel">Cancelar
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -124,7 +115,7 @@
             @if (session('eliminar'))
                 <div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
                     {{ session('eliminar') }}
-                </div>
+                </div>formConfirm
 
 
             @endif
@@ -224,20 +215,30 @@
                                                         <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
                                                 </a>
 
-
-                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
-                                                   data-placement="top" title="Eliminar cliente"
-                                                   data-target="#formConfirm">
+{{--                                                <span data-toggle="modal" data-target="#formConfirm">--}}
+                                                <a data-toggle="tooltip" class="formConfirm btn btn-danger"
+                                                   data-placement="top" title="Eliminar cliente" href="">
                                                         <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
 
                                                 </a>
+{{--                                                </span>--}}
 
-                                                <a class="btn btn-info " class="formConfirm text-primary"
-                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"
-                                                   data-toggle="tooltip" data-placement="top" title="Asignar Membresia"
-                                                   aria-label="Membrresia">
-                                                    <i class="fas fa-xs fa-id-card" aria-hidden="true"></i>
-                                                </a>
+{{--                                                <span data-toggle="modal" data-target="#exampleModal" >--}}
+{{--                                                    <a class="btn btn-info " class="formConfirm text-primary"--}}
+{{--                                                       data-toggle="tooltip" href=""--}}
+{{--                                                       data-placement="top" title="Designar Membresia">--}}
+{{--                                                        <i class="fas fa-xs fa-id-card" aria-hidden="true"></i>--}}
+{{--                                                    </a>--}}
+{{--                                                </span>--}}
+
+                                                <span data-toggle="modal" data-target="#exampleModal">
+                                                    <button type*="button" class="btn btn-info"
+                                                            data-placement="top" title="Designar Membresia"
+                                                            data-toggle="tooltip" value="">
+                                                        <i class="fas fa-xs fa-id-card" aria-hidden="true"></i>
+                                                    </button>
+                                                </span>
+
 
                                                 <a class="btn btn-warning " class="formConfirm text-primary"
                                                    href="{{route("clientes.edit", $cliente->IdCliente )}}"
