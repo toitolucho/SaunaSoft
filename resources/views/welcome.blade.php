@@ -66,6 +66,7 @@
                             <a class="collapse-item" href="/clientes">Clientes</a>
                             <a class="collapse-item" href="/membresia">Membresia</a>
                             <a class="collapse-item" href="/ventasservicios">Ventas</a>
+                            <a class="collapse-item" href="{{route("promociones.index")}}">Promociones</a>
                         </div>
                     </div>
                 </li>

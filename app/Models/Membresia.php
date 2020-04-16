@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Membresium extends Model
+class Membresia extends Model
 {
 	protected $table = 'membresia';
 	protected $primaryKey = 'IdMembresia';

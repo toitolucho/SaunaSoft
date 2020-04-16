@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Membresia;
-use App\Models\Servicio;
-use App\Models\Cliente;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class SevicioController extends Controller
+class MembresiaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,7 @@ class SevicioController extends Controller
      */
     public function index()
     {
-       $servicios = DB::table('servicios')->paginate(15);
-        return view('servicios.index', ['servicios' => $servicios]);
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class SevicioController extends Controller
      */
     public function create()
     {
-        return view('servicios.create');
+        //
     }
 
     /**
@@ -39,22 +35,20 @@ class SevicioController extends Controller
      */
     public function store(Request $request)
     {
-        $servicio = new Servicio();
-        $servicio->NombreServicio=$request->get('NombreServicio');
-        $servicio->Descripcion=$request->get('Descripcion');
-        $servicio->CostoServicio=$request->get('CostoServicio');
-        $servicio->save();
+        //dd($request);
+        //return $request->all();
 
-        return redirect('servicios');
+        Membresia::create($request->all());
+        return back()->with("editado", "Membresia asignada al cliente correctamente");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Membresia $membresia)
     {
         //
     }
@@ -62,10 +56,10 @@ class SevicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Membresia $membresia)
     {
         //
     }
@@ -74,10 +68,10 @@ class SevicioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Membresia $membresia)
     {
         //
     }
@@ -85,10 +79,10 @@ class SevicioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Membresia $membresia)
     {
         //
     }

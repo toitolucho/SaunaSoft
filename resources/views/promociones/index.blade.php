@@ -81,7 +81,7 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de promociones</h6>--}}
 
 
-            <a href="/promocion/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="{{route("promociones.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 Agregar promociones</a></div>
 
         <div class="row  my-2">

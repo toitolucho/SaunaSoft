@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Membresium;
+use App\Models\Membresia;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +56,7 @@ class MembershipController extends Controller
             'IdCliente' => 'required',
         ]);
 
-        $membresia = new Membresium();
+        $membresia = new Membresia();
         $membresia->IdCliente=$request->get('IdCliente');
         $membresia->FechaInicio=$request->get('FechaInicio');
         $membresia->FechaFin=$request->get('FechaFin');
@@ -86,7 +86,7 @@ class MembershipController extends Controller
      */
     public function edit($id)
     {
-        $membresia = Membresium::where('IdMembresia','=',$id)->get();
+        $membresia = Membresia::where('IdMembresia','=',$id)->get();
         $Cliente=Cliente::all();
         return view('membresia.edit',[ 'membresias' => $membresia,'clientes' => $Cliente]);
     }
@@ -100,7 +100,7 @@ class MembershipController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $membresia = Membresium::find( $id);
+        $membresia = Membresia::find( $id);
         $membresia->NombreCategoria = $request->get('NombreCategoria');
 
         if($membresia->save())
@@ -118,7 +118,7 @@ class MembershipController extends Controller
      */
     public function destroy($id)
     {
-        $membresia = Membresium::find($id);
+        $membresia = Membresia::find($id);
 
 
         if($membresia->delete())

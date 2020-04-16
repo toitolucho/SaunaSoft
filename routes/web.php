@@ -66,6 +66,8 @@ Route::resource('/comprasarticulos','CompraArticuloController');
 Route::resource('/articulos','ArticuloController');
 Route::resource('/clientes','ClienteController');
 Route::resource('/ventasservicios','VentaServicioController');
+Route::resource('/membresias','MembresiaController');
+Route::resource('promociones','PromocionController');
 
 
 
@@ -101,7 +103,7 @@ Route::resource('servicios','SevicioController');
 Route::post('Sinsertar',"SevicioController@store");
 
 /*SERVISOS*/
-Route::resource('promocion','PromotionsController');
-Route::post('Pinsertar',"PromotionsController@store");
+//Route::resource('promocion','PromotionsController');
+//Route::post('Pinsertar',"PromotionsController@store");
 
 

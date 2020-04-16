@@ -8,9 +8,12 @@
             list-style-type: none !important;
         }
 
-        .inner{
-            display: inline-block;
+        .close {
+            color: #fff;
+            opacity: 1;
         }
+
+
     </style>
 
     <!-- Dialog show event handler -->
@@ -19,24 +22,48 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
 
+            $('.alert-success').fadeIn().delay(1500).fadeOut(1000);
+
+
+            $('#agregarMembresia').on('show.bs.modal', function (event) {
+
+
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var idCliente = button.data('idcliente') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                //modal.find('.modal-title').text('New message to ' + recipient)
+                // console.log(button.data())
+                // console.log(button.data('idcliente'))
+                modal.find('.modal-body #txtIdCliente').val(idCliente)
+            })
 
         });
 
 
     </script>
 
+
+
     <!-- Modal Add Edit Membresia-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="agregarMembresia" tabindex="-1" role="dialog" aria-labelledby="agregarMembresiaLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-notify modal-info" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="agregarMembresiaLabel">Agregar membresia nueva</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" >&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action = "{{route("membresias.store")}}" method="post">
+{{--                    <form action="/clientes" method="POST">--}}
+                    @csrf
+
+{{--                        idCliente--}}
+                        <input id="txtIdCliente" type="text" value=""  name="IdCliente" hidden>
                         <div class="form-group  col-md-6">
                             <label for="inputState">Fecha Inicio<span class="text-danger">*</span></label>
                             <input type="date" name="FechaInicio" id="FechaInicio" class="form-control" placeholder="Ingrese La Fecha Inicio" required  value="{{old('FechaInicio ')}}">
@@ -57,12 +84,15 @@
                             <input type="text" name="CostoGeneral" id="CostoGeneral" class="form-control" placeholder="Ingrese Costo General" required  value="{{old('CostoGeneral')}}">
                         </div>
 
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -223,7 +253,7 @@
                                                 </a>
 {{--                                                </span>--}}
 
-{{--                                                <span data-toggle="modal" data-target="#exampleModal" >--}}
+{{--                                                <span data-toggle="modal" data-target="#agregarMembresia" >--}}
 {{--                                                    <a class="btn btn-info " class="formConfirm text-primary"--}}
 {{--                                                       data-toggle="tooltip" href=""--}}
 {{--                                                       data-placement="top" title="Designar Membresia">--}}
@@ -231,9 +261,10 @@
 {{--                                                    </a>--}}
 {{--                                                </span>--}}
 
-                                                <span data-toggle="modal" data-target="#exampleModal">
+                                                <span data-toggle="modal" data-target="#agregarMembresia" data-idCliente="{{$cliente->IdCliente}}">
                                                     <button type*="button" class="btn btn-info"
                                                             data-placement="top" title="Designar Membresia"
+
                                                             data-toggle="tooltip" value="">
                                                         <i class="fas fa-xs fa-id-card" aria-hidden="true"></i>
                                                     </button>

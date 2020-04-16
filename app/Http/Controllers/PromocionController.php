@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Membresium;
+use App\Models\Membresia;
 use App\Models\Servicio;
 use App\Models\Cliente;
 use App\Models\Promociones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PromotionsController extends Controller
+class PromocionController extends Controller
 {
     /**
      * Display a listing of the resource.

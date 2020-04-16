@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaRegistro
  * @property int $NroVisitas
  * 
- * @property Collection|Membresium[] $membresia
+ * @property Collection|Membresia[] $membresia
  * @property Collection|Promociondetallecliente[] $promociondetalleclientes
  * @property Collection|Ventasservicio[] $ventasservicios
  *
@@ -58,7 +58,7 @@ class Cliente extends Model
 
 	public function membresia()
 	{
-		return $this->hasMany(Membresium::class, 'IdCliente');
+		return $this->hasMany(Membresia::class, 'IdCliente');
 	}
 
 	public function promociondetalleclientes()
