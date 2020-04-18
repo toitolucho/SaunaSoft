@@ -19,6 +19,11 @@
 
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script type="text/javascript">
+            $(function () {
+                $('.alert-success').fadeIn().delay(1500).fadeOut(1000);
+            });
+        </script>
         <title>Sauna SOFT</title>
     </head>
     <body id="page-top">
@@ -64,9 +69,10 @@
                             <a class="collapse-item" href="/articulos">Articulos</a>
                             <a class="collapse-item" href="/comprasarticulos">Compras</a>
                             <a class="collapse-item" href="/clientes">Clientes</a>
-                            <a class="collapse-item" href="/membresia">Membresia</a>
+                            <a class="collapse-item" href="{{route("membresias.index")}}">Membresia</a>
                             <a class="collapse-item" href="/ventasservicios">Ventas</a>
-                            <a class="collapse-item" href="{{route("promociones.index")}}">Promociones</a>
+                            <a class="collapse-item" href="{{route("promocion.index")}}">Promociones</a>
+                            <a class="collapse-item" href="{{route("servicios.index")}}">Servicios</a>
                         </div>
                     </div>
                 </li>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Membresia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MembresiaController extends Controller
 {
@@ -14,7 +16,10 @@ class MembresiaController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $membresias = Membresia::with("Cliente")-> paginate(15);
+        return view('membresia.index', ['membresias' => $membresias]);
     }
 
     /**
@@ -24,7 +29,8 @@ class MembresiaController extends Controller
      */
     public function create()
     {
-        //
+//        $Cliente=Cliente::all();
+//        return view('membresia.create',['clientes' => $Cliente]);
     }
 
     /**
@@ -59,9 +65,12 @@ class MembresiaController extends Controller
      * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function edit(Membresia $membresia)
+    public function edit($id)
     {
-        //
+        $membresia = Membresia::findOrFail($id);
+        $Cliente=Cliente::all();
+
+        return view('membresia.edit',[ 'membresia' => $membresia,'clientes' => $Cliente]);
     }
 
     /**
@@ -71,9 +80,22 @@ class MembresiaController extends Controller
      * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Membresia $membresia)
+    public function update(Request $request, $id)
     {
-        //
+        $membresia = Membresia::find( $id);
+        $membresia->IdCliente = $request->get('IdCliente');
+        $membresia->FechaInicio = $request->get('FechaInicio');
+        $membresia->FechaFin = $request->get('FechaFin');
+        $membresia->CodigoEstado = $request->get('CodigoEstado');
+        $membresia->CostoGeneral = $request->get('CostoGeneral');
+
+
+
+        if($membresia->save())
+        {
+            return redirect()->route('membresias.index')->with("editado","La membresia ha sido actualizada correctamente");
+        }
+        return redirect()->route('membresias.index')->withInput()->with("editado_error","La Categoría seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     /**
@@ -82,8 +104,15 @@ class MembresiaController extends Controller
      * @param  \App\Membresia  $membresia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Membresia $membresia)
+    public function destroy($id)
     {
-        //
+        $membresia = Membresia::find( $id);
+
+
+        if($membresia->delete())
+        {
+            return redirect()->route('membresias.index')->with("eliminar","El elemento, ha sido eleminado correctamente");
+        }
+        return rredirect()->route('membresias.index')->withInput()->with("eliminar_error","La Membresia seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
     }
 }

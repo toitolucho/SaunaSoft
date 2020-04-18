@@ -24,7 +24,7 @@
 
 			<div class="col-sm-12">
 				<h5 class="card-title">Los Campos con <span class="text-danger">*</span> son Obligatorios!</h5>
-				<form action="/Sinsertar" method="POST">
+				<form action="{{route("servicios.store")}}" method="POST">
 					@csrf
 					<div class="form-row col-md-12">
 						<div class="form-group col-md-12">

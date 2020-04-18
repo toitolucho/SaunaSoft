@@ -56,6 +56,8 @@ class Cliente extends Model
 		'NroVisitas'
 	];
 
+
+
 	public function membresia()
 	{
 		return $this->hasMany(Membresia::class, 'IdCliente');
@@ -75,4 +77,6 @@ class Cliente extends Model
     {
         return "{$this->Nombres} {$this->Apellidos}";
     }
+
+
 }

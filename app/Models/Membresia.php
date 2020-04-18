@@ -47,4 +47,21 @@ class Membresia extends Model
 	{
 		return $this->belongsTo(Cliente::class, 'IdCliente');
 	}
+
+    public function getEstadoAttribute()
+    {
+        $estado = "HOla";
+        switch ($this->CodigoEstado)
+        {
+            case "V":
+                $estado = "VIGENTE";
+                break;
+            case "C":
+                $estado = "CONCLUIDO";
+                break;
+        }
+
+        //return "{$this->Nombres} {$this->Apellidos}";
+        return "{$estado}";
+    }
 }

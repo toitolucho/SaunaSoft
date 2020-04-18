@@ -78,10 +78,10 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de promociones</strong>
 
-            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de promociones</h6>--}}
+            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de promocion</h6>--}}
 
 
-            <a href="{{route("promociones.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="{{route("articulos.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 Agregar promociones</a></div>
 
         <div class="row  my-2">
@@ -93,7 +93,7 @@
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion del articulo..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion de la promocion..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -159,77 +159,54 @@
 
                                 <thead>
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="Name: activate to sort column descending" style="width: 88px;">
-                                        Seleccionar
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nombre de Promocion
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Tipo de Promocion 
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Porcentaje de Descuento
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Numero de Personas
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Acciones
-                                    </th> 
+                                    <th class="w-10 text-center"> Id </th>
+                                    <th class="w-35 text-center">Nombre de Promocion</th>
+                                    <th class="w-15 text-center">Tipo de Promocion </th>
+                                    <th class="w-15 text-center">Estado </th>
+                                    <th class="w-10 text-center">% Desc</th>
+                                    <th class="w-10 text-center">Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Seleccionar</th>
-                                    <th rowspan="1" colspan="1">Nombre de Promocion</th>
-                                    <th rowspan="1" colspan="1">Tipo de Promocion </th>
-                                    <th rowspan="1" colspan="1">Porcentaje de Descuento</th>
-                                    <th rowspan="1" colspan="1">Numero de Personas</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($promociones as $promocion)
                                     <tr role="row">
-                                        <td>
-											<span class="custom-checkbox">
-											<input type="checkbox" id="checkbox1" name="options[]" value="1">
-											<label for="checkbox1"></label>
-											</span>
+                                        <td class="w-10 text-center">
+                                            {{$promocion->IdPromocion}}
                                         </td>
-                                        <td>{{$promocion->IdCliente}}</td>
-                                        <td>{{$promocion->FechaInicio}}  </td>
-                                        <td>{{$promocion->FechaFin}}</td>
-                                        <td>{{$promocion->CodigoEstado }}  </td>
-                                        <td>{{$promocion->CostoGeneral }}  </td>
+                                        <td>{{$promocion->NombrePromocion}}</td>
+                                        <td>{{$promocion->Tipo}}  </td>
+                                        <td>{{$promocion->Estado}}</td>
+                                        <td class = "w-10 text-right">{{$promocion->PorcentajeDescuento }}  </td>
 
-                                        <td class="sorting_1">
+
+                                        <td class="w-7 text-center">
 
                                             <li data-form="#delete-form-{{$promocion->IdPromocion}}"
-                                                data-title="Eliminar promocion"
-                                                data-message="Se encuentra seguro de eliminar esta promocion ?"
+                                                data-title="Eliminar Promocion"
+                                                data-message="Se encuentra seguro de eliminar esta promocion?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/promocion/{{$promocion->IdPromocion}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("promocion.edit", $promocion->IdPromocion )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$promocion->IdPromocion}}"
-                                                  action="/promocion/{{$promocion->IdPromocion}}" method="post"
+                                                  action = "{{route("promocion.destroy", $promocion->IdPromocion )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

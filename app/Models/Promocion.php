@@ -54,8 +54,53 @@ class Promocion extends Model
 		'Descripcion'
 	];
 
+    protected $appends = ['Estado'];
+
+
 	public function promociondetalleclientes()
 	{
 		return $this->hasMany(Promociondetallecliente::class, 'IdPromocion');
 	}
+
+    public function getEstadoAttribute()
+    {
+        $estado = "HOla";
+        switch ($this->CodigoEstado)
+        {
+            case "V":
+                $estado = "VIGENTE";
+                break;
+            case "C":
+                $estado = "CONCLUIDO";
+                break;
+        }
+
+        //return "{$this->Nombres} {$this->Apellidos}";
+        return "{$estado}";
+    }
+
+    public function getTipoAttribute()
+    {
+        $estado = "HOla";
+        switch ($this->TipoPromocion)
+        {
+            case "D":
+                $estado = "DESCUENTO";
+                break;
+            case "C":
+                $estado = "CUMPLEAÑOS";
+                break;
+            case "N":
+                $estado = "MUCHOS POR UNO";
+                break;
+            case "P":
+                $estado = "DESCUENTO POR PUNTOS DE VISITA";
+                break;
+        }
+
+        //return "{$this->Nombres} {$this->Apellidos}";
+        return "{$estado}";
+    }
+
+
 }

@@ -67,7 +67,9 @@ class SevicioController extends Controller
      */
     public function edit($id)
     {
-        //
+        //servicio::findOrFail()
+        $servicio = Servicio::findOrFail($id);
+        return view('servicios.edit',[ 'servicio' => $servicio]);
     }
 
     /**
@@ -79,7 +81,21 @@ class SevicioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $servicio = Servicio::find( $id);
+        $servicio->NombreServicio = $request->get('NombreServicio');
+        $servicio->Descripcion = $request->get('Descripcion');
+        $servicio->CostoServicio = $request->get('CostoServicio');
+
+        if($servicio->save())
+        {
+            return redirect('servicios')->with("editado","El servicio ha sido actualizada correctamente");
+        }
+        return redirect('servicios')->withInput()->with("editado_error","El servicio seleccioinado no pudo editarse, intentenlo nuevamente porfavor");
+
+
+//        $servicio->save();
+//
+//        return redirect('servicios');
     }
 
     /**
@@ -90,6 +106,15 @@ class SevicioController extends Controller
      */
     public function destroy($id)
     {
+        //dd($id);
+        $servicio = Servicio::find( $id);
+
+
+        if($servicio->delete())
+        {
+            return redirect('servicios')->with("eliminar","El elemento " . $servicio->NombreServicio . ", ha sido eleminado correctamente");
+        }
+        return redirect('servicios')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
         //
     }
 }

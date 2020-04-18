@@ -67,7 +67,7 @@ Route::resource('/articulos','ArticuloController');
 Route::resource('/clientes','ClienteController');
 Route::resource('/ventasservicios','VentaServicioController');
 Route::resource('/membresias','MembresiaController');
-Route::resource('promociones','PromocionController');
+Route::resource('promocion','PromocionController');
 
 
 
@@ -91,8 +91,8 @@ Route::delete('/categorias/{categoria}/rticulos/{articulo}','ArticuloController@
 
 
 /*MBRESIA*/
-Route::resource('membresia','MembershipController');
-Route::post('Minsertar',"MembershipController@store");
+//Route::resource('membresia','MembershipController');
+//Route::post('Minsertar',"MembershipController@store");
 // Route::post('Meliminar',"MembershipController@destroy");
 // destroy
 // Route::resource('/comprasarticulos','CompraArticuloController');

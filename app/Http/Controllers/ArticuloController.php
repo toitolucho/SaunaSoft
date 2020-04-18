@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use PHPJasper\PHPJasper;
 
 
-class ArticuloController extends Controller
+class  ArticuloController extends Controller
 {
     /**
      * Display a listing of the resource.

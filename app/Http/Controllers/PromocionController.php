@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Membresia;
 use App\Models\Servicio;
 use App\Models\Cliente;
-use App\Models\Promociones;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +18,10 @@ class PromocionController extends Controller
      */
     public function index()
     {
-         $promociones = DB::table('promociones')->paginate(15);
-        return view('promociones.index', ['promociones' => $promociones]);
+
+        $promociones = Promocion::paginate(15);
+
+        return view('promocion.index', ['promociones' => $promociones]);
     }
 
     /**
@@ -29,7 +31,7 @@ class PromocionController extends Controller
      */
     public function create()
     {
-        return view('promociones.create');
+        return view('promocion.create');
     }
 
     /**
@@ -40,20 +42,34 @@ class PromocionController extends Controller
      */
     public function store(Request $request)
     {
-        $promociones = new Promociones();
-        $promociones->NombrePromocion=$request->get('NombrePromocion');
-        $promociones->FechaInicio=$request->get('FechaInicio');
-        $promociones->FechaFin=$request->get('FechaFin');
-        $promociones->CodigoEstado=$request->get('CodigoEstado');
-        $promociones->TipoPromocion=$request->get('TipoPromocion');
-        $promociones->PorcentajeDescuento=$request->get('PorcentajeDescuento');
-        $promociones->Nombrepromociones=$request->get('Nombrepromociones');
-        $promociones->NroPersonas=$request->get('NroPersonas');
-        $promociones->Descripcion=$request->get('Descripcion');
-        $promociones->save();
+        $promocion = new Promocion();
+        $promocion->NombrePromocion=$request->get('NombrePromocion');
+        $promocion->FechaInicio=$request->get('FechaInicio');
+        $promocion->FechaFin=$request->get('FechaFin');
+        $promocion->CodigoEstado=$request->get('CodigoEstado');
+        $promocion->TipoPromocion=$request->get('TipoPromocion');
+        $promocion->PorcentajeDescuento=$request->get('PorcentajeDescuento');
+        $promocion->NroPersonas=$request->get('NroPersonas');
+        $promocion->Descripcion=$request->get('Descripcion');
+        $promocion->save();
 
-        return redirect('promociones');
+        return redirect('promocion');
     }
+
+    public function buscar(Request $request)
+    {
+
+        $textoBusqueda = $request->get('NombrePromocion');
+
+//        $categorias = DB::table('categorias')->where('NombreCategoria','like','%'.$textoBusqueda.'%') ->paginate(15);
+        $promociones = Promocion::query()->where('NombreCategoria','like','%'.$textoBusqueda.'%')->paginate(15);
+        if($promociones->isEmpty())
+            return redirect('promocion')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
+        else
+            return view('promocion.index', ['promocicones' => $promociones]);
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -74,7 +90,8 @@ class PromocionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $promocion = Promocion::findOrFail($id);
+        return view('promocion.edit',[ 'promocion' => $promocion]);
     }
 
     /**
@@ -86,7 +103,23 @@ class PromocionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $promocion = Promocion::find( $id);
+        $promocion->NombrePromocion = $request->get('NombrePromocion');
+        $promocion->FechaInicio = $request->get('FechaInicio');
+        $promocion->FechaFin = $request->get('FechaFin');
+        $promocion->CodigoEstado = $request->get('CodigoEstado');
+        $promocion->TipoPromocion = $request->get('TipoPromocion');
+        $promocion->PorcentajeDescuento = $request->get('PorcentajeDescuento');
+        $promocion->NroPersonas = $request->get('NroPersonas');
+        $promocion->Descripcion = $request->get('Descripcion');
+
+
+        if($promocion->save())
+        {
+
+            return redirect()->route('promocion.index')->with("editado","La Promoción ha sido actualizada correctamente");
+        }
+        return redirect()->route('promocion.index')->withInput()->with("editado_error","La Promoción seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     /**
@@ -97,6 +130,16 @@ class PromocionController extends Controller
      */
     public function destroy($id)
     {
+        $promocion = Promocion::find( $id);
+
+
+        if($promocion->delete())
+        {
+            return redirect()->route('promocion.index')->with("eliminar","El elemento " . $promocion->NombrePromocion . ", ha sido eleminado correctamente");
+        }
+        return rredirect()->route('promocion.index')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
         //
     }
+
+
 }

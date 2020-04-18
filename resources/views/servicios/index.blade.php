@@ -81,7 +81,7 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de servicios</h6>--}}
 
 
-            <a href="/servicios/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="{{route("servicios.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 Agregar servicios</a></div>
 
         <div class="row  my-2">
@@ -159,70 +159,52 @@
 
                                 <thead>
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="Name: activate to sort column descending" style="width: 88px;">
-                                        Seleccionar
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Nombre del Servicio
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Descripcion
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Costo del Servicio
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Acciones
-                                    </th>
+                                    <th class="w-10 text-center">Id</th>
+                                    <th class="w-35 text-center">Nombre del Servicio</th>
+                                    <th class="w-35 text-center">Descripcion</th>
+                                    <th class="w-13 text-center">Costo</th>
+                                    <th class="w-7 text-center">Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Seleccionar</th>
-                                    <th rowspan="1" colspan="1">Nombre del Servicio</th>
-                                    <th rowspan="1" colspan="1">Descripcion</th>
-                                    <th rowspan="1" colspan="1">Costo de Servicio</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($servicios as $servicio)
                                     <tr role="row"> 
-                                        <td>
-											<span class="custom-checkbox">
-											<input type="checkbox" id="checkbox1" name="options[]" value="1">
-											<label for="checkbox1"></label>
-											</span>
+                                        <td class="w-10 text-center">
+											{{$servicio->IdServicio}}
                                         </td>
                                         <td>{{$servicio->NombreServicio}}</td>
                                         <td>{{$servicio->Descripcion}}  </td>
-                                        <td>{{$servicio->CostoServicio}}</td>
+                                        <td class="w-13 text-right">{{$servicio->CostoServicio}}</td>
 
                                         <td class="sorting_1">
 
                                             <li data-form="#delete-form-{{$servicio->IdServicio}}"
-                                                data-title="Eliminar servicio"
-                                                data-message="Se encuentra seguro de eliminar esta servicio ?"
+                                                data-title="Eliminar Servicio"
+                                                data-message="Se encuentra seguro de eliminar este Servicio?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/servicios/{{$servicio->IdServicio}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("servicios.edit", $servicio->IdServicio )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$servicio->IdServicio}}"
-                                                  action="/servicios/{{$servicio->IdServicio}}" method="post"
+
+                                                  action = "{{route("servicios.destroy", $servicio->IdServicio )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

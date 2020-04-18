@@ -159,82 +159,55 @@
 
                                 <thead>
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="Name: activate to sort column descending" style="width: 88px;">
-                                        Seleccionar
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 147px;">
-                                        Cliente
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Fecha Inicio
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Fecha Final
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Estado
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 64px;">
-                                        Costo General
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 31px;">
-                                        Acciones
-                                    </th>
+                                    <th class="w-10 text-center">Id</th>
+                                    <th class="w-30 text-center">Cliente</th>
+                                    <th class="w-14 text-center">F. Inicio</th>
+                                    <th class="w-14 text-center">F. Final</th>
+                                    <th class="w-14 text-center">Estado</th>
+                                    <th class="w-14 text-center">Costo</th>
+                                    <th class="w-6 text-center">Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Seleccionar</th>
-                                    <th rowspan="1" colspan="1">Cliente</th>
-                                    <th rowspan="1" colspan="1">Fecha Inicio</th>
-                                    <th rowspan="1" colspan="1">Fecha Final</th>
-                                    <th rowspan="1" colspan="1">Estado</th>
-                                    <th rowspan="1" colspan="1">Costo General</th>
-                                    <th rowspan="1" colspan="1">Acciones</th>
-                                </tr>
-                                </tfoot>
+
                                 <tbody>
                                 @foreach($membresias as $membresia)
                                     <tr role="row">
-                                        <td>
-											<span class="custom-checkbox">
-											<input type="checkbox" id="checkbox1" name="options[]" value="1">
-											<label for="checkbox1"></label>
-											</span>
+                                        <td class="w-10 text-center">
+											{{$membresia->IdMembresia}}
                                         </td>
-                                        <td>{{$membresia->IdCliente}}</td>
-                                        <td>{{$membresia->FechaInicio}}  </td>
-                                        <td>{{$membresia->FechaFin}}</td>
-                                        <td>{{$membresia->CodigoEstado }}  </td>
-                                        <td>{{$membresia->CostoGeneral }}  </td>
+                                        <td>{{$membresia->Cliente->NombreCompleto}}</td>
+                                        <td> {{   date('d-m-Y', strtotime($membresia->FechaInicio))   }}</td>
+                                        <td>{{   date('d-m-Y', strtotime($membresia->FechaFin))   }}</td>
+                                        <td>{{$membresia->Estado }}  </td>
+                                        <td class="w-10 text-right">{{$membresia->CostoGeneral }}  </td>
 
-                                        <td class="sorting_1">
+                                        <td class="w-7 text-center">
 
                                             <li data-form="#delete-form-{{$membresia->IdMembresia}}"
-                                                data-title="Eliminar membresia"
-                                                data-message="Se encuentra seguro de eliminar esta membresia ?"
+                                                data-title="Eliminar Promocion"
+                                                data-message="Se encuentra seguro de eliminar esta promocion?"
                                                 data-target="#formConfirm" class="listado">
-                                                <a href="/membresia/{{$membresia->IdMembresia}}/edit"
-                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                <a data-toggle="modal" class="formConfirm text-danger" href=""
+
+
+
+                                                <a class="btn btn-primary " class="formConfirm text-primary"
+                                                   href="{{route("membresias.edit", $membresia->IdMembresia )}}"
+                                                   aria-label="Editar">
+                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                </a>
+
+
+                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
                                                    data-target="#formConfirm">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                    Eliminar
+                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
                                                 </a>
 
                                             </li>
 
                                             <form id="delete-form-{{$membresia->IdMembresia}}"
-                                                  action="/membresia/{{$membresia->IdMembresia}}" method="post"
+                                                  action = "{{route("membresias.destroy", $membresia->IdMembresia )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

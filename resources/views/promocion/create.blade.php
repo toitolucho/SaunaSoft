@@ -8,7 +8,7 @@
 
 		<div class="card-header"><i class="fa fa-fw fa-plus-circle">
 			</i> <strong>Agregar Promociones</strong>
-			<a href="/membresia" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-globe"></i> Listado de Membresia</a>
+			<a href="/membresia" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-globe"></i> Listado de Promociones</a>
 		</div>
 
 		<div class="card-body"> 

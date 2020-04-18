@@ -84,7 +84,7 @@ class MembershipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit2($id)
     {
         $membresia = Membresia::where('IdMembresia','=',$id)->get();
         $Cliente=Cliente::all();
