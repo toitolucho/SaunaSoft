@@ -82,11 +82,14 @@
 
 
 
-            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                reportessss</a></div>
+{{--            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>--}}
+{{--                reportessss</a></div>--}}
 
 
 
+
+            <a href="/articulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                Agregar Articulo</a></div>
         <div class="row  my-2">
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
