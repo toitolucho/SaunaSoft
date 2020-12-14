@@ -45,6 +45,12 @@ Route::get('/buscarclientesAjax', function (Request $request) {
     return response()->json($datas);
 });
 
+Route::get('/buscarproveedoresAjax', function (Request $request) {
+    $datas = App\Models\Proveedor::select(array('IdProveedor', 'NombreRazonSocial'))->where("NombreRazonSocial","LIKE","%{$request->get('q')}%")->orwhere("NombreRepresentante","LIKE","%{$request->get('q')}%")->get();
+
+    return response()->json($datas);
+});
+
 Route::get('/buscarserviciosAjax', function (Request $request) {
 
     $datas = App\Models\Servicio::select(array('IdServicio','NombreServicio','CostoServicio'))->where("NombreServicio","LIKE","%{$request->get('q')}%")->get();
@@ -107,3 +113,5 @@ Route::post('Sinsertar',"SevicioController@store");
 //Route::post('Pinsertar',"PromotionsController@store");
 
 
+Route::get('/comprasarticulos/reporte/{idcompraarticulo}','CompraArticuloController@reporte')->name("comprasarticulos.reporte");
+Route::get('/ventasservicios/reporte/{idventaservicio}','VentaServicioController@reporte')->name("ventasservicios.reporte");

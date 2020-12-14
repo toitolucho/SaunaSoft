@@ -14,6 +14,7 @@ use App\Models\Ventasserviciodetallearticulo;
 use App\Models\Ventasserviciodetallecliente;
 use App\Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
+use PHPJasper\PHPJasper;
 
 
 class VentaServicioController extends Controller
@@ -301,5 +302,67 @@ class VentaServicioController extends Controller
 //        }
 //        return redirect('categorias')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
 //        //
+    }
+
+
+    public function reporte($id)
+    {
+
+        $input = storage_path('Reportes/ventas/VentaServicioReporte.jasper');
+        $output = storage_path( 'Reportes/ventas');
+        $SUBREPORT_DIR = str_replace("VentaServicioReporte.jasper", "",  $input);
+
+
+        $hostname = env("DB_HOST", "localhost");
+        $username = env("DB_USERNAME", "root");
+        $database = env("DB_DATABASE", "saunasoft");
+        $password = env("DB_PASSWORD", "carskeep10000");
+
+
+        $this->PHPJasper = new PHPJasper();
+
+
+        $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
+        $options = [
+            'format' => ['pdf'],
+            'locale' => 'en',
+            'params' => ['IdVentaServicio' => $id, "SUBREPORT_DIR" => $SUBREPORT_DIR],
+            'db_connection' => [
+                'driver' => 'mysql',
+                'host' => $hostname,
+                'port' => '3306',
+                'database' => $database,
+                'username' => $username,
+//                'password' => '',
+                'jdbc_driver' => 'com.mysql.jdbc.Driver',
+                'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+                'jdbc_dir' => $jdbc_dir
+            ]
+        ];
+
+//        $salidaPrueba = $this->PHPJasper->process(
+//            $input,
+//            $output,
+//            $options
+//        )->output();
+//        dd($salidaPrueba);
+
+        $this->PHPJasper->process(
+            $input,
+            $output,
+            $options
+        )->execute();
+
+        //Funciona
+        $file = storage_path('Reportes/ventas/VentaServicioReporte.pdf');
+        if (file_exists($file)) {
+
+            $headers = [
+                'Content-Type' => 'application/pdf'
+            ];
+            return response()->download($file, 'Test File', $headers, 'inline');
+        } else {
+            abort(404, 'File not found!');
+        }
     }
 }

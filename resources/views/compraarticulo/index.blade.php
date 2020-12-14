@@ -231,6 +231,7 @@
 
                                                 <a class="btn btn-primary " class="formConfirm text-primary"
                                                    href="{{route("comprasarticulos.edit", $compra->IdCompraArticulo )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Editar Compra"
                                                    aria-label="Editar">
                                                     <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
                                                 </a>
@@ -241,6 +242,17 @@
                                                     <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
 
                                                 </a>
+
+
+
+                                                <a class="btn btn-info"  class="formConfirm text-primary"
+                                                   href="{{route("comprasarticulos.reporte", $compra->IdCompraArticulo  )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver Informe"
+                                                   aria-label="Informe">
+                                                    <i class="fas fa-xs fa-file" aria-hidden="true"></i>
+                                                </a>
+
+
 
                                             </li>
 

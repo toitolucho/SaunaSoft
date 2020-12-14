@@ -78,12 +78,12 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de articulos</strong>
 
-            {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
+            				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>
 
 
 
-{{--            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>--}}
-{{--                reportessss</a></div>--}}
+            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                reportessss</a></div>
 
 
 

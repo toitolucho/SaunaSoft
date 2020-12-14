@@ -1,0 +1,16 @@
+
+DELIMITER $$
+ 
+CREATE TRIGGER t_after_compras_detalle_insert
+AFTER INSERT
+ON ComprasArticulosDetalle FOR EACH ROW
+BEGIN
+    IF NEW.Cantidad > 0 THEN
+        UPDATE Articulos 
+			set CantidadExistencia = CantidadExistencia + NEW.Cantidad,
+				  TotalValorado = TotalValorado + NEW.Cantidad*NEW.Precio
+        where Articulos.IdArticulo = NEW.IdArticulo;
+    END IF;
+END$$
+ 
+DELIMITER ;

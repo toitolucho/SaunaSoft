@@ -8,12 +8,13 @@
         overflow-y: auto;
     }
 
+
     .twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/livequery/1.1.1/jquery.livequery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
 
 
@@ -56,7 +57,7 @@
             });
           //  console.log(engine);
 
-            $(".typeahead").typeahead({
+            $("#buscarArticulo").typeahead({
                 hint: true,
                 highlight: true,
                 limit: 10,
@@ -116,6 +117,52 @@
                 i++;
 
 
+
+
+            });
+
+            var proveedores = new Bloodhound({
+                remote: {
+                    url: '/buscarproveedoresAjax?q=QUERY',
+                    wildcard: 'QUERY'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('NombreRazonSocial'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+           // console.log(proveedores);
+
+            $("#buscarProveedor").typeahead({
+                hint: true,
+                highlight: true,
+                limit: 10,
+                minLength: 2
+            }, {
+                source: proveedores.ttAdapter(),
+                display: 'NombreRazonSocial',
+
+                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                name: 'listaClientes',
+
+                // the key from the array we want to display (name,id,email,etc...)
+                templates: {
+                    empty: [
+                        '<div class="list-group search-results-dropdown"><div class="list-group-item">Proveedor no encontrado</div></div>'
+                    ],
+                    header: [
+                        '<div class="list-group search-results-dropdown">'
+                    ],
+                    suggestion: function (data) {
+
+                        return ('<div class="list-group-item" >' + data.NombreRazonSocial + '</div>');
+                    }
+                }
+            }).on('typeahead:selected', function(event, data) {
+                var nombreCompleto = data.NombreRazonSocial;
+                var IdProveedor = data.IdProveedor;
+
+              //  console.log("Cliente "  + nombreCompleto + ", ID" + IdProveedor);
+
+                $('#CompraArticulos input[name=\"IdProveedor\"]').val(IdProveedor)
 
 
             });
@@ -225,38 +272,6 @@
 
 
 
-    <div class="row clearfix">
-
-
-
-{{--        <form class="typeahead" role="search">--}}
-            <div class="form-group col-sm-10">
-                <input type="search" name="q" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off">
-            </div>
-{{--            <div id="scrollable-dropdown-menu" class="my-lg-4">--}}
-{{--                <div class="col-4"> <label> Introduzca el Producto </label></div></div>--}}
-{{--                <div class="col-8"><input type="search" class="form-control typeahead" type="text" placeholder="Articulos" autocomplete="off"></div>--}}
-{{--            </div>--}}
-
-{{--        <form>--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="exampleFormControlInput1">articulo a buscar</label>--}}
-{{--                <input type="search" class="form-control typeahead" placeholder="Articulos" autocomplete="off">--}}
-{{--            </div>--}}
-{{--        </form>--}}
-
-
-
-{{--        <div class="row row-top-buffer form-horizontal">--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="title" class="col-xs-3 control-label row-label">Title</label>--}}
-{{--                <div class="col-xs-9">--}}
-{{--                    <input type="text" class="form-control input-text typeahead" id="title" placeholder="title" />--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-    </div>
 
 
 
@@ -264,86 +279,148 @@
 
 
 
-    <form action="{{ route("comprasarticulos.store") }}" method="POST">
+
+
+
+
+
+
+
+    <form action="{{ route("comprasarticulos.store") }}" method="POST" id="CompraArticulos">
         @csrf
 
 
+        <div class="card mt-2 mb-2">
+            <div class="card-header bg-secondary text-white">Datos Generales</div>
+            <div class="card-body">
+                <div class="form-row col-md-12">
 
-        <div class="row clearfix">
-            <div class="col-md-12">
-                <table class="table table-bordered table-hover" id="tab_logic">
-                    <thead>
-                    <tr>
-                        <th class="text-center"> Id</th>
-                        <th class="text-center"> Articulo</th>
-                        <th class="text-center"> Cantidad</th>
-                        <th class="text-center"> Precio</th>
-                        <th class="text-center"> Total</th>
-                        <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
-                        <th class="text-center" style='display:none'></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{--                    <tr id='addr0'>--}}
-                    {{--                        <td>1</td>--}}
-                    {{--                        <td>--}}
+                    <div class="form-group col-md-6">
+                        <label for="buscarProveedor" >Seleccione Proveedor<span class="text-danger" >*</span></label>
+                        <input type="search" name="NombreRazonSocial" class="form-control typeahead" placeholder="Proveedor" autocomplete="off" id="buscarProveedor" required value="{{old('NombreRazonSocial')}}">
+                        <div class="invalid-feedback">
+                            Porfavor seleccione un proveedor.
+                        </div>
 
 
-                    {{--                            <input type="text" name='product[]' placeholder='Int. articulo' class="typeahead form-control"/>--}}
+                        <input type="hidden" name="IdProveedor"   value="{{old('IdProveedor')}}" />
 
-                    {{--                            <input class="typeahead form-control" type="text" name='articulos[]'>--}}
-                    {{--                        </td>--}}
-                    {{--                        <td><input type="number" name='cantidades[]' placeholder='Int. Cantidad' class="form-control qty" step="0" value ="1"--}}
-                    {{--                                   min="0"/></td>--}}
-                    {{--                        <td><input type="number" name='precios[]' placeholder='Int. Precio Unitario'--}}
-                    {{--                                   class="form-control price" step="0.00" min="0"/></td>--}}
-                    {{--                        <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/>--}}
-                    {{--                        </td>--}}
-                    {{--                    </tr>--}}
+                    </div>
 
-                    {{--                    <tr id='addr1'></tr>--}}
-                    </tbody>
-                </table>
+                    <div class="form-group col-md-3">
+                        <label for="FechaHoraRegistro">Fecha Registro<span class="text-danger">*</span></label>
+                        <input type="date" name="FechaHoraRegistro" id="FechaHoraRegistro" class="form-control"  required  value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" readonly>
+                    </div>
+                </div>
+
+
+
+{{--                <div class="form-group col-md-6">--}}
+{{--                    <label for="CodigoEstadoVenta">Estado Compra<span class="text-danger">*</span></label>--}}
+{{--                    --}}{{--                    <input type="input" name="CodigoEstadoVenta" id="CodigoEstadoVenta" class="form-control"  required  value="INICIADO" readonly>--}}
+{{--                    <select id="CodigoEstadoVenta" class="form-control" name="CodigoEstadoVenta" >--}}
+{{--                        <option value="I" selected>INICIADO</option>--}}
+{{--                        <option value="A">ANULADO</option>--}}
+{{--                        <option value="F">FINALIZADO</option>--}}
+
+{{--                    </select>--}}
+
+{{--                </div>--}}
+
+                <div class="form-group col-md-9">
+                    <label for="Observaciones">Observaciones</label>
+                    <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"> {{old('Observaciones')}} </textarea>
+                </div>
+
             </div>
         </div>
-        <div class="row clearfix" style="margin-top:20px">
-            <div class="ml-auto col-md-4">
-                <table class="table table-bordered table-hover" id="tab_logic_total">
-                    <tbody>
-                    <tr>
-                        <th class="text-center">Sub Total</th>
-                        <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
-                                                       class="form-control" id="sub_total" readonly/></td>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Tax</th>
-                        <td class="text-center">
-                            <div class="input-group mb-2 mb-sm-0">
-                                <input type="number" class="form-control" id="tax" placeholder="0">
-                                <div class="input-group-addon">%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Tax Amount</th>
-                        <td class="text-center"><input type="number" name='tax_amount' id="tax_amount"
-                                                       placeholder='0.00' class="form-control" readonly/></td>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Grand Total</th>
-                        <td class="text-center"><input type="number" name='total_amount' id="total_amount"
-                                                       placeholder='0.00' class="form-control" readonly/></td>
-                    </tr>
-                    </tbody>
-                </table>
+
+        <div class="card mt-2 mb-2">
+            <div class="card-header bg-secondary text-white">Detalles de Compra</div>
+            <div class="card-body">
+                <div class="row clearfix">
+                    <div class="form-group col-sm-10">
+{{--                        <input type="search" name="q" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off">--}}
+                        <input type="search" id="buscarArticulo" name="articulo" class="form-control typeahead" placeholder="Int. Articulo" autocomplete="off" >
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover" id="tab_logic">
+                            <thead>
+                            <tr>
+                                <th class="text-center"> Id</th>
+                                <th class="text-center"> Articulo</th>
+                                <th class="text-center"> Cantidad</th>
+                                <th class="text-center"> Precio</th>
+                                <th class="text-center"> Total</th>
+                                <th class="text-center" style="border-top: 1px solid #f8f9fc; border-right: 1px solid #f8f9fc; border-bottom: 1px solid #f8f9fc;"></th>
+                                <th class="text-center" style='display:none'></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{--                    <tr id='addr0'>--}}
+                            {{--                        <td>1</td>--}}
+                            {{--                        <td>--}}
+
+
+                            {{--                            <input type="text" name='product[]' placeholder='Int. articulo' class="typeahead form-control"/>--}}
+
+                            {{--                            <input class="typeahead form-control" type="text" name='articulos[]'>--}}
+                            {{--                        </td>--}}
+                            {{--                        <td><input type="number" name='cantidades[]' placeholder='Int. Cantidad' class="form-control qty" step="0" value ="1"--}}
+                            {{--                                   min="0"/></td>--}}
+                            {{--                        <td><input type="number" name='precios[]' placeholder='Int. Precio Unitario'--}}
+                            {{--                                   class="form-control price" step="0.00" min="0"/></td>--}}
+                            {{--                        <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/>--}}
+                            {{--                        </td>--}}
+                            {{--                    </tr>--}}
+
+                            {{--                    <tr id='addr1'></tr>--}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row clearfix" style="margin-top:20px">
+                    <div class="ml-auto col-md-4">
+                        <table class="table table-bordered table-hover" id="tab_logic_total">
+                            <tbody>
+                            <tr>
+                                <th class="text-center">Sub Total</th>
+                                <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
+                                                               class="form-control" id="sub_total" readonly/></td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Tax</th>
+                                <td class="text-center">
+                                    <div class="input-group mb-2 mb-sm-0">
+                                        <input type="number" class="form-control" id="tax" placeholder="0">
+                                        <div class="input-group-addon">%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Tax Amount</th>
+                                <td class="text-center"><input type="number" name='tax_amount' id="tax_amount"
+                                                               placeholder='0.00' class="form-control" readonly/></td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Grand Total</th>
+                                <td class="text-center"><input type="number" name='total_amount' id="total_amount"
+                                                               placeholder='0.00' class="form-control" readonly/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="Observaciones">Observaciones</label>
-                <textarea class="form-control" id="Observaciones" rows="2" name="Observaciones" cols="100"></textarea>
-            </div>
-        </div>
+
+
+
         <div class="row">
             <input class="ml-auto btn btn-danger" type="submit" value="Guardar">
         </div>

@@ -243,6 +243,14 @@
 
                                                 </a>
 
+
+                                                <a class="btn btn-info"  class="formConfirm text-primary"
+                                                   href="{{route("ventasservicios.reporte", $venta->IdVentaServicio  )}}"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver Informe"
+                                                   aria-label="Informe">
+                                                    <i class="fas fa-xs fa-file" aria-hidden="true"></i>
+                                                </a>
+
                                             </li>
 
                                             <form id="delete-form-{{$venta->IdVentaServicio}}"

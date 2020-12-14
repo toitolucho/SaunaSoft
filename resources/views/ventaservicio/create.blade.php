@@ -48,7 +48,7 @@
             var NroServicios = 0;
             var NroClientes = 0;
 
-            $("#tabs").tabs();
+           // $("#tabs").tabs();
 
             $('#tabla_servicios tbody').on('keyup change',function(){
                 calc();
@@ -343,7 +343,7 @@
 
                     $('#pills-servicios-tab')[0].click();
 
-                   
+
 
 
                     return;

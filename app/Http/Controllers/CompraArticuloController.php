@@ -9,6 +9,7 @@ use App\Models\Comprasarticulo;
 use App\Models\Articulo;
 use App\Models\Comprasarticulosdetalle;
 use App\Carbon\Carbon;
+use PHPJasper\PHPJasper;
 
 
 class CompraArticuloController extends Controller
@@ -329,5 +330,134 @@ class CompraArticuloController extends Controller
 //        }
 //        return redirect('categorias')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
 //        //
+
+
+    }
+
+    public function reporte2($id)
+    {
+
+
+
+        //JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
+
+        $jasper = new \JasperPHP\JasperPHP;
+        $entrada1 = storage_path('Reportes/IngresoArticulo/IngresosArticulosReporte.jrxml');
+//        $entrada2 = storage_path('Reportes/IngresoArticulo/IngresosArticulosDetalleReporte.jrxml');
+//
+//       // dd($entrada);
+//
+//        // Compile a JRXML to Jasper
+        //$salida = $jasper->compile($entrada1)->output();
+        //echo $salida;
+//        $jasper->compile($entrada2)->execute();
+
+        $entrada1 = storage_path('Reportes/IngresoArticulo/IngresosArticulosReporte.jasper');
+        //D:\Proyectos\CarsKeep\CarsKeep10\vendor\cossou\jasperphp\src\JasperStarter\jdbc
+        $jdbc_dir = base_path() . '\vendor\cossou\jasperphp\src\JasperStarter\jdbc';
+
+        $SUBREPORT_DIR = str_replace("IngresosArticulosReporte.jasper", "",  $entrada1);
+        //dd($SUBREPORT_DIR);
+//
+
+        $hostname = env("DB_HOST", "localhost");
+        $username = env("DB_USERNAME", "root");
+        $database = env("DB_DATABASE", "carskeep10");
+        $password = env("DB_PASSWORD", "carskeep10000");
+
+
+        // Process a Jasper file to PDF and RTF (you can use directly the .jrxml)
+        $salida = $jasper->process(
+            $entrada1,
+            false,
+            array("pdf"),
+            array("IdIngresoArticulo" => $id, "SUBREPORT_DIR" => $SUBREPORT_DIR),
+//            array("IdIngresoArticulo" => $id),
+            array(
+                'driver' => 'mysql',
+                'username' => $username,
+//                    'password' => $password,
+                'host' => $hostname,
+                'database' => $database,
+                'port' => '3306',
+                'jdbc_dir' => $jdbc_dir,
+            )
+
+        )->execute();
+
+        //echo $salida;
+
+        $file = storage_path('Reportes/IngresoArticulo/IngresosArticulosReporte.pdf');
+        if (file_exists($file)) {
+
+            $headers = [
+                'Content-Type' => 'application/pdf'
+            ];
+            return response()->download($file, 'Test File', $headers, 'inline');
+        } else {
+            abort(404, 'File not found!');
+        }
+    }
+
+
+    public function reporte($id)
+    {
+
+        $input = storage_path('Reportes/compras/IngresosArticulosReporte.jasper');
+        $output = storage_path( 'Reportes/compras');
+        $SUBREPORT_DIR = str_replace("IngresosArticulosReporte.jasper", "",  $input);
+
+
+        $hostname = env("DB_HOST", "localhost");
+        $username = env("DB_USERNAME", "root");
+        $database = env("DB_DATABASE", "saunasoft");
+        $password = env("DB_PASSWORD", "carskeep10000");
+
+
+        $this->PHPJasper = new PHPJasper();
+
+
+        $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
+        $options = [
+            'format' => ['pdf'],
+            'locale' => 'en',
+            'params' => ['IdIngresoArticulo' => $id, "SUBREPORT_DIR" => $SUBREPORT_DIR],
+            'db_connection' => [
+                'driver' => 'mysql',
+                'host' => $hostname,
+                'port' => '3306',
+                'database' => $database,
+                'username' => $username,
+//                'password' => '',
+                'jdbc_driver' => 'com.mysql.jdbc.Driver',
+                'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+                'jdbc_dir' => $jdbc_dir
+            ]
+        ];
+
+//        $salidaPrueba = $this->PHPJasper->process(
+//            $input,
+//            $output,
+//            $options
+//        )->output();
+//        dd($salidaPrueba);
+
+        $this->PHPJasper->process(
+            $input,
+            $output,
+            $options
+        )->execute();
+
+        //Funciona
+        $file = storage_path('Reportes/compras/IngresosArticulosReporte.pdf');
+        if (file_exists($file)) {
+
+            $headers = [
+                'Content-Type' => 'application/pdf'
+            ];
+            return response()->download($file, 'Test File', $headers, 'inline');
+        } else {
+            abort(404, 'File not found!');
+        }
     }
 }
