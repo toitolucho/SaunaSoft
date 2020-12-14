@@ -304,6 +304,68 @@ class VentaServicioController extends Controller
 //        //
     }
 
+    public function  resumenFechas($id)
+    {
+        $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas2.jasper');
+        $output = storage_path( 'Reportes/ventas');
+        $SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas2.jasper", "",  $input);
+
+
+        $hostname = env("DB_HOST", "localhost");
+        $username = env("DB_USERNAME", "root");
+        $database = env("DB_DATABASE", "saunasoft");
+        $password = env("DB_PASSWORD", "carskeep10000");
+
+        $fechaInicio =date("d/m/Y");
+        $fechaFin =date("d/m/Y");
+
+        $this->PHPJasper = new PHPJasper();
+
+
+        $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
+        $options = [
+            'format' => ['pdf'],
+            'locale' => 'en',
+//            'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin],
+            'db_connection' => [
+                'driver' => 'mysql',
+                'host' => $hostname,
+                'port' => '3306',
+                'database' => $database,
+                'username' => $username,
+//                'password' => '',
+                'jdbc_driver' => 'com.mysql.jdbc.Driver',
+                'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+                'jdbc_dir' => $jdbc_dir
+            ]
+        ];
+
+//        $salidaPrueba = $this->PHPJasper->process(
+//            $input,
+//            $output,
+//            $options
+//        )->output();
+//        dd($salidaPrueba);
+
+        $this->PHPJasper->process(
+            $input,
+            $output,
+            $options
+        )->execute();
+
+        //Funciona
+        $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas2.pdf');
+        if (file_exists($file)) {
+
+            $headers = [
+                'Content-Type' => 'application/pdf'
+            ];
+            return response()->download($file, 'Test File', $headers, 'inline');
+        } else {
+            abort(404, 'File not found!');
+        }
+    }
+
 
     public function reporte($id)
     {
@@ -365,4 +427,6 @@ class VentaServicioController extends Controller
             abort(404, 'File not found!');
         }
     }
+
+
 }

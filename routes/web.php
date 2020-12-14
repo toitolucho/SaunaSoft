@@ -115,3 +115,4 @@ Route::post('Sinsertar',"SevicioController@store");
 
 Route::get('/comprasarticulos/reporte/{idcompraarticulo}','CompraArticuloController@reporte')->name("comprasarticulos.reporte");
 Route::get('/ventasservicios/reporte/{idventaservicio}','VentaServicioController@reporte')->name("ventasservicios.reporte");
+Route::get('/ventasservicios/resumenFechas/{idventaservicio}','VentaServicioController@resumenFechas')->name("ventasservicios.resumenFechas");
