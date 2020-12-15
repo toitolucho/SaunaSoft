@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Servicio
- * 
+ *
  * @property int $IdServicio
  * @property string $NombreServicio
  * @property string $Descripcion
  * @property float $CostoServicio
- * 
+ *
  * @property Collection|Ventasserviciodetalle[] $ventasserviciodetalles
  *
  * @package App\Models
@@ -29,16 +29,20 @@ class Servicio extends Model
 
 	protected $casts = [
 		'CostoServicio' => 'float'
+
 	];
 
 	protected $fillable = [
 		'NombreServicio',
 		'Descripcion',
-		'CostoServicio'
+		'CostoServicio',
+        'CodigoEstado'
 	];
 
 	public function ventasserviciodetalles()
 	{
 		return $this->hasMany(Ventasserviciodetalle::class, 'IdServicio');
 	}
+
+
 }

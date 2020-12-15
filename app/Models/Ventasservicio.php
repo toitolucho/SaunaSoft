@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Ventasservicio
- * 
+ *
  * @property int $IdVentaServicio
  * @property int $IdUsuario
  * @property int $IdCliente
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $IdPromocion
  * @property int $NroPersonas
  * @property string $Observaciones
- * 
+ *
  * @property Usuario $usuario
  * @property Cliente $cliente
  * @property Collection|Ventasserviciodetalle[] $ventasserviciodetalles
@@ -39,8 +39,8 @@ class Ventasservicio extends Model
 	protected $casts = [
 		'IdUsuario' => 'int',
 		'IdCliente' => 'int',
-		'IdPromocion' => 'int',
-		'NroPersonas' => 'int'
+		'NroPersonas' => 'int',
+        'MontoTotalPago'=>'float'
 	];
 
 	protected $dates = [
@@ -52,10 +52,10 @@ class Ventasservicio extends Model
 		'IdCliente',
 		'FechaHoraVenta',
 		'CodigoEstadoVenta',
-		'IdPromocion',
 		'NroPersonas',
         'NroCasillero',
-		'Observaciones'
+		'Observaciones',
+        'MontoTotalPago'
 	];
 
 	public function usuario()

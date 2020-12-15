@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Ventasserviciodetalle
- * 
+ *
  * @property int $IdVentaServicio
  * @property int $IdServicio
  * @property float $Costo
- * 
+ *
  * @property Ventasservicio $ventasservicio
  * @property Servicio $servicio
  *
@@ -29,11 +29,20 @@ class Ventasserviciodetalle extends Model
 	protected $casts = [
 		'IdVentaServicio' => 'int',
 		'IdServicio' => 'int',
-		'Costo' => 'float'
+		'Costo' => 'float',
+        'NroPersonas' => 'int',
+        'IdPromocion' => 'int',
+        'PorcentajeDescuento' => 'float',
+        'MontoPagado' => 'float'
 	];
 
 	protected $fillable = [
-		'Costo'
+		'Costo',
+        'NroPersonas',
+        'IdPromocion',
+        'PorcentajeDescuento',
+        'MontoPagado'
+
 	];
 
 	public function ventasservicio()
@@ -45,4 +54,8 @@ class Ventasserviciodetalle extends Model
 	{
 		return $this->belongsTo(Servicio::class, 'IdServicio');
 	}
+    public function promocion()
+    {
+        return $this->belongsTo(Promocion::class, 'IdPromocion');
+    }
 }

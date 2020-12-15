@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Comprasarticulo
- * 
+ *
  * @property int $IdCompraArticulo
  * @property int $IdUsuario
  * @property Carbon $FechaHoraRegistro
  * @property string $CodigoEstadoIngreso
  * @property string $Observaciones
- * 
+ *
  * @property Usuario $usuario
  * @property Collection|Comprasarticulosdetalle[] $comprasarticulosdetalles
  *
@@ -31,7 +31,8 @@ class Comprasarticulo extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'IdUsuario' => 'int'
+		'IdUsuario' => 'int',
+        'IdProveedor' => 'int'
 	];
 
 	protected $dates = [
@@ -60,5 +61,10 @@ class Comprasarticulo extends Model
         return $this->belongsToMany(Articulo::class, 'ComprasArticulosDetalle','IdCompraArticulo','IdArticulo')->withPivot('Cantidad','Precio');
         //return $this->belongsToMany(Articulo::class, 'ventasserviciodetallearticulos', 'IdVentaServicio', 'IdArticulo')
         //        ->withPivot('Cantidad', 'Costo');
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'IdProveedor');
     }
 }

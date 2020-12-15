@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Promocione
- * 
+ *
  * @property int $IdPromocion
  * @property string $NombrePromocion
  * @property Carbon $FechaInicio
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $PorcentajeDescuento
  * @property int $NroPersonas
  * @property string $Descripcion
- * 
+ *
  * @property Collection|Promociondetallecliente[] $promociondetalleclientes
  *
  * @package App\Models
@@ -35,22 +35,26 @@ class Promocion extends Model
 
 	protected $casts = [
 		'PorcentajeDescuento' => 'float',
-		'NroPersonas' => 'int'
+		'NroPersonas' => 'int',
+        'IdServicio'=>'int'
 	];
 
 	protected $dates = [
 		'FechaInicio',
-		'FechaFin'
+		'FechaFin',
+        'FechaRegistro'
 	];
 
 	protected $fillable = [
 		'NombrePromocion',
+        'FechaRegistro',
 		'FechaInicio',
 		'FechaFin',
 		'CodigoEstado',
 		'TipoPromocion',
 		'PorcentajeDescuento',
 		'NroPersonas',
+        'IdServicio',
 		'Descripcion'
 	];
 
@@ -84,22 +88,32 @@ class Promocion extends Model
         $estado = "HOla";
         switch ($this->TipoPromocion)
         {
-            case "D":
-                $estado = "DESCUENTO";
-                break;
-            case "C":
-                $estado = "CUMPLEAÑOS";
-                break;
-            case "N":
-                $estado = "MUCHOS POR UNO";
+            case "E":
+                $estado = "POR EDAD";
                 break;
             case "P":
-                $estado = "DESCUENTO POR PUNTOS DE VISITA";
+                $estado = "PERIODO DE TIEMPO";
+                break;
+            case "F":
+                $estado = "DIA FESTIVO";
+                break;
+            case "T":
+                $estado = "TIPO DE CLIENTE";
+                break;
+            case "A":
+                $estado = "ASISTENCIA Y FIDELIDAD";
+                break;
+            case "C":
+                $estado = "POR CANTIDAD DE PERSONAS";
                 break;
         }
 
         //return "{$this->Nombres} {$this->Apellidos}";
         return "{$estado}";
+    }
+    public function servicio()
+    {
+        return $this->hasMany(Servicio::class, 'IdServicio');
     }
 
 

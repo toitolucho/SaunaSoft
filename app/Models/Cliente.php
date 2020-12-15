@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Cliente
- * 
+ *
  * @property int $IdCliente
  * @property string $ci
  * @property string $Nombres
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaNacimiento
  * @property Carbon $FechaRegistro
  * @property int $NroVisitas
- * 
+ *
  * @property Collection|Membresia[] $membresia
  * @property Collection|Promociondetallecliente[] $promociondetalleclientes
  * @property Collection|Ventasservicio[] $ventasservicios
@@ -37,7 +37,8 @@ class Cliente extends Model
 
 	protected $casts = [
 		'NroCelular' => 'int',
-		'NroVisitas' => 'int'
+		'NroVisitas' => 'int',
+        'IdTipoCliente' => 'int'
 	];
 
 	protected $dates = [
@@ -53,7 +54,9 @@ class Cliente extends Model
 		'CorreoElectronico',
 		'FechaNacimiento',
 		'FechaRegistro',
-		'NroVisitas'
+		'NroVisitas',
+        'IdTipoCliente',
+        'Sexo'
 	];
 
 
@@ -76,6 +79,11 @@ class Cliente extends Model
     public function getNombreCompletoAttribute()
     {
         return "{$this->Nombres} {$this->Apellidos}";
+    }
+
+    public function tipocliente()
+    {
+        return $this->belongsTo(TipoCliente::class, 'IdCliente');
     }
 
 

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Membresium
- * 
+ *
  * @property int $IdMembresia
  * @property int $IdCliente
  * @property Carbon $FechaInicio
  * @property Carbon $FechaFin
  * @property string $CodigoEstado
  * @property float $CostoGeneral
- * 
+ *
  * @property Cliente $cliente
  *
  * @package App\Models
@@ -32,7 +32,8 @@ class Membresia extends Model
 
 	protected $dates = [
 		'FechaInicio',
-		'FechaFin'
+		'FechaFin',
+        'FechaRegistro'
 	];
 
 	protected $fillable = [
@@ -40,7 +41,8 @@ class Membresia extends Model
 		'FechaInicio',
 		'FechaFin',
 		'CodigoEstado',
-		'CostoGeneral'
+		'CostoGeneral',
+        'FechaRegistro'
 	];
 
 	public function cliente()
