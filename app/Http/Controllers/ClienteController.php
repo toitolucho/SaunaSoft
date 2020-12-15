@@ -42,7 +42,8 @@ class ClienteController extends Controller
     public function create()
     {
         //
-        return view('cliente.create');
+        $tiposClientes = DB::table('TiposClientes')->get();
+        return view('cliente.create', [ 'tiposClientes' => $tiposClientes]);
     }
 
     /**
@@ -63,12 +64,19 @@ class ClienteController extends Controller
         $cliente = new Cliente();
 
         $cliente->Nombres=$request->get('Nombres');
+        $cliente->ci=$request->get('Ci');
 
         $cliente->Apellidos=$request->get('Apellidos');
         $cliente->NroCelular=$request->get('NroCelular');
         $cliente->CorreoElectronico=$request->get('CorreoElectronico');
 
         $cliente->FechaNacimiento=$request->get('FechaNacimiento');
+        if($request->get('Sexo') == 'Masculino')
+            $cliente->Sexo="M";
+        else
+            $cliente->Sexo="F";
+        $cliente->IdTipoCliente=$request->get('IdTipoCliente');
+
         //$cliente->FechaNacimiento=date("Y-m-d", strtotime($request->get("FechaNacimiento")));
         //date("Y-m-d", strtotime($request->input("date")))
 

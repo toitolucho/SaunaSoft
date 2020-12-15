@@ -71,24 +71,22 @@
 
 
     <h1 class="h3 mb-2 text-gray-800">promociones</h1>
-    <p class="mb-4">A continuación se muestra el listado de promociones que dispone para poder clasificar los articulos
-        del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
-        administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
+    <p class="mb-4">A continuación se visualiza el listado de promociones para diferentes servicios. <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de promociones</strong>
+        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Promociones</strong>
 
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de promocion</h6>--}}
 
 
-            <a href="{{route("articulos.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Agregar promociones</a></div>
+            <a href="{{route("promocion.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+                Agregar promoción</a></div>
 
         <div class="row  my-2">
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/Membresia/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/Promocion/buscar" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 

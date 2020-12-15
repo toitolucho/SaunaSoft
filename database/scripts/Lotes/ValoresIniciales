@@ -50,3 +50,6 @@ insert into categorias (nombrecategoria) values ('Otras carnes');
 
 INSERT INTO `usuarios`(`NombreCompleto`, `NombreUsuario`, `Contrasenia`, `FechaRegistro`, `Direccion`, `TipoUsuario`, `CodigoEstado`) VALUES ('Administrador','admin','admin','01/01/2020','sauna soft','A','A');
 
+INSERT INTO tiposclientes(Descripcion) VALUES ('Cliente Sauna');
+INSERT INTO tiposclientes(Descripcion) VALUES ('Cliente Institucional');
+

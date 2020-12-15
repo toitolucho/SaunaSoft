@@ -31,7 +31,8 @@ class PromocionController extends Controller
      */
     public function create()
     {
-        return view('promocion.create');
+        $servicios = Servicio::where('CodigoEstado','=','A')->get();
+        return view('promocion.create', ['servicios'=>$servicios]);
     }
 
     /**
@@ -50,6 +51,7 @@ class PromocionController extends Controller
         $promocion->TipoPromocion=$request->get('TipoPromocion');
         $promocion->PorcentajeDescuento=$request->get('PorcentajeDescuento');
         $promocion->NroPersonas=$request->get('NroPersonas');
+        $promocion->IdServicio=$request->get('IdServicio');
         $promocion->Descripcion=$request->get('Descripcion');
         $promocion->save();
 
@@ -91,7 +93,8 @@ class PromocionController extends Controller
     public function edit($id)
     {
         $promocion = Promocion::findOrFail($id);
-        return view('promocion.edit',[ 'promocion' => $promocion]);
+        $servicios = Servicio::where('CodigoEstado','=','A')->get();
+        return view('promocion.edit',[ 'promocion' => $promocion, 'servicios' => $servicios ]);
     }
 
     /**
@@ -112,6 +115,7 @@ class PromocionController extends Controller
         $promocion->PorcentajeDescuento = $request->get('PorcentajeDescuento');
         $promocion->NroPersonas = $request->get('NroPersonas');
         $promocion->Descripcion = $request->get('Descripcion');
+        $promocion->IdServicio=$request->get('IdServicio');
 
 
         if($promocion->save())

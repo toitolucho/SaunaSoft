@@ -44,5 +44,22 @@ class Servicio extends Model
 		return $this->hasMany(Ventasserviciodetalle::class, 'IdServicio');
 	}
 
+    public function getEstadoAttribute()
+    {
+        $estado = "HOla";
+        switch ($this->CodigoEstado)
+        {
+            case "A":
+                $estado = "ACTIVO";
+                break;
+            case "I":
+                $estado = "INACTIVO";
+                break;
+        }
+
+        //return "{$this->Nombres} {$this->Apellidos}";
+        return "{$estado}";
+    }
+
 
 }

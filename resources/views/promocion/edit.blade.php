@@ -72,21 +72,38 @@
                             <div class="form-group col-md-5">
                                 <label for="inputState">Tipo</label>
                                 <select name="TipoPromocion" id="TipoPromocion" class="form-control">
-                                    <option selected value="D">DESCUENTO</option>
-                                    <option value="C">COMPLEAÑOS</option>
-                                    <option value="N">MUCHOS POR UNO</option>
-                                    <option value="P">DESCUENTO POR PUNTOS VISITA</option>
+                                    <option selected value="E">POR EDAD</option>
+                                    <option value="P">PERIODO DE TIEMPO</option>
+                                    <option value="F">DIA FESTIVO</option>
+                                    <option value="T">TIPO DE CLIENTE</option>
+                                    <option value="A">ASISTENCIA Y FIDELIDAD</option>
+                                    <option value="C">POR CANTIDAD DE PERSONAS</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="PorcentajeDescuento">Porcentaje de Descuento<span class="text-danger">*</span></label>
-                            <input type="text" name="PorcentajeDescuento" id="PorcentajeDescuento" class="form-control" placeholder="Ingrese Costo General" required  value="{{$promocion->PorcentajeDescuento}}">
+                        <div class="form-row col-md-10">
+                            <div class="form-group col-md-5">
+                                <label for="PorcentajeDescuento">Porcentaje de Descuento<span class="text-danger">*</span></label>
+                                <input type="text" name="PorcentajeDescuento" id="PorcentajeDescuento" class="form-control" placeholder="Ingrese Costo General" required  value="{{$promocion->PorcentajeDescuento}}">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="NroPersonas">Numero de Personas<span class="text-danger">*</span></label>
+                                <input type="text" name="NroPersonas" id="NroPersonas" class="form-control" placeholder="Ingrese Nro de Personas" required  value="{{$promocion->NroPersonas}}">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="NroPersonas">Numero de Personas<span class="text-danger">*</span></label>
-                            <input type="text" name="NroPersonas" id="NroPersonas" class="form-control" placeholder="Ingrese Nro de Personas" required  value="{{$promocion->NroPersonas}}">
+
+                        <div class="form-group col-md-7">
+                            <label for="IdServicio">Servicio </label>
+                            <select name="IdServicio" class="form form-control input-group-sm">
+                                <option value="" selected disabled>Ninguno</option>
+                                @foreach($servicios as $servicio)
+                                    <option value="{{$servicio->IdServicio}}"  @if($servicio->IdServicio == $promocion->IdServicio)  selected @endif > {{$servicio->NombreServicio}} </option>
+                                @endforeach
+
+                            </select>
+
                         </div>
+
 
                         <div class="form-group col-md-10">
                             <label for="Descripcion">Descripción</label>
@@ -105,7 +122,7 @@
                 </div>
 
             </div>
- 
+
 
 
         </div>

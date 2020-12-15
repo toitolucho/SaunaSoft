@@ -39,10 +39,24 @@ class SevicioController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+
         $servicio = new Servicio();
         $servicio->NombreServicio=$request->get('NombreServicio');
         $servicio->Descripcion=$request->get('Descripcion');
         $servicio->CostoServicio=$request->get('CostoServicio');
+        if(!empty($request->get('CodigoEstado')) && $request->get('CodigoEstado') == "A")
+            $servicio->CodigoEstado="A";
+        else
+            $servicio->CodigoEstado="I";
+
+        if($servicio->save())
+        {
+            return redirect('servicios')->with("editado","El servicio ha sido actualizada correctamente");
+        }
+
         $servicio->save();
 
         return redirect('servicios');
@@ -81,10 +95,28 @@ class SevicioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->get('CodigoEstado'));
         $servicio = Servicio::find( $id);
         $servicio->NombreServicio = $request->get('NombreServicio');
         $servicio->Descripcion = $request->get('Descripcion');
         $servicio->CostoServicio = $request->get('CostoServicio');
+        if(!empty($request->get('CodigoEstado'))) {
+            if($request->get('CodigoEstado') == "I")
+                $servicio->CodigoEstado="A";
+            if($request->get('CodigoEstado') == "A")
+                $servicio->CodigoEstado="I";
+        }
+        else
+        {
+           // if($request->get('CodigoEstado') == "A")
+                $servicio->CodigoEstado="I";
+        }
+
+
+
+
+
+
 
         if($servicio->save())
         {
