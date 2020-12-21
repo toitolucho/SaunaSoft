@@ -40,9 +40,7 @@ class VentaServicioController extends Controller
      */
     public function create()
     {
-        //
-
-        $promociones = Promocion::all();
+        $promociones = Promocion::where('CodigoEstado','=','V')->whereRaw( "DATE(NOW()) between FechaInicio and FechaFin" )->get();
         return view('ventaservicio.create', [ 'promociones' => $promociones]);
     }
 
@@ -66,7 +64,7 @@ class VentaServicioController extends Controller
         $validatedData = $request->validate([
             'IdCliente' => 'required',
            // 'CodigoEstadoVenta' => 'required|in:I,F,A',
-            'NroPersonas' => 'required|numeric|gt:0',
+            //'NroPersonas' => 'required|numeric|gt:0',
             'NroCasillero' => 'required|numeric|gt:0',
             //'articulos' =>'required',
             'servicios' =>'required',
@@ -78,7 +76,7 @@ class VentaServicioController extends Controller
             $request->request->remove('IdPromocion');
 
 
-        //dd($request->input('IdPromocion'));
+        //dd($request->input('codigos_promociones', []));
         $venta = Ventasservicio::create($request->all());
 
         $productos = $request->input('productos', []);
@@ -89,8 +87,13 @@ class VentaServicioController extends Controller
         $cantidades_servicios = $request->input('cantidades_servicios', []);
         $precios_servicios = $request->input('precios_servicios', []);
         $codigos_servicios = $request->input('codigos_servicios', []);
+        $codigos_promociones = $request->input('codigos_promociones', []);
+        $descuento_promociones = $request->input('descuento_promociones', []);
+        $costoverdadero_promociones = $request->input('costoverdadero_promociones', []);
 
         $codigos_clientes = $request->input('codigos_clientes', []);
+
+
 
 
         $validatedData = $request->validate([
@@ -128,9 +131,21 @@ class VentaServicioController extends Controller
             }
         }
 
+        //'Costo',
+        //        'NroPersonas',
+        //        'IdPromocion',
+        //        'PorcentajeDescuento',
+        //        'MontoPagado'
+
+        //*********** oooooojoooooooooo**
+        //validar, obtener los verdaderos costos de servicios y descuento de promociones si el cliente no es el administrador
+
         for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
             if ($codigos_servicios[$i_servicio] != '') {
-                $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio]]);
+                if($codigos_promociones[$i_servicio] != "-1")
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $costoverdadero_promociones[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'MontoPagado' => $precios_servicios[$i_servicio], 'PorcentajeDescuento' => $descuento_promociones[$i_servicio] , 'IdPromocion' => $codigos_promociones[$i_servicio]  ]);
+                else
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'MontoPagado' => $precios_servicios[$i_servicio] ]);
 
             }
         }
@@ -166,7 +181,7 @@ class VentaServicioController extends Controller
     public function edit($id)
     {
         $venta = Ventasservicio::withCount('articulos', 'servicios', 'cliente', 'clientes')->with('articulos', 'servicios') ->findOrFail($id);
-        $promociones = Promocion::all();
+        $promociones = Promocion::where('CodigoEstado','=','V')->whereRaw( "DATE(NOW()) between FechaInicio and FechaFin" )->get();
 
         $total = 0; //= $compra_articulo->comprasarticulosdetalles()->Cantidad * $compra_articulo->comprasarticulosdetalles()->Precio;
         foreach ($venta->articulos as $detalle)
@@ -214,7 +229,7 @@ class VentaServicioController extends Controller
         $precios = $request->input('precios', []);
         $codigos = $request->input('codigos', []);
 
-       // $cantidades_servicio = $request->input('cantidades_servicios', []);
+        $cantidades_servicio = $request->input('cantidades_servicios', []);
         $precios_servicios = $request->input('precios_servicios', []);
         $codigos_servicios = $request->input('codigos_servicios', []);
 
@@ -238,7 +253,7 @@ class VentaServicioController extends Controller
 
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
-                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
+                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product], 'NroPersonas' =>$cantidades_servicio[$product] ]);
 
             }
         }

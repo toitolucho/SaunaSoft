@@ -37,12 +37,13 @@ class Membresia extends Model
 	];
 
 	protected $fillable = [
-		'IdCliente',
+		'',
 		'FechaInicio',
 		'FechaFin',
 		'CodigoEstado',
 		'CostoGeneral',
-        'FechaRegistro'
+        'FechaRegistro',
+        'IdCliente'
 	];
 
 	public function cliente()

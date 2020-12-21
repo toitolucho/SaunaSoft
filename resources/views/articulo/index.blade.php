@@ -82,7 +82,7 @@
 
 
 
-            <a href="/articulos/reporte/{{$articulos->first()->IdArticulo}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="/articulos/reporte/1" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 reportessss</a></div>
 
 

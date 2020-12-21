@@ -29,8 +29,8 @@ class MembresiaController extends Controller
      */
     public function create()
     {
-//        $Cliente=Cliente::all();
-//        return view('membresia.create',['clientes' => $Cliente]);
+
+        return view('membresia.create');
     }
 
     /**
@@ -45,7 +45,8 @@ class MembresiaController extends Controller
         //return $request->all();
 
         Membresia::create($request->all());
-        return back()->with("editado", "Membresia asignada al cliente correctamente");
+        //return back()->with("editado", "Membresia asignada al cliente correctamente");
+        return redirect('membresias');
     }
 
     /**

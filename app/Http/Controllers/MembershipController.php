@@ -40,6 +40,7 @@ class MembershipController extends Controller
      */
     public function create()
     {
+        dd("entramos");
         $Cliente=Cliente::all();
         return view('membresia.create',['clientes' => $Cliente]);
     }

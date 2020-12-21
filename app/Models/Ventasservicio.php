@@ -39,7 +39,7 @@ class Ventasservicio extends Model
 	protected $casts = [
 		'IdUsuario' => 'int',
 		'IdCliente' => 'int',
-		'NroPersonas' => 'int',
+
         'MontoTotalPago'=>'float'
 	];
 
@@ -52,7 +52,6 @@ class Ventasservicio extends Model
 		'IdCliente',
 		'FechaHoraVenta',
 		'CodigoEstadoVenta',
-		'NroPersonas',
         'NroCasillero',
 		'Observaciones',
         'MontoTotalPago'
@@ -76,7 +75,10 @@ class Ventasservicio extends Model
     public function servicios()
     {
         return $this->belongsToMany(Servicio::class, 'VentasServicioDetalle', 'IdVentaServicio', 'IdServicio')
-            ->withPivot( 'Costo');
+            ->withPivot( 'Costo','NroPersonas', 'PorcentajeDescuento','MontoPagado','IdPromocion');
+
+
+
     }
 
 	public function articulos()

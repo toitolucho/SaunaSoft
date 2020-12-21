@@ -21,6 +21,9 @@
 
 
 <script type="text/javascript">
+    window.promociones = {!! json_encode($promociones) !!};
+
+
     var formularioValido = true;
     (function() {
         'use strict';
@@ -47,6 +50,8 @@
             var NroArticulos=0;
             var NroServicios = 0;
             var NroClientes = 0;
+
+
 
            // $("#tabs").tabs();
 
@@ -286,27 +291,91 @@
                 var IdServicio = data.IdServicio;
                 var CostoServicio = data.CostoServicio;
 
-                dato = existeTupla('tabla_servicios', IdServicio, 7);
+                dato = existeTupla('tabla_servicios', IdServicio, 11);
                 if(dato == true)
                 {
                     bootbox.alert("El servicio <strong> \"" + NombreServicio + "\" </strong>ya se encuentra en el detalle");
                     return;
                 }
 
+
+                var promociones = window.promociones;
+                var opciones = "<option value='' selected disabled>Ninguno</option>";
+                for(var k in promociones) {
+                    if(promociones[k].IdServicio == IdServicio || promociones[k].IdServicio == null)
+                    {
+                        opciones = opciones + "<option value='" +promociones[k].IdPromocion + "' data-descuento='" + promociones[k].PorcentajeDescuento+ "'>" + promociones[k].NombrePromocion + "</option>";
+                    }
+                }
+
                 var markup = "<tr id=servicio" +(NroServicios+1)+">" +
                     "<td class='w-5 '>" +(NroServicios+1)+" </td>"+
                     "<td class='w-50 '><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
-                    "<td class='w-10 text-right'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
-                    "<td class='w-15 text-right'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
+                    "<td class='w-10 text-right'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1'></td>" +
+                    "<td class='w-15 text-right'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly data-precio='" +CostoServicio  + "'> </td>" +
                     "<td class='w-15 text-right'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
+                    "<td style='display:none'> <input name='codigos_promociones[]' class ='IdPromocion' value='-1'> </td>"+
+                    "<td style='display:none'> <input name='descuento_promociones[]' class ='descuento' value='-1'> </td>"+
+                    "<td style='display:none'> <input name='costoverdadero_promociones[]' class ='costoverdadero' value='-1'> </td>"+
+                    "<td class='w-10 text-right'>" +
+                        "<select name='IdPromociones[]' class='form form-control input-group-sm codigo' data-name='promo" +(NroServicios+1)+"' data-fila='"+ NroServicios+1 +"' >   "+ opciones +"   </select>"+
+                    "</td>" +
                     "<td class='w-5 text-center' data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_servicios[]' value='"+IdServicio +"'> </td>"+
+
 
                     "</tr>";
                 $('#tabla_servicios').append(markup);
                 calc_total();
 
                 NroServicios++;
+
+            });
+
+
+            // $(".codigo").change(function(e) {
+            //     console.log("entra");
+            //
+            //     var optionSelected= $(this).find("option:selected");
+            //     var valueSelected2  = optionSelected.val();
+            //     var textSelected2   = optionSelected.text();
+            //     console.log(valueSelected2 + " " + textSelected2);
+            // });
+            //
+            //
+            // $(".codigo").on("change", function(){
+            //     alert($(this).val());});
+
+            $(document).on('change',".codigo", function(e){
+                //alert(this.value);
+                    var optionSelected= $(this).find("option:selected");
+                    var valueSelected2  = optionSelected.val();
+                    // var textSelected2   = optionSelected.text();
+                    // var datoFila = $(this).attr('data-fila');
+                    // var IdPromcion = $(this).attr('data-name');
+
+                // "<td style='display:none'> <input name='codigos_promociones[]' class ='IdPromocion' value='-1'> </td>"+
+                // "<td style='display:none'> <input name='descuento_promociones[]' class ='descuento' value='-1'> </td>"+
+                // "<td style='display:none'> <input name='costoverdadero_promociones[]' class ='costoverdadero' value='-1'> </td>"+
+
+                    var descuento = $(this).find("option:selected").attr('data-descuento');
+                    var precio = $(this).closest('tr').find('.price').attr('data-precio');
+                    var cantidad = $(this).closest('tr').find('.qty').val();
+
+                    var precioDescuencto = precio * descuento /100;
+
+                    $(this).closest('tr').find('.price').val(precioDescuencto);
+                    $(this).closest('tr').find('.total').val(precioDescuencto*cantidad);
+
+                    console.log($(this).closest('tr').find('.descuento'));
+
+                    $(this).closest('tr').find('.descuento').attr('value',descuento);
+                    $(this).closest('tr').find('.costoverdadero').attr('value',precio);
+                    $(this).closest('tr').find('.IdPromocion').attr('value',valueSelected2);
+
+
+                    calc_total();
+
 
             });
 
@@ -566,33 +635,33 @@
 
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="IdPromocion">Promocion</label>
-                    <select id="IdPromocion" class="form-control" name="IdPromocion" >
-                        <option selected>Seleccione...</option>
-                        @foreach($promociones as $promocion)
+{{--                <div class="form-group col-md-6">--}}
+{{--                    <label for="IdPromocion">Promocion</label>--}}
+{{--                    <select id="IdPromocion" class="form-control" name="IdPromocion" >--}}
+{{--                        <option selected>Seleccione...</option>--}}
+{{--                        @foreach($promociones as $promocion)--}}
 
 
 
 
 
-                            @if (old('IdPromocion') == $promocion->IdPromocion)
-                                <option value="{{$promocion->IdPromocion}} " selected> {{$promocion->NombrePromocion}} </option>
-                            @else
-                                <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>
-                            @endif
-                        @endforeach
-                    </select>
+{{--                            @if (old('IdPromocion') == $promocion->IdPromocion)--}}
+{{--                                <option value="{{$promocion->IdPromocion}} " selected> {{$promocion->NombrePromocion}} </option>--}}
+{{--                            @else--}}
+{{--                                <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="form-group col-md-6">
-                    <label for="NroPersonas">Número de Personas</label>
-                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro" name="NroPersonas" required value="{{old('NroPersonas')}}">
-                    <div class="invalid-feedback">
-                        Porfavor Ingrese el numero de Personas.
-                    </div>
-                </div>
+{{--                <div class="form-group col-md-6">--}}
+{{--                    <label for="NroPersonas">Número de Personas</label>--}}
+{{--                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro" name="NroPersonas" required value="{{old('NroPersonas')}}">--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        Porfavor Ingrese el numero de Personas.--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="form-group col-md-6">
                     <label for="NroCasillero">Número de Casillero<span class="text-danger">*</span></label>

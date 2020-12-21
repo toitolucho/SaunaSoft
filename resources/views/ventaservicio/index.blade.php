@@ -229,7 +229,7 @@
 {{--                                                </a>--}}
 
 {{--                                            </li>--}}
-                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"
+                                            <li data-form="#delete-form-{{$venta->IdVentaServicio}}}"
                                                 data-title="Eliminar Venta de Servicios y Articulos"
                                                 data-message="Se encuentra seguro de eliminar esta venta?"
                                                 data-target="#formConfirm" class="listado">

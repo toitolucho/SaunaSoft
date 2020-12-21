@@ -71,9 +71,7 @@
 
 
     <h1 class="h3 mb-2 text-gray-800">Membresia</h1>
-    <p class="mb-4">A continuación se muestra el listado de Membresia que dispone para poder clasificar los articulos
-        del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
-        administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
+    <p class="mb-4">Listado de clientes asociados a una membresia </a>.</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Membresia</strong>
@@ -81,7 +79,7 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Membresia</h6>--}}
 
 
-            <a href="/membresia/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="{{route("membresias.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 Agregar Membresia</a></div>
 
         <div class="row  my-2">
@@ -176,7 +174,7 @@
                                         <td class="w-10 text-center">
 											{{$membresia->IdMembresia}}
                                         </td>
-                                        <td>{{$membresia->Cliente->NombreCompleto}}</td>
+                                        <td>@if($membresia->cliente != null)  {{$membresia->cliente->NombreCompleto}} @endif</td>
                                         <td> {{   date('d-m-Y', strtotime($membresia->FechaInicio))   }}</td>
                                         <td>{{   date('d-m-Y', strtotime($membresia->FechaFin))   }}</td>
                                         <td>{{$membresia->Estado }}  </td>

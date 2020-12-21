@@ -21,6 +21,7 @@
 
 
 <script type="text/javascript">
+    window.promociones = {!! json_encode($promociones) !!};
     var formularioValido = true;
     (function() {
         'use strict';

@@ -120,13 +120,15 @@ CREATE TABLE Servicios
 );
 
 -- Tipos de Promociones
--- edad ->ninos adolescentes
--- fecha dia festivo.
--- tipo cliente  -> universitario, del hotel, general, membresia
--- por periodo de tiempo ->
--- por sexo ->
--- por regularidad de asistencia ->
--- 2 x uno
+-- edad ->ninos adolescentes  		-> se necesita rango de edad
+
+-- fecha dia festivo.				->Rango de Fechas
+-- por periodo de tiempo ->			->Rango de Fechas
+
+-- tipo cliente(membresia)		    -> universitario, del hotel, general, membresia  -> Se necesita numero id tipo cliente
+-- por sexo ->						-> numero se neceista sexo entero 1 o 0
+-- por regularidad de asistencia 	-> numero de asistencias entero 
+-- 2 x uno							-> numero de personas
 
 CREATE TABLE Promociones
 (
