@@ -8,7 +8,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<queryString>
-		<![CDATA[select vs.IdVentaServicio, vs.FechaHoraVenta, vs.Observaciones, vs.NroPersonas, vs.NroCasillero, vs.Observaciones, U.NombreCompleto as NombreUsuario, concat(C.Nombres, ' ', C.Apellidos) AS NombreCliente, TA2.CostoTotalVenta
+		<![CDATA[select vs.IdVentaServicio, vs.FechaHoraVenta, vs.Observaciones, TA2.NroPersonas, vs.NroCasillero, vs.Observaciones, U.NombreCompleto as NombreUsuario, concat(C.Nombres, ' ', C.Apellidos) AS NombreCliente, TA2.CostoTotalVenta
 from ventasservicio vs
 left join clientes c
 on c.IdCliente = vs.IdCliente
@@ -16,16 +16,16 @@ left JOIN usuarios u
 on u.IdUsuario = vs.IdUsuario
 left JOIN
 (
-   select TA.IdVentaServicio, SUM(CostoTotalVenta) AS CostoTotalVenta
+   select TA.IdVentaServicio, SUM(CostoTotalVenta) AS CostoTotalVenta, SUM(NroPersonas) as NroPersonas
     FROM
     (
-        select vsd.IdVentaServicio, sum(vsd.Costo) as CostoTotalVenta
+        select vsd.IdVentaServicio,  sum(vsd.Costo*vsd.NroPersonas) as CostoTotalVenta, Sum(vsd.NroPersonas) as NroPersonas
         from ventasserviciodetalle vsd
         join servicios s
         on vsd.IdServicio = s.IdServicio
         GROUP by vsd.IdVentaServicio
         UNION
-        select vsda.IdVentaServicio, sum(vsda.Cantidad*vsda.Costo)as CostoTotalVenta
+        select vsda.IdVentaServicio, sum(vsda.Cantidad*vsda.Costo)as CostoTotalVenta, 0 as NroPersonas
         from ventasserviciodetallearticulos vsda
         join articulos a
         on vsda.IdArticulo = a.IdArticulo
@@ -33,7 +33,8 @@ left JOIN
     )TA
     GROUP BY TA.IdVentaServicio
 )TA2
-ON TA2.IdVentaServicio = vs.IdVentaServicio]]>
+ON TA2.IdVentaServicio = vs.IdVentaServicio
+where vs.FechaHoraVenta between date_format(now(), '%Y-%m-%d 00:00:00')  AND  date_format(NOW(), '%Y-%m-%d 23:59:59')]]>
 	</queryString>
 	<field name="IdVentaServicio" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -44,7 +45,7 @@ ON TA2.IdVentaServicio = vs.IdVentaServicio]]>
 	<field name="Observaciones" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NroPersonas" class="java.lang.Integer">
+	<field name="NroPersonas" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="NroCasillero" class="java.lang.Integer">

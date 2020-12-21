@@ -81,7 +81,7 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
-            <a href="/ventasservicios/resumenFechas/2" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="/ventasservicios/resumenFechas/2" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-file"></i>
                 Resumen</a>
 
              <a href="/ventasservicios/create" class="float-right btn btn-dark btn-sm mx-2"  ><i class="fa fa-fw fa-plus-circle"></i>

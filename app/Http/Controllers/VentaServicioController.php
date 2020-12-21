@@ -143,9 +143,9 @@ class VentaServicioController extends Controller
         for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
             if ($codigos_servicios[$i_servicio] != '') {
                 if($codigos_promociones[$i_servicio] != "-1")
-                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $costoverdadero_promociones[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'MontoPagado' => $precios_servicios[$i_servicio], 'PorcentajeDescuento' => $descuento_promociones[$i_servicio] , 'IdPromocion' => $codigos_promociones[$i_servicio]  ]);
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'CostoReal' =>  $costoverdadero_promociones [$i_servicio], 'PorcentajeDescuento' => $descuento_promociones[$i_servicio] , 'IdPromocion' => $codigos_promociones[$i_servicio]  ]);
                 else
-                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'MontoPagado' => $precios_servicios[$i_servicio] ]);
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicios[$i_servicio], 'CostoReal' => $precios_servicios[$i_servicio] ]);
 
             }
         }
@@ -232,6 +232,10 @@ class VentaServicioController extends Controller
         $cantidades_servicio = $request->input('cantidades_servicios', []);
         $precios_servicios = $request->input('precios_servicios', []);
         $codigos_servicios = $request->input('codigos_servicios', []);
+        $codigos_promociones = $request->input('codigos_promociones', []);
+        $descuento_promociones = $request->input('descuento_promociones', []);
+        $costoverdadero_promociones = $request->input('costoverdadero_promociones', []);
+
 
         $codigos_clientes = $request->input('codigos_clientes', []);
 
@@ -241,7 +245,7 @@ class VentaServicioController extends Controller
         $venta->IdCliente = $request->input('IdCliente');
         if( $request->input('IdPromocion')  && $request->input('IdPromocion') != "Seleccione...")
             $venta->IdPromocion = $request->input('IdPromocion');
-        $venta->NroPersonas = $request->input('NroPersonas');
+//        $venta->NroPersonas = $request->input('NroPersonas');
         $venta->NroCasillero = $request->input('NroCasillero');
         $venta->Observaciones = $request->input('Observaciones');
 
@@ -253,14 +257,18 @@ class VentaServicioController extends Controller
 
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
-                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product], 'NroPersonas' =>$cantidades_servicio[$product] ]);
+               // $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product], 'NroPersonas' =>$cantidades_servicio[$product] ]);
+                $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
 
             }
         }
 
         for ($i_servicio=0; $i_servicio < count($codigos_servicios); $i_servicio++) {
             if ($codigos_servicios[$i_servicio] != '') {
-                $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio]]);
+                if($codigos_promociones[$i_servicio] != "-1")
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicio[$i_servicio], 'CostoReal' =>  $costoverdadero_promociones [$i_servicio], 'PorcentajeDescuento' => $descuento_promociones[$i_servicio] , 'IdPromocion' => $codigos_promociones[$i_servicio]  ]);
+                else
+                    $venta->servicios()->attach($codigos_servicios[$i_servicio], [ 'Costo' => $precios_servicios[$i_servicio],  'NroPersonas' => $cantidades_servicio[$i_servicio], 'CostoReal' => $precios_servicios[$i_servicio] ]);
 
             }
         }
@@ -286,17 +294,20 @@ class VentaServicioController extends Controller
 
        // $compras = DB::table('ComprasArticulos')->where('IdCompraArticulo','=',$textoBusqueda)->paginate(15);
 
-        $compras = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario')->where('IdCompraArticulo','=', $request->get('IdCompraArticulo'))->get();
+        //$compras = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario')->where('IdCompraArticulo','=', $request->get('IdCompraArticulo'))->get();
+
+
+        $ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios')->where("IdVentaServicio","=", $request->get("IdVentaServicio"))->get();
 
        // dd($compras->Observaciones);
 
-        if($compras->isEmpty())
+        if($ventas->isEmpty())
            // return redirect('comprasarticulos.index')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
             return redirect('comprasarticulos')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
 
         else
 
-            return view('compraarticulo.index', ['compras' => $compras]);
+            return view('ventaservicio.index', ['ventas' => $ventas]);
     }
 
     /**

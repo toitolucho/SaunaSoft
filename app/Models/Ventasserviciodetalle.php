@@ -33,7 +33,7 @@ class Ventasserviciodetalle extends Model
         'NroPersonas' => 'int',
         'IdPromocion' => 'int',
         'PorcentajeDescuento' => 'float',
-        'MontoPagado' => 'float'
+        'CostoReal' => 'float'
 	];
 
 	protected $fillable = [
@@ -41,7 +41,7 @@ class Ventasserviciodetalle extends Model
         'NroPersonas',
         'IdPromocion',
         'PorcentajeDescuento',
-        'MontoPagado'
+        'CostoReal'
 
 	];
 

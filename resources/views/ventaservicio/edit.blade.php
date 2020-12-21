@@ -49,7 +49,7 @@
             var NroServicios = {!! $venta->servicios_count !!};
             var NroClientes = {!! $venta->clientes_count !!};
 
-            $("#tabs").tabs();
+            //$("#tabs").tabs();
 
             $('#tabla_servicios tbody').on('keyup change',function(){
                 calc();
@@ -297,20 +297,64 @@
                     return;
                 }
 
+                var promociones = window.promociones;
+                var opciones = "<option value='' selected disabled>Ninguno</option>";
+                for(var k in promociones) {
+                    if(promociones[k].IdServicio == IdServicio || promociones[k].IdServicio == null)
+                    {
+                        opciones = opciones + "<option value='" +promociones[k].IdPromocion + "' data-descuento='" + promociones[k].PorcentajeDescuento+ "'>" + promociones[k].NombrePromocion + "</option>";
+                    }
+                }
+
                 var markup = "<tr id=servicio" +(NroServicios+1)+">" +
-                    "<td class='col-md-1'>" +(NroServicios+1)+" </td>"+
-                    "<td class='col-md-5'><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
-                    "<td class='col-md-1'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +
-                    "<td class='col-md-2'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +
-                    "<td class='col-md-2'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
-                    "<td data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
+                    "<td class='w-5 '>" +(NroServicios+1)+" </td>"+
+                    "<td class='w-50 '><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +
+                    "<td class='w-10 text-right'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1'></td>" +
+                    "<td class='w-15 text-right'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly data-precio='" +CostoServicio  + "'> </td>" +
+                    "<td class='w-15 text-right'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+
+                    "<td style='display:none'> <input name='codigos_promociones[]' class ='IdPromocion' value='-1'> </td>"+
+                    "<td style='display:none'> <input name='descuento_promociones[]' class ='descuento' value='-1'> </td>"+
+                    "<td style='display:none'> <input name='costoverdadero_promociones[]' class ='costoverdadero' value='-1'> </td>"+
+                    "<td class='w-10 text-right'>" +
+                    "<select name='IdPromociones[]' class='form form-control input-group-sm codigo' data-name='promo" +(NroServicios+1)+"' data-fila='"+ NroServicios+1 +"' >   "+ opciones +"   </select>"+
+                    "</td>" +
+                    "<td class='w-5 text-center' data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos_servicios[]' value='"+IdServicio +"'> </td>"+
+
 
                     "</tr>";
                 $('#tabla_servicios').append(markup);
                 calc_total();
 
                 NroServicios++;
+
+            });
+
+
+            $(document).on('change',".codigo", function(e){
+               // alert(this.value);
+                var optionSelected= $(this).find("option:selected");
+                var valueSelected2  = optionSelected.val();
+
+                var descuento = $(this).find("option:selected").attr('data-descuento');
+                var precio = $(this).closest('tr').find('.price').attr('data-precio');
+                var cantidad = $(this).closest('tr').find('.qty').val();
+
+                var precioDescuencto = precio * descuento /100;
+
+                console.log("Descuento " + descuento + ",  Precio " + precio + ",  Cantidad " + cantidad);
+
+
+                $(this).closest('tr').find('.price').val(precioDescuencto);
+                $(this).closest('tr').find('.total').val(precioDescuencto*cantidad);
+
+                $(this).closest('tr').find('.descuento').attr('value',descuento);
+                $(this).closest('tr').find('.costoverdadero').attr('value',precio);
+                $(this).closest('tr').find('.IdPromocion').attr('value',valueSelected2);
+
+
+                calc_total();
+
 
             });
 
@@ -577,33 +621,33 @@
 
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="IdPromocion">Promocion</label>
-                    <select id="IdPromocion" class="form-control" name="IdPromocion" >
-                        <option selected>Seleccione...</option>
-                        @foreach($promociones as $promocion)
+{{--                <div class="form-group col-md-6">--}}
+{{--                    <label for="IdPromocion">Promocion</label>--}}
+{{--                    <select id="IdPromocion" class="form-control" name="IdPromocion" >--}}
+{{--                        <option selected>Seleccione...</option>--}}
+{{--                        @foreach($promociones as $promocion)--}}
 
 
 
 
 
-                            @if ($venta->IdPromocion == $promocion->IdPromocion)
-                                <option value="{{$promocion->IdPromocion}} " selected> {{$promocion->NombrePromocion}} </option>
-                            @else
-                                <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>
-                            @endif
-                        @endforeach
-                    </select>
+{{--                            @if ($venta->IdPromocion == $promocion->IdPromocion)--}}
+{{--                                <option value="{{$promocion->IdPromocion}} " selected> {{$promocion->NombrePromocion}} </option>--}}
+{{--                            @else--}}
+{{--                                <option value="{{$promocion->IdPromocion}} "> {{$promocion->NombrePromocion}} </option>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="form-group col-md-6">
-                    <label for="NroPersonas">Número de Personas</label>
-                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro" name="NroPersonas" required value="{{$venta->NroPersonas}}">
-                    <div class="invalid-feedback">
-                        Porfavor Ingrese el numero de Personas.
-                    </div>
-                </div>
+{{--                <div class="form-group col-md-6">--}}
+{{--                    <label for="NroPersonas">Número de Personas</label>--}}
+{{--                    <input type="text" class="form-control" id="NroPersonas" placeholder="Nro" name="NroPersonas" required value="{{$venta->NroPersonas}}">--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        Porfavor Ingrese el numero de Personas.--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="form-group col-md-6">
                     <label for="NroCasillero">Número de Casillero<span class="text-danger">*</span></label>
@@ -655,23 +699,32 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-{{--                                            var markup = "<tr id=servicio" +(NroServicios+1)+">" +--}}
-{{--                                            "<td class='col-md-1'>" +(NroServicios+1)+" </td>"+--}}
-{{--                                            "<td class='col-md-5'><input type='text' name='servicios[]' class='form-control' value ='"+ NombreServicio+"'  readonly/></td>" +--}}
-{{--                                            "<td class='col-md-1'><input type='input' name='cantidades_servicios[]' class='form-control qty' step='1' value ='1' readonly></td>" +--}}
-{{--                                            "<td class='col-md-2'><input type='input' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+CostoServicio +"' readonly> </td>" +--}}
-{{--                                            "<td class='col-md-2'><input type='input' name='total_servicios[]' placeholder='0.00' class='form-control total'  value='"+CostoServicio +"' readonly/></td>"+--}}
-{{--                                            "<td data-name='del" +(NroServicios+1)+"'><button onclick='removeRowServicio("+(NroServicios+1)+");' name='del" +(NroServicios+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+--}}
-{{--                                            "<td style='display:none'> <input name='codigos_servicios[]' value='"+IdServicio +"'> </td>"+--}}
-{{--    --}}                                    continuar aqui
-{{--                                            "</tr>";--}}
+
                                             @foreach($venta->servicios as $servicio)
                                                 <tr id= "servicio{{$loop->index+1}}">
                                                     <td>{{$loop->index+1}}</td>
                                                     <td><input type='text' name='servicios[]' class='form-control' value ="{{$servicio->NombreServicio}}"  readonly/></td>
-                                                    <td><input type='number' name='cantidades_servicios[]' class='form-control qty' step='1' value ="1" readonly></td>
-                                                    <td><input type='number' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value="{{$servicio->pivot->Costo}}"> </td>
+                                                    <td><input type='number' name='cantidades_servicios[]' class='form-control qty' step='1' value="{{$servicio->pivot->NroPersonas}}"></td>
+                                                    <td><input type='number' name='precios_servicios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value="{{$servicio->pivot->Costo}}" data-precio="@if($servicio->pivot->IdPromocion )  {{$servicio->pivot->CostoReal}} @else {{$servicio->CostoServicio}} @endif "> </td>
                                                     <td><input type='number' name='total_servicios[]' placeholder='0.00' class='form-control total'  value="{{$servicio->pivot->Costo}}" readonly/></td>
+
+
+                                                    <td style='display:none'> <input name='codigos_promociones[]' class ='IdPromocion' value="@if($servicio->promocion )  {{$servicio->IdPromocion}} @else -1 @endif "> </td>
+                                                    <td style='display:none'> <input name='descuento_promociones[]' class ='descuento' value="@if($servicio->promocion )  {{$servicio->pivot->PorcentajeDescuento}} @else -1 @endif "> </td>
+                                                    <td style='display:none'> <input name='costoverdadero_promociones[]' class ='costoverdadero' value="@if($servicio->promocion )  {{$servicio->pivot->CostoReal}} @else -1 @endif "> </td>
+                                                    <td class='w-10 text-right'>
+                                                        <select name='IdPromociones[]' class='form form-control input-group-sm codigo' data-name="promo{{$loop->index+1}}" data-fila='{{$loop->index+1}}' >
+                                                            <option value="" selected disabled>Ninguno</option>
+                                                            @foreach($promociones as $promocion)
+
+                                                                @if($promocion->IdServicio == $servicio->IdServicio || $promocion->IdServicio == null)
+                                                                     <option value ="{{$promocion->IdPromocion}}"  data-descuento="{{ @$promocion->PorcentajeDescuento }}"   @if($promocion->IdPromocion == $servicio->pivot->IdPromocion)  selected @endif  > {{$promocion->NombrePromocion}} </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+
+
                                                     <td data-name='del{{$loop->index+1}}'><button onclick='removeRowServicio({{$loop->index+1}});' name='del{{$loop->index+1}}' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>
                                                     <td style='display:none'> <input name='codigos_servicios[]' value="{{$servicio->IdServicio}}"> </td>
                                                 </tr>

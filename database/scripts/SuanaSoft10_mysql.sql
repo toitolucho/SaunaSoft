@@ -186,7 +186,7 @@ CREATE TABLE VentasServicioDetalle
 	NroPersonas				INT,
 	IdPromocion				INT,
 	PorcentajeDescuento		DECIMAL(10,2),
-	MontoPagado				DECIMAL(10,2),
+	CostoReal				DECIMAL(10,2),
 	PRIMARY KEY (IdVentaServicio, IdServicio),
 	FOREIGN KEY (IdVentaServicio) REFERENCES VentasServicio(IdVentaServicio),
 	FOREIGN KEY (IdServicio) REFERENCES Servicios(IdServicio),

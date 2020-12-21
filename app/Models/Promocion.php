@@ -116,5 +116,13 @@ class Promocion extends Model
         return $this->hasMany(Servicio::class, 'IdServicio');
     }
 
+    public function ventaserviciodetalle()
+    {
+        return $this->hasMany(Ventasserviciodetalle::class, 'IdPromocion');
+    }
+
+
+
+
 
 }
