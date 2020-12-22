@@ -78,6 +78,9 @@ Route::resource('promocion','PromocionController');
 
 
 Route::post('/articulos/buscar',"ArticuloController@buscar");
+Route::post('/promociones/buscar',"PromocionController@buscar")->name("promocion.buscar");
+Route::post('/servicios/buscar',"SevicioController@buscar")->name("servicio.buscar");
+Route::post('/clientes/buscar',"ClienteController@buscar");
 Route::get('/articulos/reporte/{articulo}','ArticuloController@reporte')->name("articulos.reporte");
 
 Route::post('/categorias/buscar',"CategoriaController@buscar");

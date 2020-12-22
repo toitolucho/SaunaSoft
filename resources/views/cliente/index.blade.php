@@ -99,7 +99,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-user-friends"></i> Clientes</h1>
     <p class="mb-4">A continuación se muestra el listado de clientes que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>

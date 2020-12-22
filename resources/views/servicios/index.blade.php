@@ -70,7 +70,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">servicios</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-shower"></i> Servicios</h1>
     <p class="mb-4">A continuación se muestra el listado de servicios que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
@@ -88,12 +88,12 @@
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/Membresia/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="{{route("servicio.buscar")}}" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion del articulo..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion del articulo..." aria-label="Search" aria-describedby="basic-addon2" name="NombreServicio">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -170,7 +170,7 @@
 
                                 <tbody>
                                 @foreach($servicios as $servicio)
-                                    <tr role="row"> 
+                                    <tr role="row">
                                         <td class="w-10 text-center">
 											{{$servicio->IdServicio}}
                                         </td>

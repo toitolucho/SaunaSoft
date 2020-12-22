@@ -64,11 +64,11 @@ class PromocionController extends Controller
         $textoBusqueda = $request->get('NombrePromocion');
 
 //        $categorias = DB::table('categorias')->where('NombreCategoria','like','%'.$textoBusqueda.'%') ->paginate(15);
-        $promociones = Promocion::query()->where('NombreCategoria','like','%'.$textoBusqueda.'%')->paginate(15);
+        $promociones = Promocion::query()->where('NombrePromocion','like','%'.$textoBusqueda.'%')->paginate(15);
         if($promociones->isEmpty())
             return redirect('promocion')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
         else
-            return view('promocion.index', ['promocicones' => $promociones]);
+            return view('promocion.index', ['promociones' => $promociones]);
     }
 
 

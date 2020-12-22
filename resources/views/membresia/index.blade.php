@@ -70,7 +70,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Membresia</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-address-card"></i> Membresia</h1>
     <p class="mb-4">Listado de clientes asociados a una membresia </a>.</p>
 
     <div class="card shadow mb-4">

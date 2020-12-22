@@ -39,7 +39,6 @@
         });
 
 
-
     </script>
 
     <!-- Modal Dialog -->
@@ -72,245 +71,233 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Articulos</h1>
-    <p class="mb-4">A continuación se muestra el listado de articulos disponibles de forma general en  su sistema. Recuerde que puede categorizarlos por <a href="/categorias">categorias</a></p>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-box-open"></i> Articulos</h1>
+    <p class="mb-4"> A continuación se muestra el listado de articulos disponibles de forma general en su sistema.
+        Recuerde que puede categorizarlos por <a href="/categorias">categorias</a></p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de articulos</strong>
 
-            				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>
 
 
-
-            <a href="/articulos/reporte/1" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                reportessss</a></div>
-
-
+            <a href="/articulos/reporte/1" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-file"></i>
+                Informe</a>
+        </div>
 
 
-            <a href="/articulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
-                Agregar Articulo</a></div>
+        {{--            <a href="/articulos/create" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>--}}
+        {{--                Agregar Articulo</a>--}}
+
         <div class="row  my-2">
             <div class="col-sm-12 col-md-8"></div>
-            <div class="col-sm-12 col-md-4 " >
+            <div class="col-sm-12 col-md-4 ">
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/articulos/buscar" method="POST" role="search">
-                        {{ csrf_field() }}
-                        <div class="input-group">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 "
+                      action="/articulos/buscar" method="POST" role="search">
+                    {{ csrf_field() }}
+                    <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Articulo" aria-label="Articulo" aria-describedby="basic-addon2" name="NombreArticulo">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Articulo"
+                               aria-label="Articulo" aria-describedby="basic-addon2" name="NombreArticulo">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
                         </div>
-                    </form>
+                    </div>
+                </form>
 
 
             </div>
         </div>
 
 
-        <div class="card-body">
+    <div class="card-body">
 
-            @if (session('eliminar'))
-                <div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
-                    {{ session('eliminar') }}
-                </div>
-
-
-            @endif
-
-            @if (session('eliminar_error'))
-                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('eliminar_error') }}
-                </div>
+        @if (session('eliminar'))
+            <div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
+                {{ session('eliminar') }}
+            </div>
 
 
-            @endif
-            @if (session('editado'))
-                <div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
-                    {{ session('editado') }}
-                </div>
+        @endif
+
+        @if (session('eliminar_error'))
+            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
+                {{ session('eliminar_error') }}
+            </div>
 
 
-            @endif
-
-            @if (session('editado_error'))
-                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('editado_error') }}
-                </div>
-
-
-            @endif
-
-            @if (session('no_encontrado'))
-                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('no_encontrado') }}
-                </div>
+        @endif
+        @if (session('editado'))
+            <div class="alert alert-success"><i class="fa fa-thumbs-up"></i>
+                {{ session('editado') }}
+            </div>
 
 
-            @endif
+        @endif
 
-            @if (session('registrado'))
-                <div class="alert alert-success"><i class="fa fa-exclamation-triangle"></i>
-                    {{ session('registrado') }}
-                </div>
-
-
-            @endif
+        @if (session('editado_error'))
+            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
+                {{ session('editado_error') }}
+            </div>
 
 
-            <div class="table-responsive">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        @endif
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;" >
+        @if (session('no_encontrado'))
+            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>
+                {{ session('no_encontrado') }}
+            </div>
 
-                                <thead>
+
+        @endif
+
+        @if (session('registrado'))
+            <div class="alert alert-success"><i class="fa fa-exclamation-triangle"></i>
+                {{ session('registrado') }}
+            </div>
+
+
+        @endif
+
+
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                               role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+
+                            <thead>
+                            <tr role="row">
+
+                                <th class="w-5 text-center">
+                                    Id
+                                </th>
+                                <th class="w-30 text-center">
+                                    Nombre Articulo
+                                </th>
+                                <th class="w-20 text-center">
+                                    Categoria
+                                </th>
+                                <th class="w-10 text-center">
+                                    Existencia
+                                </th>
+                                <th class="w-10 text-center">
+                                    Valorado
+                                </th>
+                                <th class="w-18 text-center">Descripcion</th>
+                                <th class="w-7 text-center">Acciones</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach($articulos as $articulo)
                                 <tr role="row">
+                                    <td class="w-5"> {{$articulo->IdArticulo}}</td>
+                                    <td class="w-30">   {{  $articulo->NombreArticulo   }}</td>
+                                    <td class="w-20">
+                                        @if($articulo->categoria)
 
-                                    <th class="w-5 text-center">
-                                        Id
-                                    </th>
-                                    <th class="w-30 text-center">
-                                        Nombre Articulo
-                                    </th>
-                                    <th class="w-20 text-center">
-                                        Categoria
-                                    </th>
-                                    <th class="w-10 text-center">
-                                        Existencia
-                                    </th>
-                                    <th class="w-10 text-center">
-                                        Valorado
-                                    </th>
-                                    <th class="w-18 text-center">Descripcion</th>
-                                    <th class="w-7 text-center">Acciones</th>
+                                            {{$articulo->categoria->NombreCategoria}}
+                                        @endif
+                                    </td>
+                                    <td class="w-10 text-right">{{$articulo->CantidadExistencia}}  </td>
+                                    <td class="w-10 text-right">{{$articulo->TotalValorado}}  </td>
+                                    <td class="w-18">{{$articulo->Descripcion}}  </td>
+
+
+                                    <td class="w-7 text-right">
+
+                                        {{--                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"--}}
+                                        {{--                                                data-title="Eliminar categoria"--}}
+                                        {{--                                                data-message="Se encuentra seguro de eliminar esta categoria ?"--}}
+                                        {{--                                                data-target="#formConfirm" class="listado">--}}
+                                        {{--                                                <a href="/comprasarticulos/{{$articulo->IdArticulo}}/edit"--}}
+                                        {{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
+                                        {{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
+                                        {{--                                                   data-target="#formConfirm">--}}
+                                        {{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
+                                        {{--                                                    Eliminar--}}
+                                        {{--                                                </a>--}}
+
+                                        {{--                                            </li>--}}
+
+                                        {{--                                            <form id="delete-form-{{$articulo->IdArticulo}}"--}}
+                                        {{--                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"--}}
+                                        {{--                                                  style="display: none">--}}
+                                        {{--                                                <input type="hidden" name="_method" value="delete">--}}
+                                        {{--                                                {{csrf_field()}}--}}
+
+                                        {{--                                            </form>--}}
+
+                                        <li data-form="#delete-form-{{$articulo->IdArticulo}}"
+                                            data-title="Eliminar Articulo"
+                                            data-message="Se encuentra seguro de eliminar este articulo?"
+                                            data-target="#formConfirm" class="listado">
+
+
+{{--                                            <a class="btn btn-primary " class="formConfirm text-primary"--}}
+{{--                                               href="{{route("articulos.edit", $articulo->IdArticulo )}}"--}}
+{{--                                               aria-label="Editar">--}}
+{{--                                                <i class="fas fa-xs fa-edit" aria-hidden="true"></i>--}}
+{{--                                            </a>--}}
+
+
+                                            <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
+                                               data-target="#formConfirm">
+                                                <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
+                                            </a>
+
+                                        </li>
+
+                                        <form id="delete-form-{{$articulo->IdArticulo}}"
+                                              action="{{route("articulos.destroy", $articulo->IdArticulo )}}"
+                                              method="post"
+                                              style="display: none">
+                                            <input type="hidden" name="_method" value="delete">
+                                            {{csrf_field()}}
+
+                                        </form>
+
+                                    </td>
+
 
                                 </tr>
-                                </thead>
-
-                                <tbody>
-                                @foreach($articulos as $articulo)
-                                    <tr role="row">
-                                        <td class="w-5"> {{$articulo->IdArticulo}}</td>
-                                        <td class="w-30">   {{  $articulo->NombreArticulo   }}</td>
-                                        <td class="w-20">
-                                            @if($articulo->categoria)
-
-                                                {{$articulo->categoria->NombreCategoria}}
-                                            @endif
-                                        </td>
-                                        <td class="w-10 text-right">{{$articulo->CantidadExistencia}}  </td>
-                                        <td class="w-10 text-right">{{$articulo->TotalValorado}}  </td>
-                                        <td class="w-18">{{$articulo->Descripcion}}  </td>
+                            @endforeach
 
 
+                            </tbody>
+
+                        </table>
 
 
-
-                                        <td class="w-7 text-right">
-
-{{--                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"--}}
-{{--                                                data-title="Eliminar categoria"--}}
-{{--                                                data-message="Se encuentra seguro de eliminar esta categoria ?"--}}
-{{--                                                data-target="#formConfirm" class="listado">--}}
-{{--                                                <a href="/comprasarticulos/{{$articulo->IdArticulo}}/edit"--}}
-{{--                                                   class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a>--}}
-{{--                                                <a data-toggle="modal" class="formConfirm text-danger" href=""--}}
-{{--                                                   data-target="#formConfirm">--}}
-{{--                                                    <i class="fa fa-fw fa-trash"></i>--}}
-{{--                                                    Eliminar--}}
-{{--                                                </a>--}}
-
-{{--                                            </li>--}}
-
-{{--                                            <form id="delete-form-{{$articulo->IdArticulo}}"--}}
-{{--                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"--}}
-{{--                                                  style="display: none">--}}
-{{--                                                <input type="hidden" name="_method" value="delete">--}}
-{{--                                                {{csrf_field()}}--}}
-
-{{--                                            </form>--}}
-
-                                            <li data-form="#delete-form-{{$articulo->IdArticulo}}"
-                                                data-title="Eliminar Articulo"
-                                                data-message="Se encuentra seguro de eliminar este articulo?"
-                                                data-target="#formConfirm" class="listado">
-
-
-
-                                                <a class="btn btn-primary " class="formConfirm text-primary"
-                                                   href="{{route("articulos.edit", $articulo->IdArticulo )}}"
-                                                   aria-label="Editar">
-                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
-                                                </a>
-
-
-                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
-                                                   data-target="#formConfirm">
-                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
-
-                                                </a>
-
-                                            </li>
-
-                                            <form id="delete-form-{{$articulo->IdArticulo}}"
-                                                  action = "{{route("articulos.destroy", $articulo->IdArticulo )}}" method="post"
-                                                  style="display: none">
-                                                <input type="hidden" name="_method" value="delete">
-                                                {{csrf_field()}}
-
-                                            </form>
-
-                                        </td>
-
-
-                                    </tr>
-                                @endforeach
-
-
-                                </tbody>
-
-                            </table>
-
-
-
-
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-7">
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-7">
 
-                            @if($articulos instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                        @if($articulos instanceof \Illuminate\Pagination\LengthAwarePaginator )
 
-                                {{ $articulos->links() }}
+                            {{ $articulos->links() }}
 
-                            @endif
+                        @endif
 
 
-                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
-
-    <div>
-
-
-
-
-
-
-    </div> <!--/.col-sm-12-->
+    </div>
+ <!--/.col-sm-12-->
 
 
 @endsection

@@ -72,7 +72,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Registro de Ventas de Servicios y productos</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-shopping-cart"></i> Registro de Ventas de Servicios y productos</h1>
     <p class="mb-4">En este formulario usted podra registrar la venta de articulos y servicios para un determinado cliente <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">

@@ -70,7 +70,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">promociones</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-bullhorn"></i> Promociones</h1>
     <p class="mb-4">A continuación se visualiza el listado de promociones para diferentes servicios. <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
@@ -86,12 +86,12 @@
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="/Promocion/buscar" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="{{route("promocion.buscar")}}" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion de la promocion..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion de la promocion..." aria-label="Search" aria-describedby="basic-addon2" name="NombrePromocion">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>

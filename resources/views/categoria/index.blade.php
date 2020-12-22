@@ -70,7 +70,7 @@
 
 
 
-    <h1 class="h3 mb-2 text-gray-800">Categorias</h1>
+    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-cogs"></i>  Categorias</h1>
     <p class="mb-4">A continuación se muestra el listado de categorias que dispone para poder clasificar los articulos
         del sistema para una administración más sencilla. Si tiene alguna duda de como administrarlos consulte con el
         administrador <a target="_blank" href="https://datatables.net">administrador </a>.</p>
@@ -97,7 +97,7 @@
                         <div class="input-group">
 
 
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion del articulo..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="descripcion de la Categoría..." aria-label="Search" aria-describedby="basic-addon2" name="NombreCategoria">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>

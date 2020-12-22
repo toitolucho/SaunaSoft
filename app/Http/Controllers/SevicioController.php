@@ -149,4 +149,16 @@ class SevicioController extends Controller
         return redirect('servicios')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
         //
     }
+
+    public function buscar(Request $request)
+    {
+
+        $textoBusqueda = $request->get('NombreServicio');
+
+        $servicios = DB::table('servicios')->where('NombreServicio','like','%'.$textoBusqueda.'%')->paginate(15);
+        if($servicios->isEmpty())
+            return redirect('servicios')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
+        else
+            return view('servicios.index', ['servicios' => $servicios]);
+    }
 }

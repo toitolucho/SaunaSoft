@@ -39,9 +39,9 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                     <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+                        <i class="fas fa-hot-tub"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">SaunaSoft <sup>1.0</sup></div>
                 </a>
@@ -49,12 +49,12 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
-                </li>
+{{--                <!-- Nav Item - Dashboard -->--}}
+{{--                <li class="nav-item active">--}}
+{{--                    <a class="nav-link" href="index.html">--}}
+{{--                        <i class="fas fa-fw fa-tachometer-alt"></i>--}}
+{{--                        <span>Dashboard</span></a>--}}
+{{--                </li>--}}
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
@@ -73,14 +73,14 @@
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Administración:</h6>
-                            <a class="collapse-item" href="/categorias">Categorias</a>
-                            <a class="collapse-item" href="/articulos">Articulos</a>
-                            <a class="collapse-item" href="/comprasarticulos">Compras</a>
-                            <a class="collapse-item" href="/clientes">Clientes</a>
-                            <a class="collapse-item" href="{{route("membresias.index")}}">Membresia</a>
-                            <a class="collapse-item" href="/ventasservicios">Ventas</a>
-                            <a class="collapse-item" href="{{route("promocion.index")}}">Promociones</a>
-                            <a class="collapse-item" href="{{route("servicios.index")}}">Servicios</a>
+                            <a class="collapse-item" href="/categorias"> <i class="fas fa-fw fa-cogs"> </i>  Categorias</a>
+                            <a class="collapse-item" href="/articulos"><i class="fas fa-fw fa-box-open"> </i>  Articulos</a>
+                            <a class="collapse-item" href="/comprasarticulos"> <i class="fas fa-fw fa-truck-moving">  </i>  Compras</a>
+                            <a class="collapse-item" href="/clientes"><i class="fas fa-fw fa-user-friends"> </i>  Clientes</a>
+                            <a class="collapse-item" href="{{route("membresias.index")}}"><i class="fas fa-fw fa-address-card"> </i>  Membresia</a>
+                            <a class="collapse-item" href="/ventasservicios"><i class="fas fa-fw fa-shopping-cart"> </i> Ventas</a>
+                            <a class="collapse-item" href="{{route("promocion.index")}}"><i class="fas fa-fw fa-bullhorn"> </i> Promociones</a>
+                            <a class="collapse-item" href="{{route("servicios.index")}}"> <i class="fas fa-fw fa-shower"> </i>  Servicios</a>
                         </div>
                     </div>
                 </li>
