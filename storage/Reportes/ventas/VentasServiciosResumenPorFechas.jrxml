@@ -147,12 +147,12 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<reportElement style="Detail" x="184" y="0" width="223" height="15" uuid="0de29031-f0e7-4d48-af39-02f556ad747f"/>
 				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="407" y="0" width="53" height="15" uuid="b16692d3-0981-4d07-a8cc-53b9a27f9333"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{NroPersonas}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="7a9111d8-9697-42d5-9033-030281bf971b"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{CostoTotalVenta}]]></textFieldExpression>

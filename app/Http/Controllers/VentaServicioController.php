@@ -108,6 +108,26 @@ class VentaServicioController extends Controller
 
         }
 
+        $existeError = false;
+
+
+        for ($product=0; $product < count($productos); $product++) {
+            if ($productos[$product] != '') {
+                //$venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
+                $articulo = Articulo::find($codigos[$product]);
+                if($articulo->CantidadExistencia < $cantidades[$product])
+                {
+                    $existeError = true;
+                    break;
+                }
+            }
+        }
+
+        if($existeError)
+        {
+            return redirect('ventasservicios/create')->with("validacion","Existen articulos que superan la cantidad de existencia");
+        }
+
 //        if($validatedData->fails())
 //        {
 //            dd("Error");
@@ -330,11 +350,11 @@ class VentaServicioController extends Controller
 //        //
     }
 
-    public function  resumenFechas($id)
+    public function  reporteFechas(Request $request)
     {
-        $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas2.jasper');
+        $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.jasper');
         $output = storage_path( 'Reportes/ventas');
-        $SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas2.jasper", "",  $input);
+        $SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas.jasper", "",  $input);
 
 
         $hostname = env("DB_HOST", "localhost");
@@ -342,8 +362,8 @@ class VentaServicioController extends Controller
         $database = env("DB_DATABASE", "saunasoft");
         $password = env("DB_PASSWORD", "carskeep10000");
 
-        $fechaInicio =date("d/m/Y");
-        $fechaFin =date("d/m/Y");
+        $fechaInicio =$request->get("FechaInicio");
+        $fechaFin =$request->get("FechaFin");
 
         $this->PHPJasper = new PHPJasper();
 
@@ -352,7 +372,7 @@ class VentaServicioController extends Controller
         $options = [
             'format' => ['pdf'],
             'locale' => 'en',
-//            'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin],
+            'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin],
             'db_connection' => [
                 'driver' => 'mysql',
                 'host' => $hostname,
@@ -380,7 +400,7 @@ class VentaServicioController extends Controller
         )->execute();
 
         //Funciona
-        $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas2.pdf');
+        $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.pdf');
         if (file_exists($file)) {
 
             $headers = [
@@ -453,6 +473,9 @@ class VentaServicioController extends Controller
             abort(404, 'File not found!');
         }
     }
+
+
+
 
 
 }

@@ -71,18 +71,69 @@
     </div>
 
 
+    <!-- Modal Dialog -->
+    <div class="modal fade" id="formRangoFechas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="frm_title">Seleccione un rango de Fechas</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Cerrar</span>
+                    </button>
+
+                </div>
+
+                <form action="{{route("ventasservicios.reporteFechas")}}" method="post">
+                    {{ csrf_field() }}
+                    <div class="modal-body" id="frm_body">
+
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Fecha Inicio<span class="text-danger">*</span></label>
+                                <input type="date" name="FechaInicio" id="FechaInicio" class="form-control"
+                                       placeholder="Ingrese La Fecha Inicio" required value="{{old('FechaInicio ')}}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Fecha Final<span class="text-danger">*</span></label>
+                                <input type="date" name="FechaFin" id="FechaFin" class="form-control"
+                                       placeholder="Ingrese La Fecha Final" required value="{{old('FechaFin')}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button style='margin-left:10px;' type="submit" class="btn btn-primary col-sm-2 pull-right"
+                                id="frm_submit">Aceptar
+                        </button>
+                        <button type="button" class="btn btn-danger col-sm-2 pull-right" data-dismiss="modal"
+                                id="frm_cancel">Cancelar
+                        </button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
 
     <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-shopping-cart"></i> Registro de Ventas de Servicios y productos</h1>
     <p class="mb-4">En este formulario usted podra registrar la venta de articulos y servicios para un determinado cliente <a target="_blank" href="https://datatables.net">administrador </a>.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3"><i class="fa fa-fw fa-globe"></i> <strong>Listado de Ventas</strong>
+        <div class="card-header py-3">
+            <i class="fa fa-fw fa-globe"></i> <strong>Listado de Ventas</strong>
 
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
-            <a href="/ventasservicios/resumenFechas/2" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-file"></i>
+            <a data-toggle="modal" data-target="#formRangoFechas" href="#" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-file"></i>
                 Resumen</a>
+
+
 
              <a href="/ventasservicios/create" class="float-right btn btn-dark btn-sm mx-2"  ><i class="fa fa-fw fa-plus-circle"></i>
                 Nueva venta</a>

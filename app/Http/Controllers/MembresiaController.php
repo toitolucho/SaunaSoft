@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Membresia;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -115,5 +116,22 @@ class MembresiaController extends Controller
             return redirect()->route('membresias.index')->with("eliminar","El elemento, ha sido eleminado correctamente");
         }
         return rredirect()->route('membresias.index')->withInput()->with("eliminar_error","La Membresia seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+    }
+
+
+    public function buscar(Request $request)
+    {
+
+        $textoBusqueda = $request->get('NombreCliente');
+//        $membresias = Promocion::with('cliente')->where('Nombres','like','%'.$textoBusqueda.'%')->orWhere('Apellidos','like','%'.$textoBusqueda.'%')->paginate(15);
+        $membresias = Membresia::whereHas('cliente', function ($query)  use ($textoBusqueda){
+            return $query->where('Nombres','like','%'.$textoBusqueda.'%')->orWhere('Apellidos','like','%'.$textoBusqueda.'%');
+        })->paginate(15);
+
+        //$servicios = DB::table('Membresia')->where('NombreServicio','like','%'.$textoBusqueda.'%')->paginate(15);
+        if($membresias->isEmpty())
+            return redirect('membresias')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
+        else
+            return view('membresia.index', ['membresias' => $membresias]);
     }
 }

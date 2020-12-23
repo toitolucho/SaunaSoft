@@ -116,6 +116,7 @@
                 var name = data.NombreArticulo;
                 var codigo = data.NombreArticulo;
                 var precio = data.PrecioVigente;
+                var cantidadExistencia = data.CantidadExistencia;
 
 
                 dato = existeTupla('tabla_articulos', data.IdArticulo, 7);
@@ -127,9 +128,9 @@
                 var markup = "<tr id=articulo" +(NroArticulos+1)+">" +
                     "<td class='w-5  '>" +(NroArticulos+1)+" </td>"+
                     "<td class='w-50 '><input type='text' name='productos[]' class='form-control' value ='"+ name+"'  readonly/></td>" +
-                    "<td class='w-10 text-right'><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1' ></td>" +
-                    "<td class='w-15 text-right'><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"'> </td>" +
-                    "<td class='w-15 text-right'><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' readonly/></td>"+
+                    "<td class='w-10 text-right'><input type='number' name='cantidades[]' class='form-control qty' step='1' value ='1'  data-existencia ='"+ cantidadExistencia+ "' min='1' ></td>" +
+                    "<td class='w-15 text-right'><input type='number' name='precios[]' placeholder='Int. Precio Unitario' class='form-control price' step='0.00' min='0' value='"+precio +"' min='0'> </td>" +
+                    "<td class='w-15 text-right'><input type='number' name='total[]' placeholder='0.00' class='form-control total'  value='"+precio +"' min='0' readonly/></td>"+
                     "<td class='w-5  text-center' data-name='del" +(NroArticulos+1)+"'><button onclick='removeRowArticulo("+(NroArticulos+1)+");' name='articulo" +(NroArticulos+1)+"' class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden='true'>×</span></button></td>"+
                     "<td style='display:none'> <input name='codigos[]' value='"+data.IdArticulo +"'> </td>"+
 
@@ -491,8 +492,18 @@
             var html = $(this).html();
             if(html!='')
             {
+                var existencia = $(this).find('.qty').attr('data-existencia');
+                //console.log("Existencia "+ existencia);
+
+
                 var qty = $(this).find('.qty').val();
                 var price = $(this).find('.price').val();
+
+                if(qty > existencia)
+                {
+                    alert("No puede vender esa cantidad ya que no existe esa cantidad de existencia ");
+                    return;
+                }
                 $(this).find('.total').val(qty*price);
 
                 calc_total();

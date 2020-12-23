@@ -60,7 +60,7 @@ Route::get('/buscarserviciosAjax', function (Request $request) {
 
 Route::get('/buscarproductosAjax', function (Request $request) {
 
-    $datas = Articulo::select(array('IdArticulo', 'NombreArticulo', 'PrecioVigente'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">",0)->get();
+    $datas = Articulo::select(array('IdArticulo', 'NombreArticulo', 'PrecioVigente','CantidadExistencia'))->where("NombreArticulo","LIKE","%{$request->get('q')}%")->where("CantidadExistencia",">",0)->get();
     return response()->json($datas);
 });
 
@@ -80,6 +80,7 @@ Route::resource('promocion','PromocionController');
 Route::post('/articulos/buscar',"ArticuloController@buscar");
 Route::post('/promociones/buscar',"PromocionController@buscar")->name("promocion.buscar");
 Route::post('/servicios/buscar',"SevicioController@buscar")->name("servicio.buscar");
+Route::post('/membresias/buscar',"MembresiaController@buscar")->name("membresia.buscar");
 Route::post('/clientes/buscar',"ClienteController@buscar");
 Route::get('/articulos/reporte/{articulo}','ArticuloController@reporte')->name("articulos.reporte");
 
@@ -90,6 +91,8 @@ Route::get('/comprasarticulos/autocompletar','CompraArticuloController@autocompl
 
 Route::post('/comprasarticulos/buscar',"CompraArticuloController@buscar");
 Route::post('/ventasservicios/buscar',"VentaServicioController@buscar");
+Route::post('/ventasservicios/reporteFechas',"VentaServicioController@reporteFechas")->name("ventasservicios.reporteFechas");
+
 
 Route::get ('/categorias/{categoria}/articulos/create','ArticuloController@create')->name("articulos.create1");
 Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->name("articulos.store2");
