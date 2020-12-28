@@ -129,7 +129,7 @@
                 datumTokenizer: Bloodhound.tokenizers.whitespace('NombreRazonSocial'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace
             });
-           // console.log(proveedores);
+           // console.log(proveedor);
 
             $("#buscarProveedor").typeahead({
                 hint: true,

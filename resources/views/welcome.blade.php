@@ -73,13 +73,16 @@
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Administración:</h6>
-                            <a class="collapse-item" href="/categorias"> <i class="fas fa-fw fa-cogs"> </i>  Categorias</a>
-                            <a class="collapse-item" href="/articulos"><i class="fas fa-fw fa-box-open"> </i>  Articulos</a>
-                            <a class="collapse-item" href="/comprasarticulos"> <i class="fas fa-fw fa-truck-moving">  </i>  Compras</a>
-                            <a class="collapse-item" href="/clientes"><i class="fas fa-fw fa-user-friends"> </i>  Clientes</a>
+                            <a class="collapse-item" href="{{route("categorias.index")}}"> <i class="fas fa-fw fa-cogs"> </i>  Categorias</a>
+
+                            <a class="collapse-item" href="{{route("tiposclientes.index")}}"> <i class="fas fa-fw fa-users-cog"> </i>  Tipos Clientes</a>
+                            <a class="collapse-item" href="{{route("proveedores.index")}}"> <i class="fas fa-fw fa-dolly"> </i>  Proveedores</a>
+                            <a class="collapse-item" href="{{route("articulos.index")}}"><i class="fas fa-fw fa-box-open"> </i>  Articulos</a>
+                            <a class="collapse-item" href="{{route("comprasarticulos.index")}}"> <i class="fas fa-fw fa-truck-moving">  </i>  Compras</a>
+                            <a class="collapse-item" href="{{route("clientes.index")}}"><i class="fas fa-fw fa-user-friends"> </i>  Clientes</a>
                             <a class="collapse-item" href="{{route("membresias.index")}}"><i class="fas fa-fw fa-address-card"> </i>  Membresia</a>
-                            <a class="collapse-item" href="/ventasservicios"><i class="fas fa-fw fa-shopping-cart"> </i> Ventas</a>
-                            <a class="collapse-item" href="{{route("promocion.index")}}"><i class="fas fa-fw fa-bullhorn"> </i> Promociones</a>
+                            <a class="collapse-item" href="{{route("ventasservicios.index")}}"><i class="fas fa-fw fa-shopping-cart"> </i> Ventas</a>
+                            <a class="collapse-item" href="{{route("promociones.index")}}"><i class="fas fa-fw fa-bullhorn"> </i> Promociones</a>
                             <a class="collapse-item" href="{{route("servicios.index")}}"> <i class="fas fa-fw fa-shower"> </i>  Servicios</a>
                         </div>
                     </div>

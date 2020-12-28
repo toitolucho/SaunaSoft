@@ -44,13 +44,15 @@ class Ventasservicio extends Model
 	];
 
 	protected $dates = [
-		'FechaHoraVenta'
+		'FechaHoraVenta',
+        'FechaHoraFinalizado'
 	];
 
 	protected $fillable = [
 		'IdUsuario',
 		'IdCliente',
 		'FechaHoraVenta',
+        'FechaHoraFinalizado',
 		'CodigoEstadoVenta',
         'NroCasillero',
 		'Observaciones',

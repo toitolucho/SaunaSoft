@@ -13,10 +13,14 @@
         $(function () {
             $(".formConfirm").click(function (e) {
                 e.preventDefault();
-                var el = $(this).parent();
+                //console.log($(this).attr("data-ejemplo"));
+                // var el = $(this).parent();
+                var el = $(this);
                 var title = el.attr('data-title');
                 var msg = el.attr('data-message');
                 var dataForm = el.attr('data-form');
+
+                console.log(dataForm);
 
 
                 $('#formConfirm')
@@ -32,7 +36,7 @@
             $("#frm_submit").click(function (e) {
                 //console.log("registro a eliminar")
                 var id = $(this).attr('data-form');
-                console.log("entra confirm" + id);
+                console.log("entra confirm  " + id);
                 $(id).submit();
             });
 
@@ -228,7 +232,8 @@
                                 <tr role="row">
 
                                     <th class="w-5 text-center">Nro</th>
-                                    <th class="w-10 text-center">Fecha </th>
+                                    <th class="w-10 text-center">Entrada </th>
+                                    <th class="w-10 text-center">Salida </th>
                                     <th class="w-20 text-center"> Observaciones</th>
                                     <th class="w-40 text-center"> Detalle </th>
                                     <th class="w-15 text-center">Cliente</th>
@@ -238,9 +243,19 @@
 
                                 <tbody>
                                 @foreach($ventas as $venta)
-                                    <tr role="row">
+
+                                    @if($venta->CodigoEstadoVenta == 'I')
+                                        <tr role="row">
+                                    @endif
+                                    @if($venta->CodigoEstadoVenta == 'F')
+                                        <tr role="row" class="table-warning">
+                                    @endif
+                                    @if($venta->CodigoEstadoVenta == 'A')
+                                        <tr role="row" class="table-danger">
+                                    @endif
                                         <td class="w-5"> {{$venta->IdVentaServicio}}</td>
-                                        <td class="w-10">   {{   date('d-m-Y', strtotime($venta->FechaHoraVenta))   }}</td>
+                                        <td class="w-10">   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraVenta))   }}</td>
+                                        <td class="w-10">  @if($venta->FechaHoraFinalizado)   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraFinalizado))   }} @endif </td>
                                         <td class="w-20">{{$venta->Observaciones}}  </td>
 
 
@@ -253,7 +268,7 @@
 
                                             <ul>
                                                 @foreach($venta->servicios as $servicio)
-                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->Costo }}  Bs)</li>
+                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->NroPersonas }} x {{ $servicio->pivot->Costo }}  Bs)</li>
                                                 @endforeach
                                             </ul>
 
@@ -280,24 +295,7 @@
 {{--                                                </a>--}}
 
 {{--                                            </li>--}}
-                                            <li data-form="#delete-form-{{$venta->IdVentaServicio}}}"
-                                                data-title="Eliminar Venta de Servicios y Articulos"
-                                                data-message="Se encuentra seguro de eliminar esta venta?"
-                                                data-target="#formConfirm" class="listado">
-
-                                                <a class="btn btn-primary " class="formConfirm text-primary"
-                                                   href="{{route("ventasservicios.edit",  $venta )}}"
-                                                   aria-label="Editar">
-                                                    <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
-                                                </a>
-
-
-                                                <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
-                                                   data-target="#formConfirm">
-                                                    <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
-
-                                                </a>
-
+                                            <li class="listado">
 
                                                 <a class="btn btn-info"  class="formConfirm text-primary"
                                                    href="{{route("ventasservicios.reporte", $venta->IdVentaServicio  )}}"
@@ -306,15 +304,61 @@
                                                     <i class="fas fa-xs fa-file" aria-hidden="true"></i>
                                                 </a>
 
+                                                @if($venta->CodigoEstadoVenta == "I")
+                                                    <a class="btn btn-primary " class="formConfirm text-primary"
+                                                       href="{{route("ventasservicios.edit",  $venta )}}"
+                                                       aria-label="Editar">
+                                                        <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
+                                                    </a>
+
+
+                                                    <a data-toggle="modal" class="formConfirm btn btn-danger" href=""
+                                                       data-target="#formConfirm" data-ejemplo="{{$venta->IdVentaServicio}}"
+                                                       data-form="#delete-form-{{$venta->IdVentaServicio}}"
+                                                       data-title="Eliminar Venta de Servicios y Articulos"
+                                                       data-message="Se encuentra seguro de eliminar esta venta?">
+                                                        <i class="fas fa-xs fa-trash" aria-hidden="true"></i>
+
+                                                    </a>
+
+                                                    <a data-toggle="modal" class="formConfirm btn btn-success" href=""
+                                                       data-target="#formConfirm" data-ejemplo="{{$venta->IdVentaServicio}}"
+                                                       data-form="#finalizar-form-{{$venta->IdVentaServicio}}"
+                                                       data-title="Finalizar Venta de Servicio"
+                                                       data-message="¿Se encuentra seguro de finalizar los servicios registrados para esta venta? Recuerde que una vez finalizada la transaccion, los cambios son irreversibles"
+                                                    >
+                                                        <i class="fas fa-xs fa-check" aria-hidden="true"></i>
+
+                                                    </a>
+
+                                                @endif
+
+
+
+
+
+
                                             </li>
 
-                                            <form id="delete-form-{{$venta->IdVentaServicio}}"
-                                                  action="{{route('ventasservicios.destroy', $venta)}}" method="post"
-                                                  style="display: none">
-                                                <input type="hidden" name="_method" value="delete">
-                                                {{csrf_field()}}
+                                            @if($venta->CodigoEstadoVenta == "I")
+                                                <form id="delete-form-{{$venta->IdVentaServicio}}"
+                                                      action="{{route('ventasservicios.destroy', $venta)}}" method="post"
+                                                      style="display: none">
+                                                    <input type="hidden" name="_method" value="delete">
+                                                    {{csrf_field()}}
 
-                                            </form>
+                                                </form>
+                                                <form id="finalizar-form-{{ $venta->IdVentaServicio}}"
+                                                      action = "{{route("ventaservicios.finalizar",  $venta->IdVentaServicio )}}" method="post"
+                                                      style="display: none">
+                                                    <input type="hidden" name="_method" value="delete">
+                                                    @csrf
+                                                    @method('put')
+
+                                                </form>
+                                            @endif
+
+
 
 
 

@@ -167,6 +167,7 @@ CREATE TABLE VentasServicio
 	IdUsuario			INT, -- el que hace la venta	
 	IdCliente			INT,
 	FechaHoraVenta		timestamp ,
+	FechaHoraFinalizado	timestamp ,
 	CodigoEstadoVenta	CHAR(1),-- 'I'->iniciado, 'A'->anulado, 'F'->Finalizado		
 	NroCasillero		INT,
 	NroPersonas			INT,	

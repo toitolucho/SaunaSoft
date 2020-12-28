@@ -73,16 +73,21 @@ Route::resource('/articulos','ArticuloController');
 Route::resource('/clientes','ClienteController');
 Route::resource('/ventasservicios','VentaServicioController');
 Route::resource('/membresias','MembresiaController');
-Route::resource('promocion','PromocionController');
+Route::resource('/promociones','PromocionController');
+Route::resource('/proveedores','ProveedorController');
+Route::resource('/tiposclientes','TipoClienteController');
 
 
 
 Route::post('/articulos/buscar',"ArticuloController@buscar");
+Route::post('/proveedor/buscar',"ProveedorController@buscar")->name("proveedor.buscar");
 Route::post('/promociones/buscar',"PromocionController@buscar")->name("promocion.buscar");
 Route::post('/servicios/buscar',"SevicioController@buscar")->name("servicio.buscar");
 Route::post('/membresias/buscar',"MembresiaController@buscar")->name("membresia.buscar");
-Route::post('/clientes/buscar',"ClienteController@buscar");
+Route::post('/clientes/buscar',"ClienteController@buscar")->name("cliente.buscar");
+Route::post('/tiposclientes/buscar',"TipoClienteController@buscar")->name("tipocliente.buscar");
 Route::get('/articulos/reporte/{articulo}','ArticuloController@reporte')->name("articulos.reporte");
+
 
 Route::post('/categorias/buscar',"CategoriaController@buscar");
 Route::get('/comprasarticulos/autocomplete','CompraArticuloController@autocomplete')->name("comprasarticulos.autocomplete");
@@ -122,3 +127,4 @@ Route::post('Sinsertar',"SevicioController@store");
 Route::get('/comprasarticulos/reporte/{idcompraarticulo}','CompraArticuloController@reporte')->name("comprasarticulos.reporte");
 Route::get('/ventasservicios/reporte/{idventaservicio}','VentaServicioController@reporte')->name("ventasservicios.reporte");
 Route::get('/ventasservicios/resumenFechas/{idventaservicio}','VentaServicioController@resumenFechas')->name("ventasservicios.resumenFechas");
+Route::put('/ventasservicios/f/{ventaservicio}',"VentaServicioController@finalizar")->name('ventaservicios.finalizar');

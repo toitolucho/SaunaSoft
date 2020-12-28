@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2020 at 06:06 PM
+-- Generation Time: Dec 24, 2020 at 12:45 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -75,83 +75,84 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`IdArticulo`, `CodigoArticulo`, `NombreArticulo`, `IdCategoria`, `CantidadExistencia`, `PrecioVigente`, `TotalValorado`, `TipoInventario`, `Descripcion`, `FechaVencimiento`) VALUES
-(4, '8-0000001', 'Té Dharamsala', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(5, '1-0000001', 'Cerveza tibetana Barley', 12, 0, '0.00', '0.00', 'P', NULL, NULL),
-(6, '13-0000001', 'Sirope de regaliz', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(7, '12-0000002', 'Especias Cajun del chef Anton', 3, 0, '0.00', '0.00', 'P', NULL, NULL),
-(8, '12-0000002', 'Mezcla Gumbo del chef Anton', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(9, '7-0000001', 'Mermelada de grosellas de la abuela', 10, 0, '0.00', '0.00', 'P', NULL, NULL),
-(10, '1-0000001', 'Peras secas orgánicas del tío Bob', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(11, '4-0000001', 'Salsa de arándanos Northwoods', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(12, '14-0000001', 'Buey Mishi Kobe', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(13, '10-0000002', 'Pez espada', 11, 0, '0.00', '0.00', 'P', NULL, NULL),
-(14, '9-0000001', 'Queso Cabrales', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(15, '7-0000002', 'Queso Manchego La Pastora', 11, 0, '0.00', '0.00', 'P', NULL, NULL),
-(16, '4-0000001', 'Algas Konbu', 3, 0, '0.00', '0.00', 'P', NULL, NULL),
-(17, '15-0000001', 'Cuajada de judías', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(18, '5-0000003', 'Salsa de soja baja en sodio', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(19, '5-0000003', 'Postre de merengue Pavlova', 11, 0, '0.00', '0.00', 'P', NULL, NULL),
-(20, '9-0000001', 'Cordero Alice Springs', 11, 0, '0.00', '0.00', 'P', NULL, NULL),
-(21, '14-0000001', 'Langostinos tigre Carnarvon', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(22, '8-0000001', 'Pastas de té de chocolate', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(23, '3-0000003', 'Mermelada de Sir Rodneys', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(24, '12-0000002', 'Bollos de Sir Rodneys', 9, 0, '0.00', '0.00', 'P', NULL, NULL),
-(25, '9-0000002', 'Pan de centeno crujiente estilo Gustafs', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(26, '12-0000002', 'Pan fino', 10, 40, '0.00', '60.00', 'P', NULL, NULL),
-(27, '13-0000003', 'Refresco Guaraná Fantástica', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(28, '14-0000001', 'Crema de chocolate y nueces NuNuCa', 12, 0, '0.00', '0.00', 'P', NULL, NULL),
-(29, '1-0000001', 'Ositos de goma Gumbär', 1, 0, '0.00', '0.00', 'P', NULL, NULL),
-(30, '14-0000001', 'Chocolate Schoggi', 6, 0, '0.00', '0.00', 'P', NULL, NULL),
-(31, '2-0000005', 'Col fermentada Rössle', 8, 0, '0.00', '0.00', 'P', NULL, NULL),
-(32, '2-0000005', 'Salchicha Thüringer', 14, 0, '0.00', '0.00', 'P', NULL, NULL),
-(33, '6-0000002', 'Arenque blanco del noroeste', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(34, '14-0000002', 'Queso gorgonzola Telino', 14, 0, '0.00', '0.00', 'P', NULL, NULL),
-(35, '11-0000005', 'Queso Mascarpone Fabioli', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(36, '2-0000005', 'Queso de cabra', 1, 0, '0.00', '0.00', 'P', NULL, NULL),
-(37, '14-0000003', 'Cerveza Sasquatch', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(38, '12-0000003', 'Cerveza negra Steeleye', 14, 0, '0.00', '0.00', 'P', NULL, NULL),
-(39, '3-0000003', 'Escabeche de arenque', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(40, '11-0000005', 'Salmón ahumado Gravad', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(41, '14-0000004', 'Vino Côte de Blaye', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(42, '4-0000005', 'Licor verde Chartreuse', 10, 0, '0.00', '0.00', 'P', NULL, NULL),
-(43, '6-0000002', 'Carne de cangrejo de Boston', 14, 0, '0.00', '0.00', 'P', NULL, NULL),
-(44, '6-0000002', 'Crema de almejas estilo Nueva Inglaterra', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(45, '7-0000005', 'Tallarines de Singapur', 1, 0, '0.00', '0.00', 'P', NULL, NULL),
-(46, '2-0000005', 'Café de Malasia', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(47, '4-0000005', 'Azúcar negra Malacca', 6, 0, '0.00', '0.00', 'P', NULL, NULL),
-(48, '2-0000005', 'Arenque ahumado', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(49, '14-0000005', 'Arenque salado', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(50, '13-0000005', 'Galletas Zaanse', 14, 60, '0.00', '270.00', 'P', NULL, NULL),
-(51, '14-0000006', 'Chocolate holandés', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(52, '6-0000003', 'Regaliz', 9, 0, '0.00', '0.00', 'P', NULL, NULL),
-(53, '8-0000002', 'Chocolate blanco', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(54, '12-0000003', 'Manzanas secas Manjimup', 6, 0, '0.00', '0.00', 'P', NULL, NULL),
-(55, '10-0000004', 'Cereales para Filo', 14, 0, '0.00', '0.00', 'P', NULL, NULL),
-(56, '9-0000003', 'Empanada de carne', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(57, '10-0000004', 'Empanada de cerdo', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(58, '8-0000002', 'Paté chino', 11, 0, '0.00', '0.00', 'P', NULL, NULL),
-(59, '13-0000007', 'Gnocchi de la abuela Alicia', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(60, '11-0000006', 'Raviolis Angelo', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(61, '2-0000006', 'Caracoles de Borgoña', 15, 0, '0.00', '0.00', 'P', NULL, NULL),
-(62, '8-0000002', 'Raclet de queso Courdavault', 9, 0, '0.00', '0.00', 'P', NULL, NULL),
-(63, '8-0000002', 'Camembert Pierrot', 10, 0, '0.00', '0.00', 'P', NULL, NULL),
-(64, '10-0000005', 'Sirope de arce', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(65, '11-0000006', 'Tarta de azúcar', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(66, '1-0000004', 'Sandwich de vegetales', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(67, '3-0000003', 'Bollos de pan de Wimmer', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(68, '10-0000005', 'Salsa de pimiento picante de Luisiana', 12, 0, '0.00', '0.00', 'P', NULL, NULL),
-(69, '14-0000007', 'Especias picantes de Luisiana', 3, 0, '0.00', '0.00', 'P', NULL, NULL),
-(70, '5-0000010', 'Cerveza Laughing Lumberjack', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(71, '6-0000004', 'Barras de pan de Escocia', 8, 0, '0.00', '0.00', 'P', NULL, NULL),
-(72, '9-0000004', 'Queso Gudbrandsdals', 5, 0, '0.00', '0.00', 'P', NULL, NULL),
-(73, '11-0000006', 'Cerveza Outback', 10, 0, '0.00', '0.00', 'P', NULL, NULL),
-(74, '4-0000006', 'Crema de queso Fløtemys', 2, 0, '0.00', '0.00', 'P', NULL, NULL),
-(75, '11-0000006', 'Queso Mozzarella Giovanni', 7, 0, '0.00', '0.00', 'P', NULL, NULL),
-(76, '13-0000009', 'Caviar rojo', 15, 0, '0.00', '0.00', 'P', NULL, NULL),
-(77, '7-0000009', 'Queso de soja Longlife', 3, 0, '0.00', '0.00', 'P', NULL, NULL),
-(78, '11-0000006', 'Cerveza Klosterbier Rhönbräu', 13, 0, '0.00', '0.00', 'P', NULL, NULL),
-(79, '3-0000005', 'Licor Cloudberry', 4, 0, '0.00', '0.00', 'P', NULL, NULL),
-(80, '9-0000004', 'Salsa verde original Frankfurter', 5, 0, '0.00', '0.00', 'P', NULL, NULL);
+(1, '10-0000001', 'Té Dharamsala', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(2, '6-0000001', 'Cerveza tibetana Barley', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(3, '10-0000002', 'Sirope de regaliz', 14, 10, '0.00', '0.00', 'P', NULL, NULL),
+(4, '9-0000001', 'Especias Cajun del chef Anton', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(5, '2-0000001', 'Mezcla Gumbo del chef Anton', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(6, '4-0000001', 'Mermelada de grosellas de la abuela', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(7, '12-0000001', 'Peras secas orgánicas del tío Bob', 12, 10, '0.00', '0.00', 'P', NULL, NULL),
+(8, '9-0000001', 'Salsa de arándanos Northwoods', 8, 10, '0.00', '0.00', 'P', NULL, NULL),
+(9, '12-0000002', 'Buey Mishi Kobe', 5, 10, '0.00', '0.00', 'P', NULL, NULL),
+(10, '6-0000001', 'Pez espada', 13, 10, '0.00', '0.00', 'P', NULL, NULL),
+(11, '1-0000001', 'Queso Cabrales', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(12, '8-0000002', 'Queso Manchego La Pastora', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(13, '5-0000002', 'Algas Konbu', 8, 10, '0.00', '0.00', 'P', NULL, NULL),
+(14, '7-0000001', 'Cuajada de judías', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(15, '1-0000001', 'Salsa de soja baja en sodio', 5, 10, '0.00', '0.00', 'P', NULL, NULL),
+(16, '5-0000003', 'Postre de merengue Pavlova', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(17, '7-0000001', 'Cordero Alice Springs', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(18, '9-0000001', 'Langostinos tigre Carnarvon', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(19, '2-0000002', 'Pastas de té de chocolate', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(20, '10-0000003', 'Mermelada de Sir Rodneys', 14, 10, '0.00', '0.00', 'P', NULL, NULL),
+(21, '12-0000002', 'Bollos de Sir Rodneys', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(22, '1-0000001', 'Pan de centeno crujiente estilo Gustafs', 1, 10, '0.00', '0.00', 'P', NULL, NULL),
+(23, '14-0000003', 'Pan fino', 8, 10, '0.00', '0.00', 'P', NULL, NULL),
+(24, '14-0000003', 'Refresco Guaraná Fantástica', 13, 10, '0.00', '0.00', 'P', NULL, NULL),
+(25, '8-0000004', 'Crema de chocolate y nueces NuNuCa', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(26, '15-0000001', 'Ositos de goma Gumbär', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(27, '6-0000004', 'Chocolate Schoggi', 9, 10, '0.00', '0.00', 'P', NULL, NULL),
+(28, '12-0000002', 'Col fermentada Rössle', 15, 10, '0.00', '0.00', 'P', NULL, NULL),
+(29, '11-0000005', 'Salchicha Thüringer', 9, 10, '0.00', '0.00', 'P', NULL, NULL),
+(30, '11-0000005', 'Arenque blanco del noroeste', 14, 10, '0.00', '0.00', 'P', NULL, NULL),
+(31, '6-0000004', 'Queso gorgonzola Telino', 4, 10, '0.00', '0.00', 'P', NULL, NULL),
+(32, '1-0000002', 'Queso Mascarpone Fabioli', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(33, '15-0000002', 'Queso de cabra', 9, 10, '0.00', '0.00', 'P', NULL, NULL),
+(34, '13-0000003', 'Cerveza Sasquatch', 9, 10, '0.00', '0.00', 'P', NULL, NULL),
+(35, '5-0000003', 'Cerveza negra Steeleye', 13, 10, '0.00', '0.00', 'P', NULL, NULL),
+(36, '3-0000003', 'Escabeche de arenque', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(37, '11-0000005', 'Salmón ahumado Gravad', 1, 10, '0.00', '0.00', 'P', NULL, NULL),
+(38, '2-0000004', 'Vino Côte de Blaye', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(39, '9-0000005', 'Licor verde Chartreuse', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(40, '12-0000002', 'Carne de cangrejo de Boston', 11, 10, '0.00', '0.00', 'P', NULL, NULL),
+(41, '3-0000003', 'Crema de almejas estilo Nueva Inglaterra', 12, 10, '0.00', '0.00', 'P', NULL, NULL),
+(42, '6-0000005', 'Tallarines de Singapur', 8, 10, '0.00', '0.00', 'P', NULL, NULL),
+(43, '6-0000005', 'Café de Malasia', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(44, '13-0000004', 'Azúcar negra Malacca', 1, 10, '0.00', '0.00', 'P', NULL, NULL),
+(45, '11-0000007', 'Arenque ahumado', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(46, '10-0000003', 'Arenque salado', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(47, '10-0000003', 'Galletas Zaanse', 13, 10, '0.00', '0.00', 'P', NULL, NULL),
+(48, '4-0000002', 'Chocolate holandés', 12, 10, '0.00', '0.00', 'P', NULL, NULL),
+(49, '3-0000003', 'Regaliz', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(50, '9-0000005', 'Chocolate blanco', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(51, '9-0000005', 'Manzanas secas Manjimup', 15, 10, '0.00', '0.00', 'P', NULL, NULL),
+(52, '2-0000005', 'Cereales para Filo', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(53, '14-0000004', 'Empanada de carne', 8, 10, '0.00', '0.00', 'P', NULL, NULL),
+(54, '12-0000004', 'Empanada de cerdo', 5, 10, '0.00', '0.00', 'P', NULL, NULL),
+(55, '4-0000002', 'Paté chino', 5, 10, '0.00', '0.00', 'P', NULL, NULL),
+(56, '13-0000005', 'Gnocchi de la abuela Alicia', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(57, '4-0000002', 'Raviolis Angelo', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(58, '14-0000004', 'Caracoles de Borgoña', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(59, '4-0000002', 'Raclet de queso Courdavault', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(60, '5-0000005', 'Camembert Pierrot', 12, 10, '0.00', '0.00', 'P', NULL, NULL),
+(61, '13-0000005', 'Sirope de arce', 1, 10, '0.00', '0.00', 'P', NULL, NULL),
+(62, '8-0000006', 'Tarta de azúcar', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(63, '12-0000005', 'Sandwich de vegetales', 9, 10, '10.00', '0.00', 'P', NULL, NULL),
+(64, '7-0000006', 'Bollos de pan de Wimmer', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(65, '11-0000007', 'Salsa de pimiento picante de Luisiana', 10, 10, '0.00', '0.00', 'P', NULL, NULL),
+(66, '15-0000003', 'Especias picantes de Luisiana', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(67, '12-0000005', 'Cerveza Laughing Lumberjack', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(68, '7-0000006', 'Barras de pan de Escocia', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(69, '9-0000006', 'Queso Gudbrandsdals', 7, 10, '0.00', '0.00', 'P', NULL, NULL),
+(70, '5-0000005', 'Cerveza Outback', 3, 10, '0.00', '0.00', 'P', NULL, NULL),
+(71, '14-0000004', 'Crema de queso Fløtemys', 1, 10, '0.00', '0.00', 'P', NULL, NULL),
+(72, '6-0000009', 'Queso Mozzarella Giovanni', 14, 10, '0.00', '0.00', 'P', NULL, NULL),
+(73, '7-0000007', 'Caviar rojo', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(74, '11-0000007', 'Queso de soja Longlife', 4, 10, '0.00', '0.00', 'P', NULL, NULL),
+(75, '4-0000003', 'Cerveza Klosterbier Rhönbräu', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(76, '1-0000006', 'Licor Cloudberry', 2, 10, '0.00', '0.00', 'P', NULL, NULL),
+(77, '9-0000006', 'Salsa verde original Frankfurter', 6, 10, '0.00', '0.00', 'P', NULL, NULL),
+(78, NULL, 'Agua Vital', 9, 0, '25.00', NULL, NULL, 'prueba de datos', NULL);
 
 -- --------------------------------------------------------
 
@@ -233,17 +234,20 @@ CREATE TABLE `clientes` (
   `CorreoElectronico` varchar(200) DEFAULT NULL,
   `FechaNacimiento` date DEFAULT NULL,
   `FechaRegistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `NroVisitas` int(11) DEFAULT NULL
+  `NroVisitas` int(11) DEFAULT NULL,
+  `Sexo` char(1) DEFAULT NULL,
+  `IdTipoCliente` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `clientes`
 --
 
-INSERT INTO `clientes` (`IdCliente`, `ci`, `Nombres`, `Apellidos`, `NroCelular`, `CorreoElectronico`, `FechaNacimiento`, `FechaRegistro`, `NroVisitas`) VALUES
-(1, NULL, 'Fernando', 'Camacho', 73475846, 'camachin@yotambien.com', '2020-02-11', '2020-12-14 02:44:48', 0),
-(2, NULL, 'Rosmeri Lucrecia', 'Lopez Rueda', 73475863, 'rosmerli@gmail.com', '2020-12-12', '2020-12-14 15:14:57', 0),
-(3, NULL, 'Catillo', 'Lorenzo', 7246, 'castillo@gmail.com', '1986-12-23', '2020-12-14 15:15:18', 0);
+INSERT INTO `clientes` (`IdCliente`, `ci`, `Nombres`, `Apellidos`, `NroCelular`, `CorreoElectronico`, `FechaNacimiento`, `FechaRegistro`, `NroVisitas`, `Sexo`, `IdTipoCliente`) VALUES
+(1, NULL, 'luis', 'molina', 7357, 'jaja@gmail.com', '2020-02-11', '2020-12-15 18:11:21', 0, 'o', 1),
+(2, '5680546', 'fernnado aguilar', 'quintanilla', 728546, 'asdfasf@gmail.com', '2220-03-03', '2020-12-15 18:54:18', 0, 'F', 1),
+(3, '5680546', 'Cristhian', 'Vandersar', 7285498, 'Yolanda@sasa.com', '2020-05-12', '2020-12-21 13:20:41', 0, 'F', 1),
+(4, '352568', 'Rosmeri', 'Lopez Rueda', 728445, 'rosmeri@gmail.com', '2000-12-31', '2020-12-23 20:32:12', 0, 'F', 2);
 
 -- --------------------------------------------------------
 
@@ -260,16 +264,6 @@ CREATE TABLE `comprasarticulos` (
   `Observaciones` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `comprasarticulos`
---
-
-INSERT INTO `comprasarticulos` (`IdCompraArticulo`, `IdUsuario`, `FechaHoraRegistro`, `CodigoEstadoIngreso`, `IdProveedor`, `Observaciones`) VALUES
-(1, 1, '2020-12-14 15:12:56', 'I', NULL, 'prueba de datos'),
-(2, 1, '2020-12-14 15:20:46', 'I', NULL, NULL),
-(3, 1, '2020-12-14 19:22:23', 'I', NULL, 'Galletas de ambasado cremositas'),
-(4, 1, '2020-12-14 21:01:01', 'I', NULL, 'Nueva Venta');
-
 -- --------------------------------------------------------
 
 --
@@ -282,21 +276,6 @@ CREATE TABLE `comprasarticulosdetalle` (
   `Cantidad` int(11) DEFAULT NULL,
   `Precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comprasarticulosdetalle`
---
-
-INSERT INTO `comprasarticulosdetalle` (`IdCompraArticulo`, `IdArticulo`, `Cantidad`, `Precio`) VALUES
-(1, 4, 1, '15.00'),
-(1, 32, 1, '15.00'),
-(1, 37, 1, '30.00'),
-(2, 26, 20, '1.00'),
-(2, 50, 30, '2.00'),
-(3, 26, 10, '2.00'),
-(3, 50, 10, '15.00'),
-(4, 26, 10, '2.00'),
-(4, 50, 20, '3.00');
 
 --
 -- Triggers `comprasarticulosdetalle`
@@ -322,6 +301,7 @@ DELIMITER ;
 CREATE TABLE `membresia` (
   `IdMembresia` int(11) NOT NULL,
   `IdCliente` int(11) DEFAULT NULL,
+  `FechaRegistro` date DEFAULT NULL,
   `FechaInicio` date DEFAULT NULL,
   `FechaFin` date DEFAULT NULL,
   `CodigoEstado` char(1) DEFAULT NULL,
@@ -332,19 +312,14 @@ CREATE TABLE `membresia` (
 -- Dumping data for table `membresia`
 --
 
-INSERT INTO `membresia` (`IdMembresia`, `IdCliente`, `FechaInicio`, `FechaFin`, `CodigoEstado`, `CostoGeneral`) VALUES
-(1, 1, '2020-12-15', '2020-12-26', 'V', '120.00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `promociondetalleclientes`
---
-
-CREATE TABLE `promociondetalleclientes` (
-  `IdPromocion` int(11) NOT NULL,
-  `IdCliente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `membresia` (`IdMembresia`, `IdCliente`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `CodigoEstado`, `CostoGeneral`) VALUES
+(2, 1, NULL, '2020-12-14', '2020-12-27', 'V', '100.00'),
+(3, 2, NULL, '2020-12-14', '2020-12-20', 'V', '100.00'),
+(4, 1, NULL, '2020-12-23', '2020-12-19', 'V', '150.00'),
+(5, 3, NULL, '2020-01-21', '2020-12-31', 'C', '150.00'),
+(6, 1, NULL, '2020-12-01', '2020-12-27', 'V', '150.00'),
+(7, 3, NULL, '2020-12-01', '2020-12-31', 'V', '324.00'),
+(8, 4, NULL, '2021-01-01', '2021-01-31', 'V', '300.00');
 
 -- --------------------------------------------------------
 
@@ -361,8 +336,18 @@ CREATE TABLE `promociones` (
   `TipoPromocion` char(1) DEFAULT NULL,
   `PorcentajeDescuento` decimal(10,2) DEFAULT NULL,
   `NroPersonas` int(11) DEFAULT 1,
-  `Descripcion` varchar(500) DEFAULT NULL
+  `Descripcion` varchar(500) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `promociones`
+--
+
+INSERT INTO `promociones` (`IdPromocion`, `NombrePromocion`, `FechaInicio`, `FechaFin`, `CodigoEstado`, `TipoPromocion`, `PorcentajeDescuento`, `NroPersonas`, `Descripcion`, `IdServicio`) VALUES
+(1, 'nueva promocion', '2020-12-01', '2020-12-31', 'V', NULL, '70.00', 1, 'prueba de datos', 2),
+(2, 'prueba de promoción', '2020-12-14', '2020-12-20', 'V', 'C', '50.00', 10, 'aplicar solo a capos modificado', 3),
+(3, 'promocion para clientes sauna', '2020-12-01', '2020-12-31', 'V', 'T', '50.00', 1, 'por navidad para los clientes del sauna', NULL);
 
 -- --------------------------------------------------------
 
@@ -378,15 +363,6 @@ CREATE TABLE `proveedores` (
   `NroCelular` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `proveedor`
---
-
-INSERT INTO `proveedores` (`IdProveedor`, `NombreRazonSocial`, `NombreRepresentante`, `Direccion`, `NroCelular`) VALUES
-(1, 'Sin Proveedor', 'Sin Proveedor', '', ''),
-(2, 'Galletas Fagal', 'Fernando Ayala', '', ''),
-(3, 'Cobolde', 'Valeria Rocabado', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -396,6 +372,7 @@ INSERT INTO `proveedores` (`IdProveedor`, `NombreRazonSocial`, `NombreRepresenta
 CREATE TABLE `servicios` (
   `IdServicio` int(11) NOT NULL,
   `NombreServicio` varchar(200) DEFAULT NULL,
+  `CodigoEstado` char(1) DEFAULT NULL,
   `Descripcion` varchar(500) DEFAULT NULL,
   `CostoServicio` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -404,8 +381,31 @@ CREATE TABLE `servicios` (
 -- Dumping data for table `servicios`
 --
 
-INSERT INTO `servicios` (`IdServicio`, `NombreServicio`, `Descripcion`, `CostoServicio`) VALUES
-(1, 'Sauna a Vapor', 'prueba de sauna', '150.00');
+INSERT INTO `servicios` (`IdServicio`, `NombreServicio`, `CodigoEstado`, `Descripcion`, `CostoServicio`) VALUES
+(1, 'prueba de servicio MODIFICADO', 'A', 'afdasdf', '58.00'),
+(2, 'Servicio de Prueba estelar', 'A', 'prueba de datos', '150.00'),
+(3, 'prueba 3', 'A', 'aaa', '23.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tipocliente`
+--
+
+CREATE TABLE `tiposclientes` (
+  `IdTipoCliente` int(11) NOT NULL,
+  `Descripcion` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tipocliente`
+--
+
+INSERT INTO `tiposclientes` (`IdTipoCliente`, `Descripcion`) VALUES
+(1, 'Cliente Sauna'),
+(2, 'Cliente Institucional'),
+(3, 'Cliente Sauna'),
+(4, 'Cliente Institucional');
 
 -- --------------------------------------------------------
 
@@ -443,9 +443,9 @@ CREATE TABLE `ventasservicio` (
   `IdCliente` int(11) DEFAULT NULL,
   `FechaHoraVenta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `CodigoEstadoVenta` char(1) DEFAULT NULL,
-  `IdPromocion` int(11) DEFAULT NULL,
-  `NroPersonas` int(11) DEFAULT NULL,
   `NroCasillero` int(11) DEFAULT NULL,
+  `NroPersonas` int(11) DEFAULT NULL,
+  `MontoTotalPago` decimal(10,2) DEFAULT NULL,
   `Observaciones` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -453,9 +453,10 @@ CREATE TABLE `ventasservicio` (
 -- Dumping data for table `ventasservicio`
 --
 
-INSERT INTO `ventasservicio` (`IdVentaServicio`, `IdUsuario`, `IdCliente`, `FechaHoraVenta`, `CodigoEstadoVenta`, `IdPromocion`, `NroPersonas`, `NroCasillero`, `Observaciones`) VALUES
-(1, 1, 3, '2020-12-14 15:21:36', 'I', NULL, 1, 12, 'Venta de datos Iniciales'),
-(2, 1, 3, '2020-12-14 19:24:16', 'I', NULL, 1, 1, 'prueba de datos');
+INSERT INTO `ventasservicio` (`IdVentaServicio`, `IdUsuario`, `IdCliente`, `FechaHoraVenta`, `CodigoEstadoVenta`, `NroCasillero`, `NroPersonas`, `MontoTotalPago`, `Observaciones`) VALUES
+(1, 1, 3, '2020-12-24 10:06:47', 'F', 3, 32, NULL, 'asdfasdf'),
+(2, 1, 3, '2020-12-21 19:25:50', 'I', 34, NULL, NULL, 'prueba de datos'),
+(3, NULL, 3, '2020-12-23 04:00:00', 'I', 34, NULL, NULL, 'prueba de datos');
 
 -- --------------------------------------------------------
 
@@ -466,16 +467,21 @@ INSERT INTO `ventasservicio` (`IdVentaServicio`, `IdUsuario`, `IdCliente`, `Fech
 CREATE TABLE `ventasserviciodetalle` (
   `IdVentaServicio` int(11) NOT NULL,
   `IdServicio` int(11) NOT NULL,
-  `Costo` decimal(10,2) DEFAULT NULL
+  `Costo` decimal(10,2) DEFAULT NULL,
+  `NroPersonas` int(11) DEFAULT NULL,
+  `IdPromocion` int(11) DEFAULT NULL,
+  `PorcentajeDescuento` decimal(10,2) DEFAULT NULL,
+  `CostoReal` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ventasserviciodetalle`
 --
 
-INSERT INTO `ventasserviciodetalle` (`IdVentaServicio`, `IdServicio`, `Costo`) VALUES
-(1, 1, '150.00'),
-(2, 1, '150.00');
+INSERT INTO `ventasserviciodetalle` (`IdVentaServicio`, `IdServicio`, `Costo`, `NroPersonas`, `IdPromocion`, `PorcentajeDescuento`, `CostoReal`) VALUES
+(1, 1, '58.00', 1, NULL, NULL, '58.00'),
+(2, 1, '29.00', 2, 3, '50.00', '58.00'),
+(2, 2, '105.00', 1, NULL, NULL, '105.00');
 
 -- --------------------------------------------------------
 
@@ -495,8 +501,8 @@ CREATE TABLE `ventasserviciodetallearticulos` (
 --
 
 INSERT INTO `ventasserviciodetallearticulos` (`IdVentaServicio`, `IdArticulo`, `Cantidad`, `Costo`) VALUES
-(1, 50, 50, '0.00'),
-(2, 50, 5, '3.00');
+(1, 47, 2, '3.00'),
+(2, 42, 5, '2.00');
 
 -- --------------------------------------------------------
 
@@ -531,7 +537,8 @@ ALTER TABLE `categorias`
 -- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`IdCliente`);
+  ADD PRIMARY KEY (`IdCliente`),
+  ADD KEY `IdTipoCliente` (`IdTipoCliente`);
 
 --
 -- Indexes for table `comprasarticulos`
@@ -556,17 +563,11 @@ ALTER TABLE `membresia`
   ADD KEY `IdCliente` (`IdCliente`);
 
 --
--- Indexes for table `promociondetalleclientes`
---
-ALTER TABLE `promociondetalleclientes`
-  ADD PRIMARY KEY (`IdPromocion`,`IdCliente`),
-  ADD KEY `IdCliente` (`IdCliente`);
-
---
 -- Indexes for table `promociones`
 --
 ALTER TABLE `promociones`
-  ADD PRIMARY KEY (`IdPromocion`);
+  ADD PRIMARY KEY (`IdPromocion`),
+  ADD KEY `IdServicio` (`IdServicio`);
 
 --
 -- Indexes for table `proveedor`
@@ -582,6 +583,12 @@ ALTER TABLE `servicios`
   ADD UNIQUE KEY `NombreServicio` (`NombreServicio`);
 
 --
+-- Indexes for table `tipocliente`
+--
+ALTER TABLE `tiposclientes`
+  ADD PRIMARY KEY (`IdTipoCliente`);
+
+--
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -593,15 +600,15 @@ ALTER TABLE `usuarios`
 ALTER TABLE `ventasservicio`
   ADD PRIMARY KEY (`IdVentaServicio`),
   ADD KEY `IdUsuario` (`IdUsuario`),
-  ADD KEY `IdCliente` (`IdCliente`),
-  ADD KEY `IdPromocion` (`IdPromocion`);
+  ADD KEY `IdCliente` (`IdCliente`);
 
 --
 -- Indexes for table `ventasserviciodetalle`
 --
 ALTER TABLE `ventasserviciodetalle`
   ADD PRIMARY KEY (`IdVentaServicio`,`IdServicio`),
-  ADD KEY `IdServicio` (`IdServicio`);
+  ADD KEY `IdServicio` (`IdServicio`),
+  ADD KEY `IdPromocion` (`IdPromocion`);
 
 --
 -- Indexes for table `ventasserviciodetallearticulos`
@@ -625,7 +632,7 @@ ALTER TABLE `ventasserviciodetalleclientes`
 -- AUTO_INCREMENT for table `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `IdArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `IdArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `categorias`
@@ -637,37 +644,43 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `IdCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `comprasarticulos`
 --
 ALTER TABLE `comprasarticulos`
-  MODIFY `IdCompraArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IdCompraArticulo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `membresia`
 --
 ALTER TABLE `membresia`
-  MODIFY `IdMembresia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdMembresia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `promociones`
 --
 ALTER TABLE `promociones`
-  MODIFY `IdPromocion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdPromocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `proveedor`
 --
 ALTER TABLE `proveedores`
-  MODIFY `IdProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdProveedor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `servicios`
 --
 ALTER TABLE `servicios`
-  MODIFY `IdServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tipocliente`
+--
+ALTER TABLE `tiposclientes`
+  MODIFY `IdTipoCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
@@ -679,7 +692,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `ventasservicio`
 --
 ALTER TABLE `ventasservicio`
-  MODIFY `IdVentaServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdVentaServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -690,6 +703,12 @@ ALTER TABLE `ventasservicio`
 --
 ALTER TABLE `articulos`
   ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`IdCategoria`) REFERENCES `categorias` (`IdCategoria`);
+
+--
+-- Constraints for table `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`IdTipoCliente`) REFERENCES `tiposclientes` (`IdTipoCliente`);
 
 --
 -- Constraints for table `comprasarticulos`
@@ -712,26 +731,25 @@ ALTER TABLE `membresia`
   ADD CONSTRAINT `membresia_ibfk_1` FOREIGN KEY (`IdCliente`) REFERENCES `clientes` (`IdCliente`);
 
 --
--- Constraints for table `promociondetalleclientes`
+-- Constraints for table `promociones`
 --
-ALTER TABLE `promociondetalleclientes`
-  ADD CONSTRAINT `promociondetalleclientes_ibfk_1` FOREIGN KEY (`IdPromocion`) REFERENCES `promociones` (`IdPromocion`),
-  ADD CONSTRAINT `promociondetalleclientes_ibfk_2` FOREIGN KEY (`IdCliente`) REFERENCES `clientes` (`IdCliente`);
+ALTER TABLE `promociones`
+  ADD CONSTRAINT `promociones_ibfk_1` FOREIGN KEY (`IdServicio`) REFERENCES `servicios` (`IdServicio`);
 
 --
 -- Constraints for table `ventasservicio`
 --
 ALTER TABLE `ventasservicio`
   ADD CONSTRAINT `ventasservicio_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`IdUsuario`),
-  ADD CONSTRAINT `ventasservicio_ibfk_2` FOREIGN KEY (`IdCliente`) REFERENCES `clientes` (`IdCliente`),
-  ADD CONSTRAINT `ventasservicio_ibfk_3` FOREIGN KEY (`IdPromocion`) REFERENCES `promociones` (`IdPromocion`);
+  ADD CONSTRAINT `ventasservicio_ibfk_2` FOREIGN KEY (`IdCliente`) REFERENCES `clientes` (`IdCliente`);
 
 --
 -- Constraints for table `ventasserviciodetalle`
 --
 ALTER TABLE `ventasserviciodetalle`
   ADD CONSTRAINT `ventasserviciodetalle_ibfk_1` FOREIGN KEY (`IdVentaServicio`) REFERENCES `ventasservicio` (`IdVentaServicio`),
-  ADD CONSTRAINT `ventasserviciodetalle_ibfk_2` FOREIGN KEY (`IdServicio`) REFERENCES `servicios` (`IdServicio`);
+  ADD CONSTRAINT `ventasserviciodetalle_ibfk_2` FOREIGN KEY (`IdServicio`) REFERENCES `servicios` (`IdServicio`),
+  ADD CONSTRAINT `ventasserviciodetalle_ibfk_3` FOREIGN KEY (`IdPromocion`) REFERENCES `promociones` (`IdPromocion`);
 
 --
 -- Constraints for table `ventasserviciodetallearticulos`

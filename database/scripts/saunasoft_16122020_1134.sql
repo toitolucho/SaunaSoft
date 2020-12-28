@@ -28,23 +28,23 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `ObtenerCodigoProducto` (`IdCategoria1` INT) RETURNS CHAR(10) CHARSET utf8mb4 BEGIN
     DECLARE CodigoCategoria CHAR(10);
 	DECLARE CantidadArticulos INT;
- 
+
     SELECT count(idArticulo) INTO CantidadArticulos
     FROM Articulos
     WHERE IdCategoria = IdCategoria1;
-	
+
 	SET CantidadArticulos = CantidadArticulos + 1;
-	
+
 	SET CodigoCategoria = RIGHT(CONCAT('0000000' , CAST(CantidadArticulos AS VARCHAR(10))),7);
-	
-    
+
+
     SELECT IF( EXISTS(
              SELECT IdCategoria
              FROM Categorias
              WHERE IdCategoria = IdCategoria1),
-              CONCAT(IdCategoria1, '-',CodigoCategoria), 
+              CONCAT(IdCategoria1, '-',CodigoCategoria),
               CodigoCategoria) into CodigoCategoria;
-	
+
     -- return the customer level
     RETURN ( CodigoCategoria);
 END$$
@@ -280,7 +280,7 @@ CREATE TABLE `comprasarticulosdetalle` (
 DELIMITER $$
 CREATE TRIGGER `t_after_compras_detalle_insert` AFTER INSERT ON `comprasarticulosdetalle` FOR EACH ROW BEGIN
     IF NEW.Cantidad > 0 THEN
-        UPDATE Articulos 
+        UPDATE Articulos
 			set CantidadExistencia = CantidadExistencia + NEW.Cantidad,
 				  TotalValorado = TotalValorado + NEW.Cantidad*NEW.Precio
         where Articulos.IdArticulo = NEW.IdArticulo;
@@ -343,7 +343,7 @@ INSERT INTO `promociones` (`IdPromocion`, `NombrePromocion`, `FechaInicio`, `Fec
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedores`
+-- Table structure for table `proveedor`
 --
 
 CREATE TABLE `proveedores` (
@@ -380,7 +380,7 @@ INSERT INTO `servicios` (`IdServicio`, `NombreServicio`, `CodigoEstado`, `Descri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiposclientes`
+-- Table structure for table `tipocliente`
 --
 
 CREATE TABLE `tiposclientes` (
@@ -389,7 +389,7 @@ CREATE TABLE `tiposclientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tiposclientes`
+-- Dumping data for table `tipocliente`
 --
 
 INSERT INTO `tiposclientes` (`IdTipoCliente`, `Descripcion`) VALUES
@@ -535,7 +535,7 @@ ALTER TABLE `promociones`
   ADD KEY `IdServicio` (`IdServicio`);
 
 --
--- Indexes for table `proveedores`
+-- Indexes for table `proveedor`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`IdProveedor`);
@@ -548,7 +548,7 @@ ALTER TABLE `servicios`
   ADD UNIQUE KEY `NombreServicio` (`NombreServicio`);
 
 --
--- Indexes for table `tiposclientes`
+-- Indexes for table `tipocliente`
 --
 ALTER TABLE `tiposclientes`
   ADD PRIMARY KEY (`IdTipoCliente`);
@@ -629,7 +629,7 @@ ALTER TABLE `promociones`
   MODIFY `IdPromocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `proveedores`
+-- AUTO_INCREMENT for table `proveedor`
 --
 ALTER TABLE `proveedores`
   MODIFY `IdProveedor` int(11) NOT NULL AUTO_INCREMENT;
@@ -641,7 +641,7 @@ ALTER TABLE `servicios`
   MODIFY `IdServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tiposclientes`
+-- AUTO_INCREMENT for table `tipocliente`
 --
 ALTER TABLE `tiposclientes`
   MODIFY `IdTipoCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;

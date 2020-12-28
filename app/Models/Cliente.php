@@ -86,5 +86,15 @@ class Cliente extends Model
         return $this->belongsTo(TipoCliente::class, 'IdCliente');
     }
 
+    public function getConMembresiaAttribute()
+    {
+        $estado = false;
+
+        $tiene = Membresia::where("IdCliente" , "=" , "{$this->IdCliente}")->where('CodigoEstado', '=','V')-> whereRaw( "DATE(NOW()) between FechaInicio and FechaFin" )->count();
+        if($tiene > 0)
+            $estado = true;
+        return $estado;
+    }
+
 
 }

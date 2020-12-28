@@ -224,8 +224,9 @@
 {{--											<label for="checkbox1"></label>--}}
 {{--											</span>--}}
 {{--                                        </td>--}}
-                                        <td class="w-5"><a href="clientes/{{$cliente->IdCliente}}"> {{$cliente->IdCliente}} </a>  </td>
-                                        <td class="w-35">{{$cliente->Nombres . " " . $cliente->Apellidos}}  </td>
+                                        <td class="w-5"><a href="clientes/{{$cliente->IdCliente}}"> {{$cliente->IdCliente}} </a>  @if($cliente->ConMembresia == true)  <span style="font-size: 16px; color:#ffe234;">  <i class="fas fa-fw fa-star"></i>  </span> @endif </td>
+{{--                                        <td class="w-35">{{$cliente->Nombres . " " . $cliente->Apellidos}}  </td>--}}
+                                        <td class="w-35">{{$cliente->NombreCompleto}}  </td>
                                         <td class="w-10">{{$cliente->NroCelular}}  </td>
                                         <td class="w-30">{{$cliente->CorreoElectronico}}  </td>
                                         <td class="w-10">{{ date('d-m-Y', strtotime($cliente->FechaNacimiento)) }}  </td>
@@ -271,12 +272,12 @@
                                                 </span>
 
 
-                                                <a class="btn btn-warning " class="formConfirm text-primary"
-                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"
-                                                   data-toggle="tooltip" data-placement="top" title="Asignar Promociones"
-                                                   aria-label="Promociones">
-                                                    <i class="fas fa-xs fa-tags" aria-hidden="true"></i>
-                                                </a>
+{{--                                                <a class="btn btn-warning " class="formConfirm text-primary"--}}
+{{--                                                   href="{{route("clientes.edit", $cliente->IdCliente )}}"--}}
+{{--                                                   data-toggle="tooltip" data-placement="top" title="Asignar Promociones"--}}
+{{--                                                   aria-label="Promociones">--}}
+{{--                                                    <i class="fas fa-xs fa-tags" aria-hidden="true"></i>--}}
+{{--                                                </a>--}}
 
 
 

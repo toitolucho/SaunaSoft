@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Proveedor
- * 
+ *
  * @property int $IdProveedor
  * @property string $NombreCompleto
  * @property string $NombreProveedor
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $TipoProveedor
  * @property string $CodigoEstadoDisposicion
  * @property string $CodigoEstado
- * 
+ *
  * @property Collection|IngresoArticulo[] $ingresosarticulos
  * @property Collection|VentaServicio[] $ventasservicios
  *

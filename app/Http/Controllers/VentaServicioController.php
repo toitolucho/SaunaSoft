@@ -475,7 +475,33 @@ class VentaServicioController extends Controller
     }
 
 
+    public function finalizar($id)
+    {
 
+        try {
+            $compra = Ventasservicio::find( $id);
+            $compra->CodigoEstadoVenta = 'F';
+
+
+
+            $compra->FechaHoraFinalizado =  date('Y-m-d H:i:s');
+
+           // dd($compra->FechaHoraFinalizado);
+            $compra->update();
+
+            return redirect()->route('ventasservicios.index')->with("registrado","La Transaccion se ha finalizado correctamente");;
+
+        } catch (DecryptException $e) {
+            // abort(404, 'Codigo de Generación invalido!');
+            abort(403, 'Accion no valida. Codigo de Generación invalido');
+        }
+
+
+
+
+
+        return redirect()->route('ventasservicios.index')->with("registrado","La Transaccion se ha finalizado correctamente");;
+    }
 
 
 }
