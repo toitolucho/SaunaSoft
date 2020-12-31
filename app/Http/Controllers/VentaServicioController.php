@@ -143,7 +143,7 @@ class VentaServicioController extends Controller
         $venta->NroCasillero = $request->input('NroCasillero');
         $venta->Observaciones = $request->input('Observaciones');
 
-        $venta->save();
+
         for ($product=0; $product < count($productos); $product++) {
             if ($productos[$product] != '') {
                 $venta->articulos()->attach($codigos[$product], ['Cantidad' => $cantidades[$product], 'Costo' => $precios[$product]]);
@@ -176,7 +176,8 @@ class VentaServicioController extends Controller
 
             }
         }
-
+        $venta->MontoTotalPago = $venta->Total;
+        $venta->save();
         return redirect()->route('ventasservicios.index')->with("registrado","Venta registrada correctamente");;
 
     }
@@ -338,23 +339,22 @@ class VentaServicioController extends Controller
      */
     public function destroy($id)
     {
-//        //dd($id);
-//        $categoria = Categoria::find( $id);
-//
-//
-//        if($categoria->delete())
-//        {
-//            return redirect('categorias')->with("eliminar","El elemento " . $categoria->NombreCategoria . ", ha sido eleminado correctamente");
-//        }
-//        return redirect('categorias')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
-//        //
+        //dd($id);
+        $venta = Ventasservicio::find( $id);
+
+
+        if($venta->CodigoEstadoVenta == 'I'  && $venta->delete())
+        {
+            return redirect('ventasservicios')->with("eliminar","La venta  " . $id . ", ha sido eleminada correctamente");
+        }
+        return redirect('ventasservicios')->withInput()->with("eliminar_error","La venta seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        //
     }
 
     public function  reporteFechas(Request $request)
     {
-        $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.jasper');
-        $output = storage_path( 'Reportes/ventas');
-        $SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas.jasper", "",  $input);
+
+        //$SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas.jasper", "",  $input);
 
 
         $hostname = env("DB_HOST", "localhost");
@@ -364,6 +364,42 @@ class VentaServicioController extends Controller
 
         $fechaInicio =$request->get("FechaInicio");
         $fechaFin =$request->get("FechaFin");
+        $tipoReporte =$request->get("tipoReporte");
+
+
+
+
+
+        $input ="";
+        if($tipoReporte == "ResumenGlobal")
+        {
+            $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.jasper');
+            $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.pdf');
+        }
+
+        if($tipoReporte == "ResumenServicios")
+        {
+            $input = storage_path('Reportes/ventas/VentasResumenPorFechasServicio.jasper');
+            $file = storage_path('Reportes/ventas/VentasResumenPorFechasServicio.pdf');
+        }
+
+
+        if($tipoReporte == "ResumenArticulos")
+        {
+            $input = storage_path('Reportes/ventas/VentasResumenPorFechasArticulos.jasper');
+            $file = storage_path('Reportes/ventas/VentasResumenPorFechasArticulos.pdf');
+        }
+
+        if($tipoReporte == "ResumenDetallado")
+        {
+            $input = storage_path('Reportes/ventas/VentaResumenDetalleGeneral.jasper');
+            $file = storage_path('Reportes/ventas/VentaResumenDetalleGeneral.pdf');
+        }
+        //ResumenDetallado
+
+
+        $output = storage_path( 'Reportes/ventas');
+
 
         $this->PHPJasper = new PHPJasper();
 
@@ -400,7 +436,7 @@ class VentaServicioController extends Controller
         )->execute();
 
         //Funciona
-        $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.pdf');
+
         if (file_exists($file)) {
 
             $headers = [

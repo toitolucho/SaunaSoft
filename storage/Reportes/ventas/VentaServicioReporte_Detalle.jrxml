@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VentaServicioReporte_Detalle" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7240a3a2-2de1-4c05-998f-82cd29e31f52">
 	<property name="ireport.zoom" value="3.4522712143931082"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="1152"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -162,7 +162,7 @@ where vsm.IdVentaServicio =$P{IdVentaServicio}]]>
 				<text><![CDATA[Sub Total : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="546" y="0" width="19" height="15" forecolor="#000000" uuid="4f614d2f-be3b-4eb3-b93f-93e408a6187c"/>
+				<reportElement style="Column header" x="548" y="0" width="19" height="15" forecolor="#000000" uuid="4f614d2f-be3b-4eb3-b93f-93e408a6187c"/>
 				<text><![CDATA[Bs]]></text>
 			</staticText>
 		</band>

@@ -93,4 +93,47 @@ class Ventasservicio extends Model
 	{
 		return $this->belongsToMany(Cliente::class, 'ventasserviciodetalleclientes', 'IdVentaServicio', 'IdCliente');
 	}
+
+    public function getCostoTotalArticulosAttribute()
+    {
+        $MontoTotal = 0;
+        foreach($this->articulos as $articulo)
+        {
+            $MontoTotal = $MontoTotal + $articulo->pivot->Cantidad * $articulo->pivot->Costo;
+        }
+        return $MontoTotal;
+    }
+
+    public function getCostoTotalServiciosAttribute()
+    {
+        $MontoTotal = 0;
+        foreach($this->servicios as $servicio)
+        {
+            $MontoTotal = $MontoTotal + $servicio->pivot->NroPersonas * $servicio->pivot->Costo;
+        }
+        return $MontoTotal;
+    }
+
+    public function getTotalAttribute()
+    {
+        $MontoTotal = $this->getCostoTotalArticulosAttribute() + $this->getCostoTotalServiciosAttribute();
+
+        return $MontoTotal;
+    }
+
+    public static function boot() {
+        parent::boot();
+        self::deleting(function($venta) { // before delete() method call this
+            $venta->articulos()->detach();
+            $venta->servicios()->detach();
+            $venta->clientes()->detach();
+//            $venta->articulos()->each(function($articulo) {
+//                $articulo->detach(); // <-- direct deletion
+//            });
+//            $venta->servicios()->each(function($servicio) {
+//                $servicio->detach(); // <-- raise another deleting event on Post to delete comments
+//            });
+            // do the rest of the cleanup...
+        });
+    }
 }

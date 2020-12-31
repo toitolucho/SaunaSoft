@@ -10,6 +10,8 @@
     <!-- Dialog show event handler -->
     <script type="text/javascript">
 
+
+
         $(function () {
             $(".formConfirm").click(function (e) {
                 e.preventDefault();
@@ -30,6 +32,16 @@
 
                 $('#formConfirm').find('#frm_submit').attr('data-form', dataForm);
 
+            });
+
+            $('.reporte').click(function(){
+                var tipo = $(this).attr('data-tipoReporte');
+                console.log("tipo reporte " + tipo);
+                $('#tipoReporte').val(tipo);
+                $('#tipoReporte').text(tipo);
+
+                $('#formRangoFechas input[name=\"tipoReporte\"]').val(tipo)
+                //$('#total').text('Product price: $1000');
             });
         });
         $(function () {
@@ -104,6 +116,7 @@
                                 <input type="date" name="FechaFin" id="FechaFin" class="form-control"
                                        placeholder="Ingrese La Fecha Final" required value="{{old('FechaFin')}}">
                             </div>
+                            <input name="tipoReporte"  id="tipoReporte" hidden>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -134,8 +147,24 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de Categorias</h6>--}}
 
 
-            <a data-toggle="modal" data-target="#formRangoFechas" href="#" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-file"></i>
-                Resumen</a>
+            <div class="dropdown show float-right mx-2">
+                <a class="btn btn-info btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-file"></i>
+                    Resumen
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a data-toggle="modal" data-target="#formRangoFechas" class="dropdown-item reporte" href="#" data-tipoReporte="ResumenGlobal">Resumen Global</a>
+                    <a data-toggle="modal" data-target="#formRangoFechas" class="dropdown-item reporte" href="#" data-tipoReporte="ResumenServicios">Resumen por Servicios</a>
+                    <a data-toggle="modal" data-target="#formRangoFechas" class="dropdown-item reporte" href="#" data-tipoReporte="ResumenArticulos">Reseument por Articulos</a>
+                    <a data-toggle="modal" data-target="#formRangoFechas" class="dropdown-item reporte" href="#" data-tipoReporte="ResumenDetallado">Reseument General Detallado</a>
+{{--                    <a class="dropdown-item" href="#">Resumen por Servicios</a>--}}
+{{--                    <a class="dropdown-item" href="#">Reseument por Articulos</a>--}}
+                </div>
+            </div>
+
+
+{{--            <a data-toggle="modal" data-target="#formRangoFechas" href="#" class="float-right btn btn-info btn-sm mx-2"><i class="fa fa-fw fa-file"></i>--}}
+{{--                Resumen</a>--}}
 
 
 
@@ -231,12 +260,15 @@
                                 <thead>
                                 <tr role="row">
 
+
                                     <th class="w-5 text-center">Nro</th>
-                                    <th class="w-10 text-center">Entrada </th>
-                                    <th class="w-10 text-center">Salida </th>
-                                    <th class="w-20 text-center"> Observaciones</th>
-                                    <th class="w-40 text-center"> Detalle </th>
                                     <th class="w-15 text-center">Cliente</th>
+                                    <th class="w-10 text-center">Entrada </th>
+                                    <th class="w-10 text-center">Salida</th>
+                                    <th class="w-10 text-center"> Servicios (Bs)</th>
+                                    <th class="w-10 text-center"> Articulos (Bs)</th>
+                                    <th class="w-15 text-center"> Total (Bs)</th>
+                                    <th class="w-40 text-center"> Observaciones</th>
                                     <th class="w-10 text-center">Acciones</th>
                                 </tr>
                                 </thead>
@@ -254,29 +286,33 @@
                                         <tr role="row" class="table-danger">
                                     @endif
                                         <td class="w-5"> {{$venta->IdVentaServicio}}</td>
-                                        <td class="w-10">   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraVenta))   }}</td>
-                                        <td class="w-10">  @if($venta->FechaHoraFinalizado)   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraFinalizado))   }} @endif </td>
-                                        <td class="w-20">{{$venta->Observaciones}}  </td>
-
-
-                                        <td class="w-40 text-right">
-                                            <ul>
-                                                @foreach($venta->articulos as $articulo)
-                                                    <li class="list-group-item list-group-item-info">{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>
-                                                @endforeach
-                                            </ul>
-
-                                            <ul>
-                                                @foreach($venta->servicios as $servicio)
-                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->NroPersonas }} x {{ $servicio->pivot->Costo }}  Bs)</li>
-                                                @endforeach
-                                            </ul>
-
-                                        </td>
-
                                         <td class="w-15"> @if($venta->cliente)  {{$venta->cliente->NombreCompleto }}
                                             @endif
                                         </td>
+                                        <td class="w-10">   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraVenta))   }}</td>
+                                        <td class="w-10">  @if($venta->FechaHoraFinalizado)   {{   date('d-m-Y H:i', strtotime($venta->FechaHoraFinalizado))   }} @endif </td>
+                                        <td class="w-10 text-right"> {{$venta->CostoTotalArticulos}}</td>
+                                        <td class="w-10 text-right"> {{$venta->CostoTotalServicios}}</td>
+                                        <td class="w-15 text-right"> {{$venta->Total}}</td>
+                                        <td class="w-20">{{$venta->Observaciones}}  </td>
+
+
+{{--                                        <td class="w-40 text-right">--}}
+{{--                                            <ul>--}}
+{{--                                                @foreach($venta->articulos as $articulo)--}}
+{{--                                                    <li class="list-group-item list-group-item-info">{{ $articulo->NombreArticulo }} ({{ $articulo->pivot->Cantidad }} x {{ $articulo->pivot->Costo }} Bs)</li>--}}
+{{--                                                @endforeach--}}
+{{--                                            </ul>--}}
+
+{{--                                            <ul>--}}
+{{--                                                @foreach($venta->servicios as $servicio)--}}
+{{--                                                    <li class="list-group-item list-group-item-light">{{ $servicio->NombreServicio }} ({{ $servicio->pivot->NroPersonas }} x {{ $servicio->pivot->Costo }}  Bs)</li>--}}
+{{--                                                @endforeach--}}
+{{--                                            </ul>--}}
+
+{{--                                        </td>--}}
+
+
 
                                         <td class="w-10 text-center">
 

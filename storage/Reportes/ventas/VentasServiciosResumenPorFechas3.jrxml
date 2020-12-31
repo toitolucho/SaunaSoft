@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VentasServiciosResumenPorFechas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="296572d4-561e-45e5-b051-25de471f819a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VentasServiciosResumenPorFechas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="296572d4-561e-45e5-b051-25de471f819a">
 	<property name="ireport.zoom" value="1.771561000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,6 +7,8 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="FechaInicio" class="java.util.Date"/>
+	<parameter name="FechaFin" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[select vs.IdVentaServicio, vs.FechaHoraVenta, vs.Observaciones, TA2.NroPersonas, vs.NroCasillero, vs.Observaciones, U.NombreCompleto as NombreUsuario, concat(C.Nombres, ' ', C.Apellidos) AS NombreCliente, TA2.CostoTotalVenta
 from ventasservicio vs
@@ -34,7 +36,7 @@ left JOIN
     GROUP BY TA.IdVentaServicio
 )TA2
 ON TA2.IdVentaServicio = vs.IdVentaServicio
-where vs.FechaHoraVenta between date_format(now(), '%Y-%m-%d 00:00:00')  AND  date_format(NOW(), '%Y-%m-%d 23:59:59')]]>
+where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00')  AND  date_format($P{FechaFin}, '%Y-%m-%d 23:59:59')]]>
 	</queryString>
 	<field name="IdVentaServicio" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -70,6 +72,11 @@ where vs.FechaHoraVenta between date_format(now(), '%Y-%m-%d 00:00:00')  AND  da
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Resumen de Ingresos]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="117" y="33" width="330" height="20" uuid="d2b2c2e3-0e2e-4220-9738-de51a414aed1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Del " +  new SimpleDateFormat("dd/MM/yyyy").format($P{FechaInicio})  + " al " + new SimpleDateFormat("dd/MM/yyyy").format($P{FechaFin})]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -140,12 +147,12 @@ where vs.FechaHoraVenta between date_format(now(), '%Y-%m-%d 00:00:00')  AND  da
 				<reportElement style="Detail" x="184" y="0" width="223" height="15" uuid="0de29031-f0e7-4d48-af39-02f556ad747f"/>
 				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="407" y="0" width="53" height="15" uuid="b16692d3-0981-4d07-a8cc-53b9a27f9333"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{NroPersonas}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="7a9111d8-9697-42d5-9033-030281bf971b"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{CostoTotalVenta}]]></textFieldExpression>

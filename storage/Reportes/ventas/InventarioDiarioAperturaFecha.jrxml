@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InventarioDiarioAperturaFecha" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c904c86-9270-4acf-b5f0-8afa3f768477">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="ConMovimiento">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{ExistenciaTotal}>0]]></conditionExpression>
+			<style backcolor="#DCFFDC"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="FechaConsulta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.IdArticulo, A.NombreArticulo, IFNULL(TA.TotalCantidad,0) AS CantidadAntes, IFNULL(TA.TotalPrecio,0) as TotalPrecioAntes, IFNULL(TA2.TotalCantidad,0) AS CantidadIngresoHoy, IFNULL(TA2.TotalPrecio,0) AS PrecioIngresoHoy
+FROM
+articulos a
+LEFT JOIN
+(
+    select IdArticulo, sum(TotalCantidad) TotalCantidad, sum(TotalPrecio) as TotalPrecio
+    FROM
+    (
+        select cad.IdArticulo, sum(cad.Cantidad) TotalCantidad, sum(cad.Cantidad*cad.Precio) as TotalPrecio
+        from comprasarticulos ca
+        join comprasarticulosdetalle cad
+        on ca.IdCompraArticulo = cad.IdCompraArticulo
+        where ca.CodigoEstadoIngreso = 'F'
+        and ca.FechaHoraRegistro <=  date_format(DATE_ADD($P{FechaConsulta}, INTERVAL -1 DAY), '%Y-%m-%d 23:59:59')
+        group by cad.IdArticulo
+        union ALL
+        select VSDA.IdArticulo, -SUM(vsda.Cantidad) , -sum(vsda.Cantidad*vsda.Costo) as TotalPrecio
+        from ventasservicio vs
+        join ventasserviciodetallearticulos vsda
+        on vs.IdVentaServicio = vsda.IdVentaServicio
+        where vs.CodigoEstadoVenta = 'F'
+        and vs.FechaHoraFinalizado <= date_format(DATE_ADD($P{FechaConsulta}, INTERVAL -1 DAY), '%Y-%m-%d 23:59:59')
+        group by vsda.IdArticulo
+     )TAUX
+    group by IdArticulo
+) TA
+ON A.IdArticulo = TA.IdArticulo
+LEFT JOIN
+(
+    select cad.IdArticulo, sum(cad.Cantidad) TotalCantidad, sum(cad.Cantidad*cad.Precio) as TotalPrecio
+    from comprasarticulos ca
+    join comprasarticulosdetalle cad
+    on ca.IdCompraArticulo = cad.IdCompraArticulo
+    where ca.CodigoEstadoIngreso = 'F'
+    and ca.FechaHoraRegistro BETWEEN  date_format($P{FechaConsulta}, '%Y-%m-%d 00:00:00')  and date_format($P{FechaConsulta}, '%Y-%m-%d 23:59:59')
+    group by cad.IdArticulo
+)TA2
+ON A.IdArticulo = TA2.IdArticulo
+ORDER BY A.NombreArticulo]]>
+	</queryString>
+	<field name="IdArticulo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreArticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CantidadAntes" class="java.math.BigDecimal"/>
+	<field name="TotalPrecioAntes" class="java.math.BigDecimal"/>
+	<field name="CantidadIngresoHoy" class="java.math.BigDecimal"/>
+	<field name="PrecioIngresoHoy" class="java.math.BigDecimal"/>
+	<variable name="ExistenciaTotal" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{CantidadAntes}+$F{CantidadIngresoHoy}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="146" y="0" width="263" height="33" forecolor="#000000" uuid="e1f09c60-807a-4dd0-babb-a741e20f2f4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Inventario diario de Apertura]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="230" y="43" width="94" height="15" forecolor="#666666" uuid="dc3c6cbd-19d1-4340-b955-6a1b4bec152e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A Fecha " +  new SimpleDateFormat("dd/MM/yyyy").format($P{FechaConsulta})]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="60d2f53d-7655-424d-ae50-a63090dd64b5"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="32" height="15" uuid="7805e2ae-2fee-440f-a2ca-f64bcdd83881"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="32" y="19" width="218" height="15" uuid="a64f3f21-073c-42ab-b57e-caa693e75898"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NombreArticulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="261" y="19" width="92" height="15" uuid="29531707-8db7-4468-a0d9-a7ed41751f09"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cant Inicio]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="356" y="19" width="94" height="15" forecolor="#666666" uuid="765834d7-f3ee-4780-a7ae-de3948c6d1f9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ing. a " +  new SimpleDateFormat("dd/MM/yyyy").format($P{FechaConsulta})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="36c745e4-d53c-4546-89bb-8902969db0e8"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Existencia Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement style="ConMovimiento" x="0" y="0" width="555" height="16" uuid="5d5865d9-804f-4d6a-aef0-c1b00d79081e"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="04209c8c-0812-4e16-b081-bbb989838b1a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="4" y="0" width="32" height="15" uuid="a95370a2-68b6-4ab1-bfa7-c10e9a15611c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdArticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="43" y="0" width="207" height="15" uuid="7916774f-9701-446e-820b-6f7a6cfabc2c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreArticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="261" y="0" width="92" height="15" uuid="f29174a1-0e5a-4790-868a-7ee8efef54ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CantidadAntes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="358" y="0" width="92" height="15" uuid="e6dbd898-86f6-4a95-a8da-536b93e56680"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CantidadIngresoHoy}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="ConMovimiento" x="460" y="0" width="92" height="15" uuid="f1573f94-0794-43e7-90d4-c7c8e71ba72b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ExistenciaTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6de8a358-191f-4257-84ac-86ca837c221b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="b130c504-91ea-42c3-b476-ec28e0527fc3"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="97e92dbd-51c6-4271-bf1b-9b0e11b7c58b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="ec4bd498-aec8-43c5-acb7-bf38968c65b5"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Generado a horas " + new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new java.util.Date()) ]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

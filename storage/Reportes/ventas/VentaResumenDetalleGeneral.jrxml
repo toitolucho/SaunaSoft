@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VentaResumenDetalleGeneral" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="064e3ab2-2e5f-46aa-8178-0a7ef0e8a59a">
+	<property name="ireport.zoom" value="1.210000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Proyectos\\SaunaSoft\\Software\\curso-laravel\\storage\\Reportes\\ventas\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaInicio" class="java.util.Date"/>
+	<parameter name="FechaFin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select IdVentaServicio,  CASE vs.IdUsuario when null then 'Registro Pendiente' else  us.NombreCompleto end as UsuarioSecretaria,
+
+       CASE vs.IdCliente when null then 'Registro Pendiente' else  CONCAT(c.Nombres , ' ' , c.Apellidos) end as NombreCliente,
+       FechaHoraVenta, vs.FechaHoraFinalizado,
+       CASE vs.CodigoEstadoVenta WHEN 'F' THEN 'FINALIZADO' WHEN 'A' THEN 'ANULADO' WHEN 'P' THEN 'PENDIENTE' WHEN 'I' THEN 'INICIADO' END AS EstadoVenta,
+       vs.Observaciones, vs.NroCasillero, vs.MontoTotalPago
+from VentasServicio vs
+left join usuarios us
+on vs.IdUsuario = us.IdUsuario
+inner join clientes c
+on vs.IdCliente = c.IdCliente
+where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00')  AND  date_format($P{FechaFin}, '%Y-%m-%d 23:59:59')]]>
+	</queryString>
+	<field name="IdVentaServicio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UsuarioSecretaria" class="java.lang.String"/>
+	<field name="NombreCliente" class="java.lang.String"/>
+	<field name="FechaHoraVenta" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaHoraFinalizado" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EstadoVenta" class="java.lang.String"/>
+	<field name="Observaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NroCasillero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoTotalPago" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="123" y="0" width="328" height="33" forecolor="#000000" backcolor="#000000" uuid="9ff723be-028a-4b4a-8b45-ad79a428c110"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Detalle de Servicios y Articulos Vendidos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="128" y="33" width="330" height="20" uuid="b654e83e-7cac-4a4f-8027-62ed9ad98737"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Del " +  new SimpleDateFormat("dd/MM/yyyy").format($P{FechaInicio})  + " al " + new SimpleDateFormat("dd/MM/yyyy").format($P{FechaFin})]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="154" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="553" height="35" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="fad26837-4adb-4a4c-82b5-19ef5268d088"/>
+			</rectangle>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="141" width="555" height="1" uuid="104e7a26-ed42-4318-b1a3-eaa606ac17bc"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="123" y="1" width="149" height="15" forecolor="#FFFFFF" uuid="1b93c6e9-bf3d-4da8-a54a-c3ca29a05781"/>
+				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+				<reportElement style="Detail" x="328" y="1" width="89" height="15" forecolor="#FFFFFF" uuid="da7dca7b-70a7-4e1d-a0dc-71a3568e2671"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaHoraVenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+				<reportElement style="Detail" x="458" y="1" width="91" height="15" forecolor="#FFFFFF" uuid="a5fd2172-d978-4397-b9b6-1ac3021a01a4"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaHoraFinalizado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="221" y="16" width="328" height="15" forecolor="#FFFFFF" uuid="45b7fa8e-debd-42cb-8c6e-a31f3e772738"/>
+				<textFieldExpression><![CDATA[$F{Observaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="74" y="16" width="49" height="15" forecolor="#FFFFFF" uuid="560079c1-2fe6-49a1-b9d9-adcb47a8e1d7"/>
+				<textFieldExpression><![CDATA[$F{NroCasillero}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="488" y="124" width="61" height="15" forecolor="#FFFFFF" uuid="f8d12cd9-4c3d-44d9-bc65-cfba1946c154"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{MontoTotalPago}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement positionType="Float" x="2" y="41" width="547" height="33" uuid="e28952f4-0395-473a-98a3-a0f4234dc4e7"/>
+				<subreportParameter name="IdVentaServicio">
+					<subreportParameterExpression><![CDATA[$F{IdVentaServicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "VentaServicioReporte_Detalle.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="2" y="78" width="547" height="42" uuid="8cbdec62-f322-4b5f-a2ea-f8f7d32b28bb"/>
+				<subreportParameter name="IdVentaServicio">
+					<subreportParameterExpression><![CDATA[$F{IdVentaServicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "VentaArticuloReporte_Detalle.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement style="Detail" x="28" y="1" width="41" height="15" forecolor="#FFFFFF" uuid="815d537c-58e6-4b9d-849f-4ecb98426bbd"/>
+				<textFieldExpression><![CDATA[$F{IdVentaServicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="3" y="1" width="22" height="15" forecolor="#000000" uuid="482a64b7-b567-43c6-9a2b-a056afac27fc"/>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="77" y="1" width="44" height="15" forecolor="#000000" uuid="88b3e8da-873b-41cd-8eb0-8166fe6718c1"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="281" y="1" width="47" height="15" forecolor="#000000" uuid="a33bb3a0-0544-41ce-b43d-bc279582c5c5"/>
+				<text><![CDATA[Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="420" y="1" width="38" height="15" forecolor="#000000" uuid="c5ddf144-94b5-4ae1-9174-73e05b562395"/>
+				<text><![CDATA[Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="427" y="124" width="61" height="15" forecolor="#000000" uuid="f99df2a6-c062-4596-9575-c1a3c6f4c4ea"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2" y="16" width="72" height="15" forecolor="#000000" uuid="e6f02dfb-36bf-434d-8412-b18040b24b61"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[# Casillero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="129" y="16" width="88" height="15" forecolor="#000000" uuid="e3276841-97bf-4898-b8ab-b01ca7ce5adf"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="142" uuid="031183fb-f545-40e6-ada4-0731e3c9ee96"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="28" y="15" width="30" height="1" uuid="70451f2c-9001-40fa-8967-3e9cf3821988"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="123" y="15" width="150" height="1" uuid="60430294-2792-4069-9d24-80753777326c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="328" y="15" width="89" height="1" uuid="5422298d-ffe2-43dc-a642-36a82a0d9c7e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="458" y="15" width="89" height="1" uuid="6c13e082-2ed5-41e1-83ed-bae5dff67f29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="74" y="31" width="47" height="1" uuid="41e7bf2b-b284-4f03-8982-fc3a914e6b1b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="ff73647a-d7a7-4122-ac99-ff3ff1003377"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="70f4899f-fc25-47c8-ac24-16a206bff75f"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="aa50a993-cff5-494e-90c7-1855acac0128"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="efe5fa98-7982-4321-828d-c607155382af"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

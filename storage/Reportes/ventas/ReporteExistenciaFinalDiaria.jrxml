@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteExistenciaFinalDiaria" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c39d3ed6-e477-4db8-bd44-0f8441bf0d48">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="ConMovimiento">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{MovimientoDelDia}>0]]></conditionExpression>
+			<style backcolor="#DCFFDC"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[select a.IdArticulo, a.NombreArticulo, a.CantidadExistencia + IFNULL(ta.CantidadVendidos,0) as ExistenciaInicial, IFNULL(ta.CantidadVendidoS,0) as MovimientoDelDia, a.CantidadExistencia as ExistenciaFinal
+from articulos a
+LEFT JOIN
+(
+    select vsda.IdArticulo, sum(vsda.Cantidad) as CantidadVendidos
+    from ventasservicio vs
+    join ventasserviciodetallearticulos vsda
+    on vs.IdVentaServicio = vsda.IdVentaServicio
+    where vs.FechaHoraFinalizado BETWEEN  date_format(CURDATE(), '%Y-%m-%d 00:00:00')  and date_format(CURDATE(), '%Y-%m-%d 23:59:59')
+    and vs.CodigoEstadoVenta = 'F'
+    group by vsda.IdArticulo
+)TA
+on a.IdArticulo = Ta.IdArticulo
+where a.CantidadExistencia + IFNULL(ta.CantidadVendidos,0) > 0
+ORDER BY a.NombreArticulo]]>
+	</queryString>
+	<field name="IdArticulo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreArticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ExistenciaInicial" class="java.math.BigDecimal"/>
+	<field name="MovimientoDelDia" class="java.math.BigDecimal"/>
+	<field name="ExistenciaFinal" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="146" y="0" width="263" height="33" forecolor="#000000" backcolor="#000000" uuid="f23e5fa4-c8b9-4ef6-b493-8bfd10656bd2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Inventario Diario]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="188" y="33" width="179" height="20" uuid="0bd1ff88-434a-4b7c-88e2-5ef54b0d370d"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A Fecha " + new SimpleDateFormat("dd/MM/yyyy").format( new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="a7023748-d6b6-4c18-bcb4-2898b9003dbf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="48" height="15" uuid="df66c855-b107-4090-808e-57f94b4aba6c"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Id Articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="50" y="19" width="249" height="15" uuid="56ffa175-6b7f-4486-9e67-534bb8af57a0"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="304" y="19" width="86" height="15" uuid="ff248855-2666-4950-8a64-fc2eed2021e1"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Existencia Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="474" y="19" width="78" height="15" uuid="ae7a2b80-c7b9-4469-9643-693b332379dc"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Existencia Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="390" y="19" width="84" height="15" uuid="7e6c2f2b-9cf4-4619-8fff-5ebf47aaf531"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nro Vendidos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement style="ConMovimiento" x="0" y="0" width="555" height="16" uuid="fd63549c-6347-40b7-9fe0-ea62b4bdcda8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="4699d84d-1240-4c78-8e2d-7bc4a08c0808"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="48" height="15" uuid="d0209fef-5fbd-4930-b456-3ac3c280ba6b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdArticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="50" y="0" width="249" height="15" uuid="bc9ca099-0d7d-4c07-875a-e0dbeb7550f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreArticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="304" y="0" width="86" height="15" uuid="36864763-fd77-454c-bff7-006acdea7fed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ExistenciaInicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="474" y="0" width="78" height="15" uuid="0224ebc7-3da9-4221-bb72-e2054c7793fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ExistenciaFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="84" height="15" uuid="a543598c-6c40-48b5-8728-3f16bb92e70b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MovimientoDelDia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="3c1b570f-6e41-49a4-bfd1-0e7a13f00286"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="07795f37-796a-499a-9ae2-fa22bf50f432"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="2ea40d59-79f0-4ab6-b22a-9030b0eb5e03"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="15332561-a874-433f-be33-5e31a2be26e0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Generado a horas " + new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new java.util.Date()) ]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

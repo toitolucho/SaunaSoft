@@ -128,3 +128,7 @@ Route::get('/comprasarticulos/reporte/{idcompraarticulo}','CompraArticuloControl
 Route::get('/ventasservicios/reporte/{idventaservicio}','VentaServicioController@reporte')->name("ventasservicios.reporte");
 Route::get('/ventasservicios/resumenFechas/{idventaservicio}','VentaServicioController@resumenFechas')->name("ventasservicios.resumenFechas");
 Route::put('/ventasservicios/f/{ventaservicio}',"VentaServicioController@finalizar")->name('ventaservicios.finalizar');
+
+Route::get('/reportes/inventariodiario/','ReporteController@inventariodiario')->name("reportes.inventariodiario");
+Route::get('/reportes/inventariodiarioiniciofecha/{fecha}','ReporteController@inventarioinicioenfecha')->name("reportes.inventarioinicioenfecha");
+Route::get('/reportes/inventariodiariocierrefecha/{fecha}','ReporteController@inventariocierreenfecha')->name("reportes.inventariocierreenfecha");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VentasServiciosResumenPorFechas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="296572d4-561e-45e5-b051-25de471f819a">
-	<property name="ireport.zoom" value="2.1435888100000042"/>
+	<property name="ireport.zoom" value="1.9487171000000025"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
@@ -22,22 +22,11 @@ left JOIN usuarios u
 on u.IdUsuario = vs.IdUsuario
 left JOIN
 (
-   select TA.IdVentaServicio, SUM(CostoTotalVenta) AS CostoTotalVenta, SUM(NroPersonas) as NroPersonas
-    FROM
-    (
-        select vsd.IdVentaServicio,  sum(vsd.Costo*vsd.NroPersonas) as CostoTotalVenta, Sum(vsd.NroPersonas) as NroPersonas
-        from ventasserviciodetalle vsd
-        join servicios s
-        on vsd.IdServicio = s.IdServicio
-        GROUP by vsd.IdVentaServicio
-        UNION
-        select vsda.IdVentaServicio, sum(vsda.Cantidad*vsda.Costo)as CostoTotalVenta, 0 as NroPersonas
-        from ventasserviciodetallearticulos vsda
-        join articulos a
-        on vsda.IdArticulo = a.IdArticulo
-        group by vsda.IdVentaServicio
-    )TA
-    GROUP BY TA.IdVentaServicio
+    select vsd.IdVentaServicio,  sum(vsd.Costo*vsd.NroPersonas) as CostoTotalVenta, Sum(vsd.NroPersonas) as NroPersonas
+    from ventasserviciodetalle vsd
+    join servicios s
+    on vsd.IdServicio = s.IdServicio
+    GROUP by vsd.IdVentaServicio
 )TA2
 ON TA2.IdVentaServicio = vs.IdVentaServicio
 where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00')  AND  date_format($P{FechaFin}, '%Y-%m-%d 23:59:59')]]>
@@ -75,14 +64,14 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="112" y="0" width="330" height="33" forecolor="#000000" backcolor="#000000" uuid="130bec21-4f29-485e-b337-d97cfc722d9b"/>
+				<reportElement style="Title" x="117" y="0" width="330" height="33" forecolor="#000000" backcolor="#000000" uuid="130bec21-4f29-485e-b337-d97cfc722d9b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
-				<text><![CDATA[Resumen de Ingresos General]]></text>
+				<text><![CDATA[Resumen de Ingresos por Servicios]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="112" y="33" width="330" height="20" uuid="bd8e5d03-2901-457e-902c-6ee6ab5c59a1"/>
+				<reportElement x="118" y="33" width="330" height="20" uuid="bd8e5d03-2901-457e-902c-6ee6ab5c59a1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA["Del " +  new SimpleDateFormat("dd/MM/yyyy").format($P{FechaInicio})  + " al " + new SimpleDateFormat("dd/MM/yyyy").format($P{FechaFin})]]></textFieldExpression>
 			</textField>
@@ -107,18 +96,25 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<text><![CDATA[Nro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="266" y="20" width="89" height="15" uuid="4759e8d0-1a1a-4f83-8864-445303c41ff5"/>
+				<reportElement style="Column header" x="191" y="20" width="89" height="15" uuid="4759e8d0-1a1a-4f83-8864-445303c41ff5"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[Entrada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="31" y="20" width="231" height="15" uuid="49415033-1f46-48d4-8b8e-74fc205ed493"/>
+				<reportElement style="Column header" x="31" y="20" width="156" height="15" uuid="49415033-1f46-48d4-8b8e-74fc205ed493"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="388" y="20" width="60" height="15" uuid="bfbce88e-05f6-4a87-9c56-fb089de9114c"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[# Personas]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="460" y="20" width="92" height="15" uuid="e25e463f-4f3b-4617-9d57-458fcba9f6b7"/>
@@ -128,7 +124,7 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<text><![CDATA[Costo Servicio(Bs)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="365" y="20" width="89" height="15" uuid="734df4fd-7d11-45c1-b246-bac6e3744c32"/>
+				<reportElement style="Column header" x="290" y="20" width="89" height="15" uuid="734df4fd-7d11-45c1-b246-bac6e3744c32"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
@@ -153,13 +149,19 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="262" y="19" width="1" height="17" uuid="982d2894-6f99-46bb-85fc-2a6eacd5feec"/>
+				<reportElement positionType="FixRelativeToBottom" x="187" y="19" width="1" height="17" uuid="982d2894-6f99-46bb-85fc-2a6eacd5feec"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="361" y="19" width="1" height="17" uuid="682a9ff4-798d-412a-816f-16d712056eab"/>
+				<reportElement positionType="FixRelativeToBottom" x="286" y="19" width="1" height="17" uuid="682a9ff4-798d-412a-816f-16d712056eab"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="385" y="19" width="1" height="17" uuid="1219f537-e818-4682-835d-589f7feda96e"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -194,18 +196,25 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<textFieldExpression><![CDATA[$F{IdVentaServicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
-				<reportElement style="Detail" x="266" y="0" width="89" height="13" uuid="78283f42-9188-458d-a15e-adc6cb666536"/>
+				<reportElement style="Detail" x="191" y="0" width="89" height="13" uuid="78283f42-9188-458d-a15e-adc6cb666536"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FechaHoraVenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="31" y="0" width="231" height="13" uuid="0de29031-f0e7-4d48-af39-02f556ad747f"/>
+				<reportElement style="Detail" x="31" y="0" width="156" height="13" uuid="0de29031-f0e7-4d48-af39-02f556ad747f"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="388" y="0" width="60" height="13" uuid="b16692d3-0981-4d07-a8cc-53b9a27f9333"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NroPersonas}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="460" y="0" width="79" height="13" uuid="7a9111d8-9697-42d5-9033-030281bf971b"/>
@@ -215,7 +224,7 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<textFieldExpression><![CDATA[$F{CostoTotalVenta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
-				<reportElement style="Detail" x="365" y="0" width="89" height="13" uuid="6b7ff48d-4203-446b-88f5-2338a7cc490d"/>
+				<reportElement style="Detail" x="290" y="0" width="89" height="13" uuid="6b7ff48d-4203-446b-88f5-2338a7cc490d"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -234,13 +243,19 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="262" y="0" width="1" height="15" uuid="08c6f579-9a8b-49ee-bcd6-b2cd5f7b4b10"/>
+				<reportElement positionType="FixRelativeToBottom" x="187" y="0" width="1" height="15" uuid="08c6f579-9a8b-49ee-bcd6-b2cd5f7b4b10"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="361" y="0" width="1" height="15" uuid="34c91ad2-d622-4cda-a944-74c6c8c324f2"/>
+				<reportElement positionType="FixRelativeToBottom" x="286" y="0" width="1" height="15" uuid="34c91ad2-d622-4cda-a944-74c6c8c324f2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="385" y="0" width="1" height="15" uuid="70999a7e-42ad-4c06-868f-48fbacc36512"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -291,7 +306,7 @@ where vs.FechaHoraVenta between date_format($P{FechaInicio}, '%Y-%m-%d 00:00:00'
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Generado a horas " + new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new java.util.Date()) ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
