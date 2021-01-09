@@ -113,8 +113,10 @@ class ReporteController extends Controller
 
     public function inventarioinicioenfecha($fecha)
     {
-        $fecha = date("d-m-Y", $fecha);
-       // dd($fecha);
+
+        //Sat Jan 09 2021 05:59:09 GMT-0400 (Bolivia Time)
+        $fecha = date("Y-m-d H:i:s", $fecha);
+      // dd($fecha);
 
 
         $reporte = "InventarioDiarioAperturaFecha";
@@ -130,7 +132,7 @@ class ReporteController extends Controller
 
     public function inventariocierreenfecha($fecha)
     {
-        $fecha = date("d-m-Y", $fecha);
+        $fecha = date("Y-m-d H:i:s", $fecha);
         // dd($fecha);
 
 

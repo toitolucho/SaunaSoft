@@ -33,9 +33,9 @@
 
                 $('.reporteFecha').click(function(){
 
-                    console.log(new Date().getTime());
+                    console.log(new Date());
 
-                    $(".reporteFecha").attr("href", $(".reporteFecha").attr("href") + "/"+ new Date().getTime() );
+                    $(".reporteFecha").attr("href", $(".reporteFecha").attr("href") + "/"+ new Date().getTime()/ 1000 );
 
                 });
 
