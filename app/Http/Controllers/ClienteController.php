@@ -152,7 +152,7 @@ class ClienteController extends Controller
         {
             return redirect('clientes')->with("eliminar","El elemento " . $cliente->Nombres . " " .$cliente->Apellidos. ", ha sido eleminado correctamente");
         }
-        return redirect('clientes')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        return redirect('clientes')->withInput()->with("eliminar_error","El cliente seleccionado no pudo eliminarse, probablemente tiene registros que dependen del mismo ya sea en una visita y uso de un servicio o una membresia");
         //
     }
 }

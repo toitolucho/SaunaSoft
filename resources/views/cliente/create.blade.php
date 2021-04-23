@@ -41,7 +41,7 @@
 
                         <div class="form-group col-md-2">
                             <label for="Ci">Ci </label>
-                            <input type="text" name="Ci" id="Ci" class="form-control" placeholder="Carnet de Identidad" required  value="{{old('Ci')}}">
+                            <input type="text" name="Ci" id="Ci" class="form-control" placeholder="Carnet de Identidad"   value="{{old('Ci')}}">
                         </div>
 
                     </div>
@@ -50,7 +50,7 @@
 
                         <div class="form-group col-md-4">
                             <label for="NroCelular">Nro de Celular </label>
-                            <input type="tel" name="NroCelular" id="NroCelular" class="form-control" placeholder="Celular" required  value="{{old('NroCelular')}}">
+                            <input type="tel" name="NroCelular" id="NroCelular" class="form-control" placeholder="Celular"   value="{{old('NroCelular')}}">
                         </div>
 
                         <div class="form-group col-md-4">
@@ -72,7 +72,7 @@
                             {{--							<span class="glyphicon glyphicon-th"></span>--}}
                             {{--						</div>--}}
                             <label for="FechaNacimiento">Fecha de Nacimiento<span class="text-danger">*</span></label>
-                            <input type="date" name="FechaNacimiento" id="FechaNacimiento" class="form-control" placeholder="dd/mm/aaaa" required  value="{{old('FechaNacimiento ')}}" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
+                            <input type="date" name="FechaNacimiento" id="FechaNacimiento" class="form-control" placeholder="dd/mm/aaaa"   value="{{old('FechaNacimiento ')}}" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
 
                         </div>
 
@@ -102,7 +102,7 @@
 
 					<div class="form-group">
 						<label for="CorreoElectronico">Correo Electronico </label>
-						<input type="email" name="CorreoElectronico" id="CorreoElectronico" class="form-control" placeholder="Correo" required  value="{{old('CorreoElectronico')}}">
+						<input type="email" name="CorreoElectronico" id="CorreoElectronico" class="form-control" placeholder="Correo"   value="{{old('CorreoElectronico')}}">
 					</div>
 
 

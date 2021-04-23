@@ -133,14 +133,14 @@ class ProveedorController extends Controller
     public function destroy($id)
     {
         //dd($id);
-        $Proveedor = Proveedor::find( $id);
+        $proveedor = Proveedor::find( $id);
 
 
-        if($Proveedor->delete())
+        if($proveedor->delete())
         {
-            return redirect('proveedores')->with("eliminar","El elemento " . $Proveedor->Nombres . " " .$Proveedor->Apellidos. ", ha sido eleminado correctamente");
+            return redirect('proveedores')->with("eliminar","El elemento " . $proveedor->Nombres . " " .$proveedor->Apellidos. ", ha sido eleminado correctamente");
         }
-        return redirect('proveedores')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        return redirect('proveedores')->withInput()->with("eliminar_error","El Proveedor seleccioinado no pudo eliminarse, probablemente tiene registros que dependen del mismo en una compra");
         //
     }
 }

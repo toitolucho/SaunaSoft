@@ -62,4 +62,19 @@ class Servicio extends Model
     }
 
 
+	
+	protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($telco) {
+            $relationMethods = ['ventasserviciodetalles'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
+    }
 }

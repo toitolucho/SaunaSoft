@@ -24,7 +24,7 @@
 
 			<div class="col-sm-10">
 				<h5 class="card-title">Los Campos con <span class="text-danger">*</span> son Obligatorios!</h5>
-				<form action="{{route("promocion.store")}}" method="POST">
+				<form action="{{route("promociones.store")}}" method="POST">
 					@csrf
 					<div class="form-row col-md-10">
 						<div class="form-group col-md-10">

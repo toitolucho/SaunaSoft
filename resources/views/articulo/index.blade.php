@@ -228,7 +228,8 @@
 
                                         {{--                                            </li>--}}
 
-                                        {{--                                            <form id="delete-form-{{$articulo->IdArticulo}}"--}}
+		
+                                        {{--                                            <form id="delete-form-{{$articulo->IdArticulo}}"--}}																						
                                         {{--                                                  action="/categorias/{{$articulo->IdArticulo}}" method="post"--}}
                                         {{--                                                  style="display: none">--}}
                                         {{--                                                <input type="hidden" name="_method" value="delete">--}}
@@ -255,10 +256,9 @@
 
                                             </a>
 
-                                        </li>
-
+                                        </li>										
                                         <form id="delete-form-{{$articulo->IdArticulo}}"
-                                              action="{{route("articulos.destroy", $articulo->IdArticulo )}}"
+                                              action="{{route("articulos.destroy3", $articulo->IdArticulo )}}"
                                               method="post"
                                               style="display: none">
                                             <input type="hidden" name="_method" value="delete">

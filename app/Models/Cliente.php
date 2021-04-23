@@ -95,6 +95,22 @@ class Cliente extends Model
             $estado = true;
         return $estado;
     }
+	
+	
+	protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($telco) {
+            $relationMethods = ['ventasservicios','membresia'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
+    }
 
 
 }

@@ -128,7 +128,7 @@ class TipoClienteController extends Controller
         {
             return redirect('tiposclientes')->with("eliminar","El elemento " . $tipocliente->Descripcion. ", ha sido eleminado correctamente");
         }
-        return redirect('tiposclientes')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        return redirect('tiposclientes')->withInput()->with("eliminar_error","El tipo de cliente seleccionado no pudo eliminarse, probablemente tiene registros que dependen del mismo");
         //
     }
 }

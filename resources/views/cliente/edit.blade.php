@@ -44,12 +44,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="NroCelular">Nro de Celular </label>
-                                <input type="tel" name="NroCelular" id="NroCelular" class="form-control" placeholder="Celular" required  value="{{$cliente->NroCelular}}">
+                                <input type="tel" name="NroCelular" id="NroCelular" class="form-control" placeholder="Celular"   value="{{$cliente->NroCelular}}">
                             </div>
 
                             <div class="form-group">
                                 <label for="CorreoElectronico">Correo Electronico </label>
-                                <input type="email" name="CorreoElectronico" id="CorreoElectronico" class="form-control" placeholder="Correo" required  value="{{$cliente->CorreoElectronico}}">
+                                <input type="email" name="CorreoElectronico" id="CorreoElectronico" class="form-control" placeholder="Correo"   value="{{$cliente->CorreoElectronico}}">
                             </div>
 
                             <div class="form-group">

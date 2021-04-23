@@ -81,12 +81,14 @@ Route::resource('/tiposclientes','TipoClienteController');
 
 Route::post('/articulos/buscar',"ArticuloController@buscar");
 Route::post('/proveedor/buscar',"ProveedorController@buscar")->name("proveedor.buscar");
-Route::post('/promociones/buscar',"PromocionController@buscar")->name("promocion.buscar");
+Route::post('/promociones/buscar',"PromocionController@buscar")->name("promociones.buscar");
 Route::post('/servicios/buscar',"SevicioController@buscar")->name("servicio.buscar");
 Route::post('/membresias/buscar',"MembresiaController@buscar")->name("membresia.buscar");
 Route::post('/clientes/buscar',"ClienteController@buscar")->name("cliente.buscar");
 Route::post('/tiposclientes/buscar',"TipoClienteController@buscar")->name("tipocliente.buscar");
 Route::get('/articulos/reporte/{articulo}','ArticuloController@reporte')->name("articulos.reporte");
+Route::delete('/articulos/destroy3/{articulo}',"ArticuloController@destroy3")->name("articulos.destroy3");
+
 
 
 Route::post('/categorias/buscar',"CategoriaController@buscar");
@@ -104,7 +106,7 @@ Route::post('/categorias/{categoria}/articulos','ArticuloController@store')->nam
 Route::get('/categorias/{categoria}/articulos/{articulo}/edit','ArticuloController@edit')->name("articulos.edit2");
 //Route::get('/categorias/{categoria}/articulos/edit','ArticuloController@edit')->name("articulos.edit22");
 Route::post('/categorias/{categoria}/articulos/{articulo}','ArticuloController@update')->name("articulos.update2");
-Route::delete('/categorias/{categoria}/rticulos/{articulo}','ArticuloController@destroy')->name("articulos.destroy2");
+Route::delete('/categorias/{categoria}/articulos/{articulo}','ArticuloController@destroy')->name("articulos.destroy2");
 
 
 /*MBRESIA*/

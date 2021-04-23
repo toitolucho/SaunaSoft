@@ -139,9 +139,9 @@ class PromocionController extends Controller
 
         if($promocion->delete())
         {
-            return redirect()->route('promocion.index')->with("eliminar","El elemento " . $promocion->NombrePromocion . ", ha sido eleminado correctamente");
+            return redirect()->route('promociones.index')->with("eliminar","El elemento " . $promocion->NombrePromocion . ", ha sido eleminado correctamente");
         }
-        return rredirect()->route('promocion.index')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        return redirect()->route('promociones.index')->withInput()->with("eliminar_error","La Promoción seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma en una venta de un servicio o un servicio como tal");
         //
     }
 

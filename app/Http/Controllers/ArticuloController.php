@@ -221,4 +221,26 @@ class  ArticuloController extends Controller
         }
 
     }
+	public function destroy3($idArticulo)
+    {
+        //dd($idArticulo);
+
+        $articulo = Articulo::find( $idArticulo);
+        // if($articulo->ventasservicios()->exists() || $articulo->compras()->exists()){
+            // return redirect()->route('articulos.show', $categoria)->withInput()->with("editado_error","El articulo seleccioinada no puede eliminarse ya que tiene dependencias");
+        // }
+
+        // else
+        // {
+            // return redirect()->route( 'articulos.show', $categoria)->with("editado","El articulo ha sido eliminado satisfactoriamente");
+        // }
+		
+		
+		 if($articulo->delete())
+        {
+            return redirect('articulos')->with("eliminar","El elemento " . $articulo->NombreArticulo . ", ha sido eleminado correctamente");
+        }
+        return redirect('articulos')->withInput()->with("eliminar_error","El Articulo seleccioinado no pudo eliminarse, probablemente tiene registros que dependen del mismo en una compra o en una venta");
+
+    }
 }

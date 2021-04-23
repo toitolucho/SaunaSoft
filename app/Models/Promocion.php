@@ -120,7 +120,21 @@ class Promocion extends Model
     {
         return $this->hasMany(Ventasserviciodetalle::class, 'IdPromocion');
     }
+	
+	protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function($telco) {
+            $relationMethods = ['ventaserviciodetalle','servicio'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
+    }
 
 
 

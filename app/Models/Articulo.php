@@ -66,7 +66,11 @@ class Articulo extends Model
 
 	public function comprasarticulosdetalles()
 	{
-		return $this->hasMany(Comprasarticulosdetalle::class, 'IdArticulo');
+		return $this->hasMany(Comprasarticulosdetalle::class, 'IdArticulo','IdArticulo');
+	}
+	public function ventasarticulosdetalles()
+	{
+		return $this->hasMany(Ventaserviciodetallearticulo::class, 'IdArticulo');
 	}
 
 	public function ventasservicios()
@@ -79,5 +83,20 @@ class Articulo extends Model
     {
         return $this->belongsToMany(Comprasarticulo::class, 'ComprasArticulosDetalle', 'IdArticulo', 'IdCompraArticulo')
             ->withPivot('Cantidad', 'Precio');
+    }
+	
+	protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($telco) {
+            $relationMethods = ['compras','ventasservicios'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
     }
 }

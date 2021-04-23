@@ -42,9 +42,24 @@ class Proveedor extends Model
 		'NroCelular'
 	];
 
-	public function ingresosarticulos()
+	public function comprasarticulos()
 	{
-		return $this->hasMany(IngresoArticulo::class, 'IdProveedor');
+		return $this->hasMany(Comprasarticulo::class, 'IdProveedor');
 	}
+	
+	protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($telco) {
+            $relationMethods = ['comprasarticulos'];
+
+            foreach ($relationMethods as $relationMethod) {
+                if ($telco->$relationMethod()->count() > 0) {
+                    return false;
+                }
+            }
+        });
+    }
 
 }

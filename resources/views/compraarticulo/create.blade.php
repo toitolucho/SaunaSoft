@@ -297,13 +297,13 @@
 
                     <div class="form-group col-md-6">
                         <label for="buscarProveedor" >Seleccione Proveedor<span class="text-danger" >*</span></label>
-                        <input type="search" name="NombreRazonSocial" class="form-control typeahead" placeholder="Proveedor" autocomplete="off" id="buscarProveedor" required value="{{old('NombreRazonSocial')}}">
+                        <input type="search" name="NombreRazonSocial" class="form-control typeahead" placeholder="Proveedor" autocomplete="off" id="buscarProveedor" required value="{{old('NombreRazonSocial','Por Defecto')}}" VALUE ="1">
                         <div class="invalid-feedback">
                             Porfavor seleccione un proveedor.
                         </div>
 
 
-                        <input type="hidden" name="IdProveedor"   value="{{old('IdProveedor')}}" />
+                        <input type="hidden" name="IdProveedor"   value="{{old('IdProveedor', 7)}}" />
 
                     </div>
 

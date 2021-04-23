@@ -13,7 +13,7 @@
 
             <div class="card-header"><i class="fa fa-fw fa-plus-circle">
                 </i> <strong>Modificar Promocion</strong>
-                <a href="{{route("promocion.index")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-globe"></i> Listado de Promociones</a>
+                <a href="{{route("promociones.index")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-globe"></i> Listado de Promociones</a>
             </div>
 
             <div class="card-body">

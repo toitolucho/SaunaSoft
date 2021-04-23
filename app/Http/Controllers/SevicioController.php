@@ -146,7 +146,7 @@ class SevicioController extends Controller
         {
             return redirect('servicios')->with("eliminar","El elemento " . $servicio->NombreServicio . ", ha sido eleminado correctamente");
         }
-        return redirect('servicios')->withInput()->with("eliminar_error","La Categoría seleccioinada no pudo eliminarse, probablemente tiene registros que dependen de la misma");
+        return redirect('servicios')->withInput()->with("eliminar_error","El servicio seleccioinado no pudo eliminarse, probablemente tiene registros que dependen del mismo");
         //
     }
 

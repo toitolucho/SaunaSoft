@@ -174,7 +174,7 @@
                                 @foreach($categorias as $categoria)
                                     <tr role="row" class="m-0">
                                         <td class="w-10"><a href="{{route('categorias.show', $categoria->IdCategoria)}} "> {{$categoria->IdCategoria}} </a>  </td>
-                                        <td class="w-75"><p> {{$categoria->NombreCategoria}}  </p> </td>
+                                        <td class="w-75"><a href="{{route('categorias.show', $categoria->IdCategoria)}} "> {{$categoria->NombreCategoria}}  </a> </td>
                                         <td class="w-15 text-center">
                                             <li data-form="#delete-form-{{$categoria->IdCategoria}}"
                                                 data-title="Eliminar Categoria"
@@ -200,7 +200,7 @@
 
                                             <form id="delete-form-{{$categoria->IdCategoria}}"
 
-                                                  action = "{{route("clientes.destroy", $categoria->IdCategoria )}}" method="post"
+                                                  action = "{{route("categorias.destroy", $categoria->IdCategoria )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}

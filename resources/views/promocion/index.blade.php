@@ -79,14 +79,14 @@
             {{--				<h6 class="m-0 font-weight-bold text-primary">Listado de promocion</h6>--}}
 
 
-            <a href="{{route("promocion.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
+            <a href="{{route("promociones.create")}}" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-plus-circle"></i>
                 Agregar promoción</a></div>
 
         <div class="row  my-2">
             <div class="col-sm-12 col-md-8"></div>
             <div class="col-sm-12 col-md-4 " >
 
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="{{route("promocion.buscar")}}" method="POST" role="search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 " action="{{route("promociones.buscar")}}" method="POST" role="search">
                         {{ csrf_field() }}
                         <div class="input-group">
 
@@ -189,7 +189,7 @@
 
 
                                                 <a class="btn btn-primary " class="formConfirm text-primary"
-                                                   href="{{route("promocion.edit", $promocion->IdPromocion )}}"
+                                                   href="{{route("promociones.edit", $promocion->IdPromocion )}}"
                                                    aria-label="Editar">
                                                     <i class="fas fa-xs fa-edit" aria-hidden="true"></i>
                                                 </a>
@@ -204,7 +204,7 @@
                                             </li>
 
                                             <form id="delete-form-{{$promocion->IdPromocion}}"
-                                                  action = "{{route("promocion.destroy", $promocion->IdPromocion )}}" method="post"
+                                                  action = "{{route("promociones.destroy", $promocion->IdPromocion )}}" method="post"
                                                   style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
