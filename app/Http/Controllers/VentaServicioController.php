@@ -317,14 +317,36 @@ class VentaServicioController extends Controller
 
         //$compras = Comprasarticulo::with('comprasarticulosdetalles', 'comprasarticulosdetalles.articulo', 'usuario')->where('IdCompraArticulo','=', $request->get('IdCompraArticulo'))->get();
 
-
-        $ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios')->where("IdVentaServicio","=", $request->get("IdVentaServicio"))->get();
-
+		$idVenta = (int)$request->get('IdVentaServicio');
+		$nombre = $request->get('IdVentaServicio');
+		//dd($nombre);
+		if(is_numeric($idVenta) && $idVenta !=0)
+		{			
+			$ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios')->where("IdVentaServicio","=", $request->get("IdVentaServicio"))->get();
+		}
+		else
+		{
+			//$ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios')->where("cliente.Nombres","LIKE","%{$request->get('IdVentaServicio')}%")->orwhere("cliente.Apellidos","LIKE","%{$request->get('IdVentaServicio')}%")->get();
+		
+		
+			//->orderByDesc('IdVentaServicio')->paginate(15
+			$ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios')
+				 ->whereHas('cliente', function ($query) use ( $request ) {
+						 return $query->where('Nombres', 'like', "%{$request->get('IdVentaServicio')}%")->orwhere('Apellidos', 'like', "%{$request->get('IdVentaServicio')}%");
+			 })->orderByDesc('IdVentaServicio')->paginate(15);
+		
+//			$ventas = Ventasservicio::with('ventasserviciodetalles', 'articulos', 'usuario', 'cliente', 'servicios');
+			//dd($ventas->get());
+			// $ventas = $ventas->whereHas('cliente', function ($query) use ( $request ) {
+					// return $query->where('Nombres', 'like', "%{$request->get('IdVentaServicio')}%");
+			// })->get();
+			
+		}
        // dd($compras->Observaciones);
 
         if($ventas->isEmpty())
            // return redirect('comprasarticulos.index')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
-            return redirect('comprasarticulos')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
+            return redirect('ventasservicios')->with("no_encontrado","No se encontró ningún registro con los datos proporcionados");
 
         else
 
