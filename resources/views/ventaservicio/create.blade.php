@@ -631,7 +631,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="FechaHoraVenta">Fecha Registro<span class="text-danger">*</span></label>
-                    <input type="date" name="FechaHoraVenta" id="FechaHoraVenta" class="form-control"  required  value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" readonly>
+                    <input type="date" name="FechaHoraVenta" id="FechaHoraVenta" class="form-control"  required  value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" >
                 </div>
 
                 <div class="form-group col-md-6">

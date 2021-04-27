@@ -85,13 +85,13 @@
                             <label for="Sexo"> Sexo</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="defaultInline1" name="Sexo">
+                            <input type="radio" class="custom-control-input" id="defaultInline1" name="Sexo" value="M">
                             <label class="custom-control-label" for="defaultInline1">Masculino</label>
                         </div>
 
                         <!-- Default inline 2-->
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="defaultInline2" name="Sexo">
+                            <input type="radio" class="custom-control-input" id="defaultInline2" name="Sexo" value="F">
                             <label class="custom-control-label" for="defaultInline2">Femenino</label>
                         </div>
 

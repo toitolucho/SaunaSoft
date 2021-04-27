@@ -59,7 +59,7 @@ class ClienteController extends Controller
             'Nombres' => 'required|max:255',
             'Apellidos' => 'required|max:255',
         ]);
-       // dd($request->get('FechaNacimiento'));
+        //dd($request->get('Sexo'));
 
 
         $cliente = new Cliente();
@@ -72,7 +72,7 @@ class ClienteController extends Controller
         $cliente->CorreoElectronico=$request->get('CorreoElectronico');
 
         $cliente->FechaNacimiento=$request->get('FechaNacimiento');
-        if($request->get('Sexo') == 'Masculino')
+        if($request->get('Sexo') == 'M')
             $cliente->Sexo="M";
         else
             $cliente->Sexo="F";
@@ -109,8 +109,9 @@ class ClienteController extends Controller
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
+		$tiposClientes = DB::table('TiposClientes')->get();
 
-        return view('cliente.edit',[ 'cliente' => $cliente]);
+        return view('cliente.edit',[ 'cliente' => $cliente, 'tiposClientes' => $tiposClientes]);
     }
 
     /**
@@ -122,18 +123,27 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
+		//dd($request->get('Sexo'));
         $cliente = Cliente::find( $id);
         $cliente->Nombres = $request->get('Nombres');
         $cliente->Apellidos = $request->get('Apellidos');
         $cliente->NroCelular = $request->get('NroCelular');
         $cliente->CorreoElectronico = $request->get('CorreoElectronico');
+		$cliente->ci=$request->get('Ci');
         $cliente->FechaNacimiento  =date("Y-m-d", strtotime($request->get("FechaNacimiento")));//  $request->get('FechaNacimiento');
+		if($request->get('Sexo') == 'M')
+            $cliente->Sexo="M";
+        else
+            $cliente->Sexo="F";
+        $cliente->IdTipoCliente=$request->get('IdTipoCliente');
+
+		//dd($cliente->ci);	
 
         if($cliente->save())
         {
-            return redirect('clientes')->with("editado","La Cliente ha sido actualizada correctamente");
+            return redirect('clientes')->with("editado","El/la Cliente ha sido actualizado correctamente");
         }
-        return redirect('clientes')->withInput()->with("editado_error","La Categoría seleccioinada no pudo editarse, intentenlo nuevamente porfavor");
+        return redirect('clientes')->withInput()->with("editado_error","El cliente seleccioinado no pudo editarse, intentenlo nuevamente porfavor");
     }
 
     /**

@@ -134,8 +134,10 @@ class VentaServicioController extends Controller
 //        }
 
         $venta->IdUsuario = 1;
-        $venta->FechaHoraVenta = \Carbon\Carbon::now();
-        $venta->CodigoEstadoVenta = "I";
+        //habilitar para cuando se manejen sesiones para vendedores
+		//$venta->FechaHoraVenta = \Carbon\Carbon::now();
+        $venta->FechaHoraVenta = $request->input('FechaHoraVenta');
+		$venta->CodigoEstadoVenta = "I";
         $venta->IdCliente = $request->input('IdCliente');
         if( $request->input('IdPromocion')  && $request->input('IdPromocion') != "Seleccione...")
             $venta->IdPromocion = $request->input('IdPromocion');
