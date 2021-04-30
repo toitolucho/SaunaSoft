@@ -216,7 +216,7 @@
 
                                             <li data-form="#delete-form-{{$compra->IdCompraArticulo}}"
                                                 data-title="Eliminar registro de Compra"
-                                                data-message="Se encuentra seguro de eliminar el registro de esta compra?"
+                                                data-message="Recuerde que una vez eliminada la transacción, el <span class='text-danger font-weight-bold'> proceso de recuperación es irreversible</span> y es posible que <span class='text-danger font-weight-bold'>afecte al seguimiento de existencia</span> de los articulos presentes en esta compra <p class='text-info font-weight-bold'>¿Se encuentra seguro de eliminar el registro de esta compra? </p>"
                                                 data-target="#formConfirm" class="listado">
 
 

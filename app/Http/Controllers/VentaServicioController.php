@@ -539,22 +539,30 @@ class VentaServicioController extends Controller
     {
 
         try {
-            $compra = Ventasservicio::find( $id);
-            $compra->CodigoEstadoVenta = 'F';
+            $venta = Ventasservicio::find( $id);
+            $venta->CodigoEstadoVenta = 'F';
 
 
 
-            $compra->FechaHoraFinalizado =  date('Y-m-d H:i:s');
+            $venta->FechaHoraFinalizado =  date('Y-m-d H:i:s');
 
            // dd($compra->FechaHoraFinalizado);
-            $compra->update();
-
-            return redirect()->route('ventasservicios.index')->with("registrado","La Transaccion se ha finalizado correctamente");;
+            if($venta->update())
+			{
+					return redirect()->route('ventasservicios.index')->with("registrado","La Transaccion se ha finalizado correctamente");;
+			}
+			else
+			{
+				return redirect('ventasservicios')->withInput()->with("eliminar_error","No puede finalizarse la venta debido a que existe el registro de algún articulo que no cuenta con suficiente existencia en almacen");
+			}
+            
 
         } catch (DecryptException $e) {
             // abort(404, 'Codigo de Generación invalido!');
             abort(403, 'Accion no valida. Codigo de Generación invalido');
-        }
+        }catch (\Illuminate\Database\QueryException $ex) {
+			return redirect('ventasservicios')->withInput()->with("eliminar_error","La venta Nro ". $venta->IdVentaServicio ." no puede finalizarse, debido a que existe el registro de algún articulo que no cuenta con suficiente existencia en almacen");
+		}
 
 
 

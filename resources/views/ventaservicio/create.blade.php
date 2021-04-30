@@ -499,7 +499,7 @@
                 var qty = $(this).find('.qty').val();
                 var price = $(this).find('.price').val();
 
-                if(qty > existencia)
+                if(parseInt(qty) > parseInt(existencia))
                 {
                     alert("No puede vender esa cantidad ya que no existe esa cantidad de existencia ");
                     return;
