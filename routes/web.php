@@ -134,3 +134,7 @@ Route::put('/ventasservicios/f/{ventaservicio}',"VentaServicioController@finaliz
 Route::get('/reportes/inventariodiario/','ReporteController@inventariodiario')->name("reportes.inventariodiario");
 Route::get('/reportes/inventariodiarioiniciofecha/{fecha}','ReporteController@inventarioinicioenfecha')->name("reportes.inventarioinicioenfecha");
 Route::get('/reportes/inventariodiariocierrefecha/{fecha}','ReporteController@inventariocierreenfecha')->name("reportes.inventariocierreenfecha");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

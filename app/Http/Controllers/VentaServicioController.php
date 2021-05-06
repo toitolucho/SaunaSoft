@@ -378,7 +378,7 @@ class VentaServicioController extends Controller
     public function  reporteFechas(Request $request)
     {
 
-        //$SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas.jasper", "",  $input);
+        
 
 
         $hostname = env("DB_HOST", "localhost");
@@ -399,12 +399,14 @@ class VentaServicioController extends Controller
         {
             $input = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.jasper');
             $file = storage_path('Reportes/ventas/VentasServiciosResumenPorFechas.pdf');
+			//$SUBREPORT_DIR = str_replace("VentasServiciosResumenPorFechas.jasper", "",  $input);
         }
 
         if($tipoReporte == "ResumenServicios")
         {
             $input = storage_path('Reportes/ventas/VentasResumenPorFechasServicio.jasper');
             $file = storage_path('Reportes/ventas/VentasResumenPorFechasServicio.pdf');
+			//$SUBREPORT_DIR = str_replace("VentasResumenPorFechasServicio.jasper", "",  $input);
         }
 
 
@@ -412,46 +414,74 @@ class VentaServicioController extends Controller
         {
             $input = storage_path('Reportes/ventas/VentasResumenPorFechasArticulos.jasper');
             $file = storage_path('Reportes/ventas/VentasResumenPorFechasArticulos.pdf');
+			//$SUBREPORT_DIR = str_replace("VentasResumenPorFechasArticulos.jasper", "",  $input);
         }
 
         if($tipoReporte == "ResumenDetallado")
         {
             $input = storage_path('Reportes/ventas/VentaResumenDetalleGeneral.jasper');
             $file = storage_path('Reportes/ventas/VentaResumenDetalleGeneral.pdf');
+			$SUBREPORT_DIR = str_replace("VentaResumenDetalleGeneral.jasper", "",  $input);
         }
         //ResumenDetallado
 
+			
+       
 
-        $output = storage_path( 'Reportes/ventas');
+	   $output = storage_path( 'Reportes/ventas');
 
 
         $this->PHPJasper = new PHPJasper();
 
 
         $jdbc_dir = base_path() . '\vendor\geekcom\phpjasper\bin\jasperstarter\jdbc';
-        $options = [
-            'format' => ['pdf'],
-            'locale' => 'en',
-            'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin],
-            'db_connection' => [
-                'driver' => 'mysql',
-                'host' => $hostname,
-                'port' => '3306',
-                'database' => $database,
-                'username' => $username,
-//                'password' => '',
-                'jdbc_driver' => 'com.mysql.jdbc.Driver',
-                'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
-                'jdbc_dir' => $jdbc_dir
-            ]
-        ];
+		
+		if($tipoReporte == "ResumenDetallado")
+        {
+			$options = [
+				'format' => ['pdf'],
+				'locale' => 'en',
+				'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin, "SUBREPORT_DIR" => $SUBREPORT_DIR],
+				'db_connection' => [
+					'driver' => 'mysql',
+					'host' => $hostname,
+					'port' => '3306',
+					'database' => $database,
+					'username' => $username,
+	//                'password' => '',
+					'jdbc_driver' => 'com.mysql.jdbc.Driver',
+					'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+					'jdbc_dir' => $jdbc_dir
+				]
+			];
+		}	
+		else
+		{
+			$options = [
+				'format' => ['pdf'],
+				'locale' => 'en',
+				'params' => ['FechaInicio' =>$fechaInicio, 'FechaFin' =>$fechaFin],
+				'db_connection' => [
+					'driver' => 'mysql',
+					'host' => $hostname,
+					'port' => '3306',
+					'database' => $database,
+					'username' => $username,
+	//                'password' => '',
+					'jdbc_driver' => 'com.mysql.jdbc.Driver',
+					'jdbc_url' => 'jdbc:mysql://localhost/saunasoft',
+					'jdbc_dir' => $jdbc_dir
+				]
+			];
+		}
+	
 
-//        $salidaPrueba = $this->PHPJasper->process(
-//            $input,
-//            $output,
-//            $options
-//        )->output();
-//        dd($salidaPrueba);
+       // $salidaPrueba = $this->PHPJasper->process(
+           // $input,
+           // $output,
+           // $options
+       // )->output();
+       // dd($salidaPrueba);
 
         $this->PHPJasper->process(
             $input,
